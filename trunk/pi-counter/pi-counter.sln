@@ -9,6 +9,9 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gmp", "gmp\gmp.vcproj", "{758338D0-48E6-4C12-9F9F-CE3F3C4E729A}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "pi-counter-test", "pi-counter-test\pi-counter-test.vcproj", "{E6984D86-A9A1-420D-8F53-9A5C07940C85}"
+	ProjectSection(ProjectDependencies) = postProject
+		{758338D0-48E6-4C12-9F9F-CE3F3C4E729A} = {758338D0-48E6-4C12-9F9F-CE3F3C4E729A}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
