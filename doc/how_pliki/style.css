@@ -1,0 +1,163 @@
+body, html { 
+ color: #000;
+ background: #fff;
+ min-width:  640px;
+}
+
+a:link { 
+ background: #fff;
+ color:  #00f;
+}
+
+a:visited { 
+ background: #fff;
+ color:  #400860;
+}
+
+h1 {
+ background:  #400860; 
+ padding: .1em;
+ color:  #abc;
+ margin: 0;
+ margin-bottom: 0;
+ font-style: normal;
+ font-weight: normal;
+ min-width: 380px;
+ margin-right: 180px;
+}
+
+h2 {
+ margin-bottom: 2px;
+ padding: 0px;
+ margin-top: 0;
+ width: 13em;
+ color: #000;
+ background: inherit;
+ border-bottom: 1px dotted red;
+}
+
+div#news, div#links, div#navbox, div#searchbox, div#results, div#header, div#footer, div.left { 
+ min-width: 380px;
+ position: relative;
+ margin-right: 180px;
+}
+
+div#results, div#header, div#searchbox {
+ margin-top: 0;
+ background: #ffe0ff;
+ margin-right: 180px;
+ margin-bottom: 0;
+ padding: 1px;
+}
+
+div#results {
+ padding-top: 10px;
+}
+
+div#showheader {
+ font-size: 110%;
+ font-weight: bold;
+}
+
+div#querytime {
+ margin-right: 5px;
+ font-size: 80%;
+ font-style: italic;
+ text-align: right;
+}
+
+span#morenews {
+ font-size: 80%;
+}
+
+div#adbox, div#mpadbox {
+ width: 160px;
+ position: absolute;
+ float: right;
+ top: 10px;
+ right: 0px;
+ vertical-align: top;
+ margin-left:  400px;
+}
+div.cbox { 
+ clear: both;
+ margin-left: 10px;
+}
+
+img#pilogoimg, img.rightalign { float: right; margin-left: 1em; }
+
+//div#mpadbox, 
+div#pilogo {
+ width: 180px;
+ position: absolute;
+ right: 0;
+ vertical-align: top;
+ margin-left: 380px;
+}
+
+div#mpadbox {
+ float: right;
+ top: 10px;
+}
+
+div#pilogo {
+ top: 10px;
+}
+
+div#navbox {
+ margin-right: 180px;
+}
+
+div#why, div#how { margin-bottom: 1em; }
+
+p.linkbar { margin-top: 0; }
+p.lastupdated { font-size: 70%; font-style: italic; margin-bottom: 0; }
+p.contact { margin-top: 0; font-size: 70%; }
+
+table.basic {
+ margin-left: 10px;
+ padding: 2px;
+ border-collapse:  collapse;
+ border: none;
+}
+
+table.basic td {
+ border: none;
+ border-bottom: 1px solid #888;
+ padding-right: 1em;
+ padding-left:  1em;
+}
+
+table.basic th {
+ font-weight: bold;
+ text-align: left;
+ border-bottom: solid 2px;
+}
+
+span.pidate {
+ color:  #400860; 
+ font-weight: bold;
+}
+
+div.blist {
+  background: #ecf8ff;
+  width: 120px;
+}  
+
+ul.booklist {
+  padding-left: 0;
+  margin-left: 0;
+}
+
+ul.booklist li {
+  margin-left: 0;
+  padding-left: 0;
+  background: #ecf8ff;
+  display: inline;
+}
+ul.booklist li a {
+  margin-left: 0;
+  padding-left: 0;
+  display: inline;
+  background: #ecf8ff;
+}
