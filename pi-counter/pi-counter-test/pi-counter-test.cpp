@@ -5,7 +5,7 @@
 
 #include "gmp.h"
 
-int main(int argc, char * argv[])
+int test()
 {
 	mpf_t l1, l2,l3;
 	mpf_init(l1);
