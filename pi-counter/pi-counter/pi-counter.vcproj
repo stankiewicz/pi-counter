@@ -61,7 +61,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				AdditionalDependencies="$(SolutionDir)libs\mpn.lib"
+				AdditionalDependencies="$(SolutionDir)libs\gmpxx.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
