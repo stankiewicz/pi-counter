@@ -370,7 +370,26 @@ void main (int argc, char *argv[])
   printf ("\tFinal division time=%f\n", prof[5] / (double) CLOCKS_PER_SEC);
   if (out)
     {
-      mpf_out_str (stdout, 10, d + 2, a2);
+		mpf_out_str (stdout, 10, d + 2, a2);
+		printf("\n##### count = %d \n",d);
+		mpf_t val;
+		mpf_init(val);
+		
+		mpf_set(val,a2);
+		mpf_t potega, ten;
+		mpf_init(potega);
+		mpf_init(ten);
+		mpf_set_si(potega,1);
+		mpf_set_si(ten,10);
+		for(int i = 0;i<=d;++i){
+			mpf_mul(potega,potega,ten);
+		}
+		mpf_mul(val,val,potega);
+		mpz_t ret;
+		mpz_init(ret);
+		mpz_set_f(ret,val);
+		mpz_out_str(stdout,10,ret);
+		//gmp_printf("test %Ff\n",a2);
       printf ("\n");
     }
   printf ("Total time=%f\n", (clock () - begin) / (double) CLOCKS_PER_SEC);
