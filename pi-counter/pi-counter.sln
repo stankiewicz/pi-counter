@@ -8,15 +8,24 @@ EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
+		PiCounterDll|Win32 = PiCounterDll|Win32
+		PiCounterTestsDebug|Win32 = PiCounterTestsDebug|Win32
 		Release|Win32 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{27984223-0EB6-47D0-9FD3-24FE9BA815B0}.Debug|Win32.ActiveCfg = Debug|Win32
 		{27984223-0EB6-47D0-9FD3-24FE9BA815B0}.Debug|Win32.Build.0 = Debug|Win32
+		{27984223-0EB6-47D0-9FD3-24FE9BA815B0}.PiCounterDll|Win32.ActiveCfg = PiCounterDll|Win32
+		{27984223-0EB6-47D0-9FD3-24FE9BA815B0}.PiCounterDll|Win32.Build.0 = PiCounterDll|Win32
+		{27984223-0EB6-47D0-9FD3-24FE9BA815B0}.PiCounterTestsDebug|Win32.ActiveCfg = PiCounterTestsDebug|Win32
+		{27984223-0EB6-47D0-9FD3-24FE9BA815B0}.PiCounterTestsDebug|Win32.Build.0 = PiCounterTestsDebug|Win32
 		{27984223-0EB6-47D0-9FD3-24FE9BA815B0}.Release|Win32.ActiveCfg = Release|Win32
 		{27984223-0EB6-47D0-9FD3-24FE9BA815B0}.Release|Win32.Build.0 = Release|Win32
 		{E6984D86-A9A1-420D-8F53-9A5C07940C85}.Debug|Win32.ActiveCfg = Debug|Win32
 		{E6984D86-A9A1-420D-8F53-9A5C07940C85}.Debug|Win32.Build.0 = Debug|Win32
+		{E6984D86-A9A1-420D-8F53-9A5C07940C85}.PiCounterDll|Win32.ActiveCfg = PiCounterDll|Win32
+		{E6984D86-A9A1-420D-8F53-9A5C07940C85}.PiCounterTestsDebug|Win32.ActiveCfg = PiCounterTestsDebug|Win32
+		{E6984D86-A9A1-420D-8F53-9A5C07940C85}.PiCounterTestsDebug|Win32.Build.0 = PiCounterTestsDebug|Win32
 		{E6984D86-A9A1-420D-8F53-9A5C07940C85}.Release|Win32.ActiveCfg = Release|Win32
 		{E6984D86-A9A1-420D-8F53-9A5C07940C85}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
