@@ -1,6 +1,0 @@
-LIBRARY "pi-counter"
-EXPORTS
-	findNumber1
-	findNumbersFT
-	findNumbers2
-	foo

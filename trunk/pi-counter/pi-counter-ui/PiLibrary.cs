@@ -7,12 +7,15 @@ namespace pi_counter_ui {
     public class PiLibrary {
 
         public delegate void listener(int idxInTable, int idxInPi);
-        [DllImport("pi-counter.dll")]
-        public static extern int foo();
-        [DllImport("pi-counter.dll")]
+
+		[DllImport("pi-counter.dll", CharSet = CharSet.Auto)]
         public static extern int findNumber1(string number);
-        [DllImport("pi-counter.dll")]
+
+		[DllImport("pi-counter.dll", CharSet = CharSet.Auto)]
         unsafe static extern void findNumbersFT(char * from, char * to, int * outTable, listener listnr);
+
+		[DllImport("pi-counter.dll", CharSet = CharSet.Auto)]
+		unsafe static extern void findNumbers2(string[] numbers, int count, int* outTable, listener listnr);
 
         public static void findNumbersFTManaged(string from, string to, int[] outTable, listener listnr) {
             unsafe {
@@ -27,8 +30,6 @@ namespace pi_counter_ui {
                 }
             }
         }
-        [DllImport("pi-counter.dll")]
-        unsafe static extern void findNumbers2(string[] numbers, int count, int* outTable, listener listnr);
 
         public static void findNumbers2Managed(string[] numbers, int[] outTable, listener listnr) {
             if (numbers == null || outTable == null || numbers.Length != outTable.Length) {
