@@ -17,7 +17,7 @@ namespace pi_counter_ui {
             int idx = PiLibrary.findNumber1("1234");
             //int idx = PiLibrary.foo();
             System.Console.Out.WriteLine(idx.ToString());
-            int count = 2000000;
+            int count = 100000;
             int [] tab = new int[count];
             string[] n1 = new string[count];
             for (int i = 0; i < count; ++i) n1[i] = i.ToString();

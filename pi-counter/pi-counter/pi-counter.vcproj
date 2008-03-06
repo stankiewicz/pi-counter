@@ -276,7 +276,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				ModuleDefinitionFile="Export.def"
+				ModuleDefinitionFile=""
 			/>
 			<Tool
 				Name="VCALinkTool"
