@@ -82,6 +82,7 @@ Global
 		{940D1FA6-CF11-4EEB-8C0A-E1B02EC27207}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{940D1FA6-CF11-4EEB-8C0A-E1B02EC27207}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{940D1FA6-CF11-4EEB-8C0A-E1B02EC27207}.Release|Win32.ActiveCfg = Release|Any CPU
+		{940D1FA6-CF11-4EEB-8C0A-E1B02EC27207}.Release|Win32.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

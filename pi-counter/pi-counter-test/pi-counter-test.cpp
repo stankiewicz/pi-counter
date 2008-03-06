@@ -2,6 +2,7 @@
 //
 #include <stdio.h>
 #include <stdlib.h>
+#include <windows.h>
 
 #include "gmp.h"
 
@@ -23,5 +24,12 @@ int test()
 	printf("\n");
 	mpf_out_str(stdout,10,32,l3);
 	return 0;
-}
 
+	//a moøe jednak dll?
+	//HMODULE hModule = LoadLibrary ("modul.dll");
+	//if (hModule == NULL) return 0; //sprawdzenie, czy modu≥ faktycznie zosta≥ za≥adowany
+	//fun hFun = (fun)GetProcAddress (hModule, "Funkcja");
+	//if (hFun == NULL) return 0; //tak dla pewnoúci sprawdümy czy nasza funkcja takøe zosta≥a odnaleziona
+	//hFun ("blablabla");
+	//FreeLibrary (hModule);
+}
