@@ -16,14 +16,14 @@ namespace pi_counter_ui {
 			try {
 				int idx = PiLibrary.findNumber1("1234");
 				System.Console.Out.WriteLine(idx.ToString());
-				int count = 10000;
+				int count = 1000;
 				int[] tab = new int[count];
 				String[] n1 = new string[count];
 				for (int i = 0; i < count; ++i) n1[i] = i.ToString();
 				PiLibrary.findNumbers2(n1, count, out tab, new PiLibrary.listener(Test));
-				foreach (int t in tab) {
-					System.Console.Out.WriteLine(t.ToString());
-				}
+				//foreach (int t in tab) {
+				//    System.Console.Out.WriteLine(t.ToString());
+				//}
 			} catch (DllNotFoundException nfe) {
 				MessageBox.Show("Brak biblioteki dll:" + nfe.Message);
 			}

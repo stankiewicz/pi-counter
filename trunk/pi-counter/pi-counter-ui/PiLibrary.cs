@@ -14,7 +14,7 @@ namespace pi_counter_ui {
 		[DllImport("pi-counter.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.Cdecl)]
         unsafe static extern void findNumbersFT(char * from, char * to, out int[] outTable, listener listnr);
 
-		[DllImport("pi-counter.dll", CharSet = CharSet.Auto)]
+		[DllImport("pi-counter.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.Cdecl)]
 		public static extern void findNumbers2(String[] numbers, int count, out int[] outTable, listener listnr);
 
 		/*
