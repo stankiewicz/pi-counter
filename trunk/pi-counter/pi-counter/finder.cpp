@@ -3,7 +3,7 @@
 
 using namespace std;
  
-long findNumber1(char * number){
+long __stdcall findNumber1(char * number){
 	 cout << "begin " << "findNumber1"<<endl;
 	 cout << "end " << "findNumber1"<<endl;
 	return 5;
