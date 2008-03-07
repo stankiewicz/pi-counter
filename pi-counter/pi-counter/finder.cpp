@@ -21,7 +21,7 @@ void findNumbersFT(char * from, char * to,long  out [], LISTENER listener){
 	 cout << "end " << "findNumbersFT"<<endl;
 }
 
-void findNumbers2(char * numbers [],int count,long  out [],LISTENER listener){
+void findNumbers2(char *numbers[], int count, long  out[], LISTENER listener){
 	cout << "begin " << "findNumbers2"<<endl;
 	 if(numbers!=0){
 		 int len = sizeof(*numbers)/sizeof(char *);
