@@ -6,17 +6,18 @@ using System.Runtime.InteropServices;
 namespace pi_counter_ui {
     public class PiLibrary {
 
-        public delegate void listener(int idxInTable, int idxInPi);
+		public delegate void listener(int idxInTable, int idxInPi);
 
 		[DllImport("pi-counter.dll", CharSet = CharSet.Auto)]
-        public static extern int findNumber1(string number);
+        public static extern int findNumber1(String number);
+
+		[DllImport("pi-counter.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.Cdecl)]
+        unsafe static extern void findNumbersFT(char * from, char * to, out int[] outTable, listener listnr);
 
 		[DllImport("pi-counter.dll", CharSet = CharSet.Auto)]
-        unsafe static extern void findNumbersFT(char * from, char * to, int * outTable, listener listnr);
+		public static extern void findNumbers2(String[] numbers, int count, out int[] outTable, listener listnr);
 
-		[DllImport("pi-counter.dll", CharSet = CharSet.Auto)]
-		unsafe static extern void findNumbers2(string[] numbers, int count, int* outTable, listener listnr);
-
+		/*
         public static void findNumbersFTManaged(string from, string to, int[] outTable, listener listnr) {
             unsafe {
                 fixed (int* table = outTable) {
@@ -30,7 +31,9 @@ namespace pi_counter_ui {
                 }
             }
         }
+		 */
 
+		/*
         public static void findNumbers2Managed(string[] numbers, int[] outTable, listener listnr) {
             if (numbers == null || outTable == null || numbers.Length != outTable.Length) {
                 throw new ArgumentException("nie zgadzaja sie dlugosci lub sa nulle");
@@ -48,6 +51,7 @@ namespace pi_counter_ui {
                 }
             }
         }
+		 */
 
     }
 }
