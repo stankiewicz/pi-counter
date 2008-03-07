@@ -22,5 +22,17 @@ namespace pi_counter_ui.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("pi-counter.dll")]
+        public string piCounterPath {
+            get {
+                return ((string)(this["piCounterPath"]));
+            }
+            set {
+                this["piCounterPath"] = value;
+            }
+        }
     }
 }
