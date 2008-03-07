@@ -16,11 +16,15 @@ namespace pi_counter_ui {
 			try {
 				int idx = PiLibrary.findNumber1("1234");
 				System.Console.Out.WriteLine(idx.ToString());
-				int count = 1000;
+				int count = 10;
 				int[] tab = new int[count];
+				PiLibrary.Listener listener = new PiLibrary.Listener(Test);
+				PiLibrary.findNumbersFT("10000", "11000", tab, listener);
+
 				String[] n1 = new string[count];
 				for (int i = 0; i < count; ++i) n1[i] = i.ToString();
-				PiLibrary.findNumbers2(n1, count, out tab, new PiLibrary.listener(Test));
+				
+				PiLibrary.findNumbers2(n1, count, tab, new PiLibrary.Listener(Test));
 				//foreach (int t in tab) {
 				//    System.Console.Out.WriteLine(t.ToString());
 				//}

@@ -6,52 +6,17 @@ using System.Runtime.InteropServices;
 namespace pi_counter_ui {
     public class PiLibrary {
 
-		public delegate void listener(int idxInTable, int idxInPi);
+		public const String libPath = "pi-counter.dll";
 
-		[DllImport("pi-counter.dll", CharSet = CharSet.Auto)]
-        public static extern int findNumber1(String number);
+		public delegate void Listener(Int32 idxInTable, Int32 idxInPi);
 
-		[DllImport("pi-counter.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.Cdecl)]
-        unsafe static extern void findNumbersFT(char * from, char * to, out int[] outTable, listener listnr);
+		[DllImport(libPath, CharSet = CharSet.Auto)]
+		public static extern int findNumber1([MarshalAs(UnmanagedType.LPStr)] String number);
 
-		[DllImport("pi-counter.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.Cdecl)]
-		public static extern void findNumbers2(String[] numbers, int count, out int[] outTable, listener listnr);
+		[DllImport(libPath, CharSet = CharSet.Auto)]
+		public static extern void findNumbersFT( [MarshalAs(UnmanagedType.LPStr)] String from, [MarshalAs(UnmanagedType.LPStr)]String to, Int32[] outTable, Listener listnr);
 
-		/*
-        public static void findNumbersFTManaged(string from, string to, int[] outTable, listener listnr) {
-            unsafe {
-                fixed (int* table = outTable) {
-                    fixed (char* fr = from, t=to) {
-                        //GCHandle gcHandle = GCHandle.Alloc(listnr, GCHandleType.Pinned);
-                        System.Console.Out.WriteLine("begin findNumbersFT c#");
-                        findNumbersFT(fr, t, table, listnr);
-                        System.Console.Out.WriteLine("end findNumbersFT c#");
-                        //gcHandle.Free();
-                    }
-                }
-            }
-        }
-		 */
-
-		/*
-        public static void findNumbers2Managed(string[] numbers, int[] outTable, listener listnr) {
-            if (numbers == null || outTable == null || numbers.Length != outTable.Length) {
-                throw new ArgumentException("nie zgadzaja sie dlugosci lub sa nulle");
-            }
-            unsafe {
-                //TODO RS: tu sa jakies machinacje z gc.. 
-                fixed (int* table = outTable) {
-                    //fixed (string ** numb = numbers) {
-                        //GCHandle gcHandle = GCHandle.Alloc(table, GCHandleType.Pinned);
-                        System.Console.Out.WriteLine("begin findNumbers2 c#");
-                        findNumbers2(numbers, numbers.Length, table, null);
-                        System.Console.Out.WriteLine("end findNumbers2 c#");
-                        //gcHandle.Free();
-                    //}
-                }
-            }
-        }
-		 */
-
+		[DllImport(libPath, CharSet = CharSet.Auto)]
+		public static extern void findNumbers2([MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.LPStr)]String[] numbers, Int32 count, Int32[] outTable, Listener listnr);
     }
 }

@@ -8,7 +8,7 @@ long findNumber1(char * number){
 	 cout << "end " << "findNumber1"<<endl;
 	return 5;
 }
-void findNumbersFT(char * from, char * to,long  out [], LISTENER listener){
+void __stdcall findNumbersFT(char * from, char * to,long out [], LISTENER listener){
 	 cout << "begin " << "findNumbersFT"<<endl;
 	 cout << "from: " << from;
 	 cout << "to: " << to;
@@ -21,7 +21,7 @@ void findNumbersFT(char * from, char * to,long  out [], LISTENER listener){
 	 cout << "end " << "findNumbersFT"<<endl;
 }
 
-void findNumbers2(char *numbers[], int count, long  out[], LISTENER listener){
+void __stdcall findNumbers2(char *numbers[], int count, long  out[], LISTENER listener){
 	cout << "begin " << "findNumbers2"<<endl;
 	 if(numbers!=0){
 		 int len = sizeof(*numbers)/sizeof(char *);
