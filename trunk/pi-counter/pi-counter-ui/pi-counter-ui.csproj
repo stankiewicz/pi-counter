@@ -40,18 +40,88 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
+    <Compile Include="Controls\CalculationStatus.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\CalculationStatus.Designer.cs">
+      <DependentUpon>CalculationStatus.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Constraints.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\Constraints.Designer.cs">
+      <DependentUpon>Constraints.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Indexer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\Indexer.Designer.cs">
+      <DependentUpon>Indexer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Search.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\Search.Designer.cs">
+      <DependentUpon>Search.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\About.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Dialogs\About.Designer.cs">
+      <DependentUpon>About.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\IndicesViewer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\IndicesViewer.Designer.cs">
+      <DependentUpon>IndicesViewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\PiViewer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\PiViewer.Designer.cs">
+      <DependentUpon>PiViewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="PiLibrary.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Form1.resx">
+    <EmbeddedResource Include="Controls\CalculationStatus.resx">
       <SubType>Designer</SubType>
-      <DependentUpon>Form1.cs</DependentUpon>
+      <DependentUpon>CalculationStatus.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\Constraints.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>Constraints.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\Indexer.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>Indexer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\Search.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>Search.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\About.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>About.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\IndicesViewer.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>IndicesViewer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\PiViewer.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>PiViewer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
