@@ -42,6 +42,8 @@ namespace pi_counter_ui {
 			this.search1 = new pi_counter_ui.Controls.Search();
 			this.constraints1 = new pi_counter_ui.Controls.Constraints();
 			this.calculationStatus1 = new pi_counter_ui.Controls.CalculationStatus();
+			this.testsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.test2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuStrip.SuspendLayout();
 			this.flowLayoutPanel1.SuspendLayout();
 			this.SuspendLayout();
@@ -60,7 +62,8 @@ namespace pi_counter_ui {
 			this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.piToolStripMenuItem,
             this.searchToolStripMenuItem,
-            this.aboutToolStripMenuItem});
+            this.aboutToolStripMenuItem,
+            this.testsToolStripMenuItem});
 			this.menuStrip.Location = new System.Drawing.Point(0, 0);
 			this.menuStrip.Name = "menuStrip";
 			this.menuStrip.Size = new System.Drawing.Size(491, 24);
@@ -201,6 +204,21 @@ namespace pi_counter_ui {
 			this.calculationStatus1.Size = new System.Drawing.Size(398, 117);
 			this.calculationStatus1.TabIndex = 2;
 			// 
+			// testsToolStripMenuItem
+			// 
+			this.testsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.test2ToolStripMenuItem});
+			this.testsToolStripMenuItem.Name = "testsToolStripMenuItem";
+			this.testsToolStripMenuItem.Size = new System.Drawing.Size(45, 20);
+			this.testsToolStripMenuItem.Text = "Tests";
+			// 
+			// test2ToolStripMenuItem
+			// 
+			this.test2ToolStripMenuItem.Name = "test2ToolStripMenuItem";
+			this.test2ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.test2ToolStripMenuItem.Text = "test2";
+			this.test2ToolStripMenuItem.Click += new System.EventHandler(this.test2ToolStripMenuItem_Click);
+			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -242,6 +260,8 @@ namespace pi_counter_ui {
 		private pi_counter_ui.Controls.CalculationStatus calculationStatus1;
 		private System.Windows.Forms.Label labelInfo;
 		private pi_counter_ui.Controls.Search search1;
+		private System.Windows.Forms.ToolStripMenuItem testsToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem test2ToolStripMenuItem;
 	}
 }
 
