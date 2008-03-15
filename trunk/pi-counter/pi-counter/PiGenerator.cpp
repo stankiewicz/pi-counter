@@ -498,18 +498,19 @@ void saveState(int d, int alg, int count, int prec) {
 	fprintf(output, "%d %d %d %d", d, alg, count, prec);
 	//mpf_t a, mpf_t b, mpf_t a2, mpf_t b2, mpf_t c2, mpf_t sum;
 	//mpf_out_str (output, 10, d + 2, a2);
-	fprintf(output, "\n");
-	mpf_out_str (output, 10, 0, a);
-	fprintf(output, "\n");
-	mpf_out_str (output, 10, 0, b);
-	fprintf(output, "\n");
-	mpf_out_str (output, 10, 0, a2);
-	fprintf(output, "\n");
-	mpf_out_str (output, 10, 0, b2);
-	fprintf(output, "\n");
-	mpf_out_str (output, 10, 0, c2);
-	fprintf(output, "\n");
-	mpf_out_str (output, 10, 0, sum);
+	fprintf(output, "\nX");
+	mpf_out_str (output, 10, d + 2, a);
+	fprintf(output, "\nX");
+	mpf_out_str (output, 10, d + 2, b);
+	fprintf(output, "\nX");
+	mpf_out_str (output, 10, d + 2, a2);
+	fprintf(output, "\nX");
+	mpf_out_str (output, 10, d + 2, b2);
+	fprintf(output, "\nX");
+	mpf_out_str (output, 10, d + 2, c2);
+	fprintf(output, "\nX");
+	mpf_out_str (output, 10, d + 2, sum);
+	fprintf(output, "\nX");
 
 	fclose(output);
 }
@@ -520,17 +521,13 @@ int readState(int *d, int *alg, int *count, int *prec) {
 		return -1;
 	}
 	fscanf(input, "%d %d %d %d", d, alg, count, prec);
-	gmp_fscanf(input, "%Ff", a);
-	gmp_fscanf(input, "%Ff", b);
-	gmp_fscanf(input, "%Ff", a2);
-	gmp_fscanf(input, "%Ff", b2);
-	gmp_fscanf(input, "%Ff", c2);
-	gmp_fscanf(input, "%Ff", sum);
-	//mpf_inp_str(b, input, 10);
-	//mpf_inp_str(a2, input, 10);
-	//mpf_inp_str(b2, input, 10);
-	//mpf_inp_str(c2, input, 10);
-	//mpf_inp_str(sum, input, 10);
+	int ret;
+	ret = mpf_inp_str(a, input, 10);
+	ret = mpf_inp_str(b, input, 10);
+	ret = mpf_inp_str(a2, input, 10);
+	ret = mpf_inp_str(b2, input, 10);
+	ret = mpf_inp_str(c2, input, 10);
+	ret = mpf_inp_str(sum, input, 10);
 
 	fclose(input);
 }
