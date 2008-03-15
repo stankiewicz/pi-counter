@@ -20,6 +20,9 @@ namespace pi_counter_ui {
 
 		private void Form1_Load(object sender, EventArgs e) {
 			calculationStatus1.buttonResult.Click += new EventHandler(buttonResult_Click);
+
+			//TODO: remove when ready
+			test2();
 		}
 
 		void buttonResult_Click(object sender, EventArgs e) {
@@ -79,9 +82,25 @@ namespace pi_counter_ui {
 			}
 		}
 
+		private void test2() {
+			try {
+				PiLibrary.generateNewPi(1000, 0, new PiLibrary.ListenerEmpty(showMessage));
+			} catch (DllNotFoundException nfe) {
+				MessageBox.Show("Brak biblioteki dll:" + nfe.Message);
+			}
+		}
+
+		void showMessage() {
+			Console.WriteLine("OK!");
+		}
+
 		private void viewToolStripMenuItem_Click(object sender, EventArgs e) {
 			PiViewer p = getPiViewer();
 			p.Show();
+		}
+
+		private void test2ToolStripMenuItem_Click(object sender, EventArgs e) {
+			test2();
 		}
 	}
 }
