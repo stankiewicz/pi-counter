@@ -81,6 +81,7 @@ division       = 8
 
 #include "PiGenerator.h"
 //#include <assert.h>
+#include <iostream>
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -494,25 +495,28 @@ void savePi(char* filename) {
 
 void saveState(int d, int alg, int count, int prec) {
 	FILE *output = fopen("savedState", "w");
+	FILE *fa = fopen("a", "w");
+	FILE *fb = fopen("b", "w");
+	FILE *fa2 = fopen("a2", "w");
+	FILE *fb2 = fopen("b2", "w");
+	FILE *fc2 = fopen("c2", "w");
+	FILE *fsum = fopen("sum", "w");
 
 	fprintf(output, "%d %d %d %d", d, alg, count, prec);
-	//mpf_t a, mpf_t b, mpf_t a2, mpf_t b2, mpf_t c2, mpf_t sum;
-	//mpf_out_str (output, 10, d + 2, a2);
-	fprintf(output, "\nX");
-	mpf_out_str (output, 10, d + 2, a);
-	fprintf(output, "\nX");
-	mpf_out_str (output, 10, d + 2, b);
-	fprintf(output, "\nX");
-	mpf_out_str (output, 10, d + 2, a2);
-	fprintf(output, "\nX");
-	mpf_out_str (output, 10, d + 2, b2);
-	fprintf(output, "\nX");
-	mpf_out_str (output, 10, d + 2, c2);
-	fprintf(output, "\nX");
-	mpf_out_str (output, 10, d + 2, sum);
-	fprintf(output, "\nX");
+	mpf_out_str (fa, 10, d + 2, a);
+	mpf_out_str (fb, 10, d + 2, b);
+	mpf_out_str (fa2, 10, d + 2, a2);
+	mpf_out_str (fb2, 10, d + 2, b2);
+	mpf_out_str (fc2, 10, d + 2, c2);
+	mpf_out_str (fsum, 10, d + 2, sum);
 
 	fclose(output);
+	fclose(fa);
+	fclose(fb);
+	fclose(fa2);
+	fclose(fb2);
+	fclose(fc2);
+	fclose(fsum);
 }
 
 int readState(int *d, int *alg, int *count, int *prec) {
@@ -520,14 +524,41 @@ int readState(int *d, int *alg, int *count, int *prec) {
 	if (input == 0) {
 		return -1;
 	}
+
 	fscanf(input, "%d %d %d %d", d, alg, count, prec);
+	
+	FILE *fa= fopen("a", "r");
+	FILE *fb= fopen("b", "r");
+	FILE *fa2= fopen("a2", "r");
+	FILE *fb2= fopen("b2", "r");
+	FILE *fc2 = fopen("c2", "r");
+	FILE *fsum = fopen("sum", "r");
+
 	int ret;
-	ret = mpf_inp_str(a, input, 10);
-	ret = mpf_inp_str(b, input, 10);
-	ret = mpf_inp_str(a2, input, 10);
-	ret = mpf_inp_str(b2, input, 10);
-	ret = mpf_inp_str(c2, input, 10);
-	ret = mpf_inp_str(sum, input, 10);
+	if (mpf_inp_str(a, fa, 10) == 0) {
+		cout << "DUPA" << endl;
+	}
+	if (mpf_inp_str(b, fb, 10) == 0) {
+		cout << "DUPA" << endl;
+	}
+	if (mpf_inp_str(a2, fa2, 10) == 0) {
+		cout << "DUPA" << endl;
+	}
+	if (mpf_inp_str(b2, fb2, 10) == 0) {
+		cout << "DUPA" << endl;
+	}
+	if (mpf_inp_str(c2, fc2, 10) == 0) {
+		cout << "DUPA" << endl;
+	}
+	if (mpf_inp_str(sum, fsum, 10) == 0) {
+		cout << "DUPA" << endl;
+	}
 
 	fclose(input);
+	fclose(fa);
+	fclose(fb);
+	fclose(fa2);
+	fclose(fb2);
+	fclose(fc2);
+	fclose(fsum);
 }
