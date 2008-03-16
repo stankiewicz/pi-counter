@@ -103,6 +103,8 @@ mpf_t a, b, a2, b2, c2, sum;
 /* used for sqrt and div */
 mpf_t t0, t1, t2;
 
+int _digits, _alg, _count, _prec;
+
 void my_sqrt (mpf_t r, mpf_t x) {
 	unsigned prec, bits;
 
@@ -387,20 +389,35 @@ void my_div (mpf_t r, mpf_t y, mpf_t x) {
 //	printf ("Total time=%f\n", (clock () - begin) / (double) CLOCKS_PER_SEC);
 //}
 
-void init(int d) {
-	prec0 = d * BITS_PER_DIGIT + 16;
-
+void setPrecision() {
+	prec0 = _digits * BITS_PER_DIGIT + 16;
 	mpf_set_default_prec (prec0);
-	mpf_init (a);
-	mpf_init (b);
-	mpf_init (a2);
-	mpf_init (b2);
-	mpf_init (c2);
-	mpf_init (sum);
-	mpf_init (t0);
-	mpf_init2 (t1, half (prec0));
-	mpf_init2 (t2, half (prec0));
+}
 
+void init() {
+	mpf_clear(a);
+	mpf_init (a);
+
+	mpf_clear (b);
+	mpf_init (b);
+	mpf_clear (a2);
+	mpf_init (a2);
+	mpf_clear (b2);
+	mpf_init (b2);
+	mpf_clear (c2);
+	mpf_init (c2);
+	mpf_clear (sum);
+	mpf_init (sum);
+	mpf_clear (t0);
+	mpf_init (t0);
+
+	mpf_clear (t1);
+	mpf_init2 (t1, half (prec0));
+	mpf_clear (t2);
+	mpf_init2 (t2, half (prec0));
+}
+
+void setStartValues() {
 	mpf_set_ui (a, 1);
 	mpf_set_ui (a2, 1);
 	mpf_set_d (b2, 0.5);
@@ -408,21 +425,18 @@ void init(int d) {
 	mpf_set_ui (sum, 1);
 }
 
-void __stdcall generateNewPi(int d, int alg, Listener listener) {
-	int count, prec;
-
-	init(d);	
-
-	for (count = 0, prec = -1; prec < prec0 * 2 + 10; count++, prec = prec * 2 + 10) {
-		if (alg != 1) {
+bool generate(Listener listener) {
+	int tempCounter = 0;
+	for (; _prec < prec0 * 2 + 10; _count++, _prec = _prec * 2 + 10) {
+		if (_alg != 1) {
 			/*   c2   = a2 - b2; */
 			mpf_sub (c2, a2, b2);
 		}
 		/*   sum -= (1<<n)*c2; */
-		mpf_mul_2exp (c2, c2, count);
+		mpf_mul_2exp (c2, c2, _count);
 		mpf_sub (sum, sum, c2);
 
-		if (alg == 0) {
+		if (_alg == 0) {
 			/*  b    = sqrt(b2); */
 			my_sqrt (b, b2);
 			/*  a    = (a+b)/2; */
@@ -438,7 +452,7 @@ void __stdcall generateNewPi(int d, int alg, Listener listener) {
 			mpf_mul_2exp (b2, b2, 1);
 			/*  a2   = b2+c2; */
 			mpf_add (a2, b2, c2);
-		} else if (alg == 1) {
+		} else if (_alg == 1) {
 			/*  b    = sqrt(b2); */
 			my_sqrt (c2, b2);
 			/*  a    = (a + b)/2; */
@@ -464,101 +478,119 @@ void __stdcall generateNewPi(int d, int alg, Listener listener) {
 			mpf_add (a2, a2, b2);
 			mpf_div_2exp (a2, a2, 1);
 		}
+
+		tempCounter++;
+		if (tempCounter == 2) {
+			return false;
+		}
 	}
-
-	saveState(d, alg, count, prec);
-
-	mpf_mul_2exp (a2, a2, 1);
-	my_div (a2, a2, sum);
 
 	if (listener != 0) {
 		(*listener)();
 	}
 
-	savePi("pi");
-
-	//test
-	if (readState(&d, &alg, &count, &prec) == 0) {
-		mpf_mul_2exp (a2, a2, 1);
-		my_div (a2, a2, sum);
-		savePi("pi2");
-	}
+	return true;
 }
 
-void savePi(char* filename) {
-	FILE *pi = fopen(filename, "w");
-
-	mpf_out_str(pi, 10, 0, a2);
-
-	fclose(pi);
+void saveMpf(mpf_t var, const char * filename) {
+	FILE *fa = fopen(filename, "w");
+	mpf_out_str (fa, 10, 0, var);
+	fclose(fa);
 }
 
-void saveState(int d, int alg, int count, int prec) {
+void saveState() {
 	FILE *output = fopen("savedState", "w");
-	FILE *fa = fopen("a", "w");
-	FILE *fb = fopen("b", "w");
-	FILE *fa2 = fopen("a2", "w");
-	FILE *fb2 = fopen("b2", "w");
-	FILE *fc2 = fopen("c2", "w");
-	FILE *fsum = fopen("sum", "w");
-
-	fprintf(output, "%d %d %d %d", d, alg, count, prec);
-	mpf_out_str (fa, 10, d + 2, a);
-	mpf_out_str (fb, 10, d + 2, b);
-	mpf_out_str (fa2, 10, d + 2, a2);
-	mpf_out_str (fb2, 10, d + 2, b2);
-	mpf_out_str (fc2, 10, d + 2, c2);
-	mpf_out_str (fsum, 10, d + 2, sum);
-
+	fprintf(output, "%d %d %d %d", _digits, _alg, _count, _prec);
 	fclose(output);
-	fclose(fa);
-	fclose(fb);
-	fclose(fa2);
-	fclose(fb2);
-	fclose(fc2);
-	fclose(fsum);
+
+	saveMpf(a, "a");
+	saveMpf(b, "b");
+	saveMpf(a2, "a2");
+	saveMpf(b2, "b2");
+	saveMpf(c2, "c2");
+	saveMpf(sum, "sum");
 }
 
-int readState(int *d, int *alg, int *count, int *prec) {
-	FILE *input = fopen("savedState", "r");
-	if (input == 0) {
-		return -1;
+void readMpf(mpf_t var, const char *filename) {
+	FILE *fa = fopen(filename, "r");
+	if (!mpf_inp_str(var, fa, 10)) {
+		printf("Error reading [%s]", filename);
 	}
-
-	fscanf(input, "%d %d %d %d", d, alg, count, prec);
-	
-	FILE *fa= fopen("a", "r");
-	FILE *fb= fopen("b", "r");
-	FILE *fa2= fopen("a2", "r");
-	FILE *fb2= fopen("b2", "r");
-	FILE *fc2 = fopen("c2", "r");
-	FILE *fsum = fopen("sum", "r");
-
-	int ret;
-	if (mpf_inp_str(a, fa, 10) == 0) {
-		cout << "DUPA" << endl;
-	}
-	if (mpf_inp_str(b, fb, 10) == 0) {
-		cout << "DUPA" << endl;
-	}
-	if (mpf_inp_str(a2, fa2, 10) == 0) {
-		cout << "DUPA" << endl;
-	}
-	if (mpf_inp_str(b2, fb2, 10) == 0) {
-		cout << "DUPA" << endl;
-	}
-	if (mpf_inp_str(c2, fc2, 10) == 0) {
-		cout << "DUPA" << endl;
-	}
-	if (mpf_inp_str(sum, fsum, 10) == 0) {
-		cout << "DUPA" << endl;
-	}
-
-	fclose(input);
 	fclose(fa);
-	fclose(fb);
-	fclose(fa2);
-	fclose(fb2);
-	fclose(fc2);
-	fclose(fsum);
+}
+
+void readState() {
+	FILE *input = fopen("savedState", "r");
+	fscanf(input, "%d %d %d %d", &_digits, &_alg, &_count, &_prec);
+	fclose(input);
+
+	setPrecision();
+	init();
+
+	readMpf(a, "a");
+	readMpf(b, "b");
+	readMpf(a2, "a2");
+	readMpf(b2, "b2");
+	readMpf(c2, "c2");
+	readMpf(sum, "sum");	
+}
+
+bool testSingle(mpf_t src, char *file) {
+	mpf_t temp;
+	mpf_init(temp);
+
+	mpf_set(temp, src);
+	saveMpf(temp, file);
+	mpf_clear(temp);
+	mpf_init(temp);
+	readMpf(temp, file);
+	int res = mpf_cmp(temp, src);
+	if (!res) {
+		printf("\n\tNie dzia³a: %s", file);
+	}
+	return res;
+}
+
+bool test() {
+	return testSingle(a, "atest")
+		&& testSingle(b, "btest")
+		&& testSingle(a2, "a2test")
+		&& testSingle(b2, "b2test")
+		&& testSingle(c2, "c2test")
+		&& testSingle(sum, "sumtest");
+}
+
+void __stdcall generateNewPi(int d, int alg, Listener listener) {
+	_count = 0;
+	_prec = -1;
+	_alg = alg;
+	_digits = d;
+
+	setPrecision();
+	init();
+
+	setStartValues();
+	
+	char f[256];
+	int i = 0;
+
+	while (!generate(listener)) {
+		printf("prec: %d\tsize:%d\texp:%d", sum->_mp_prec, sum->_mp_size, sum->_mp_exp);
+		sprintf(f, "elo %d", i);
+		saveMpf(sum, f);
+
+		if (!test()) {
+			printf("failed: %d", i);
+		}
+
+		saveState();
+		readState();
+		printf("\nnext\n");
+		i++;
+	}
+
+	mpf_mul_2exp (a2, a2, 1);
+	my_div (a2, a2, sum);
+
+	saveMpf(a2, "pi.p");
 }
