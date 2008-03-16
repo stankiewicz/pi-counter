@@ -84,7 +84,7 @@ namespace pi_counter_ui {
 
 		private void test2() {
 			try {
-				PiLibrary.generateNewPi(1000, 0, new PiLibrary.ListenerEmpty(showMessage));
+				PiLibrary.generateNewPi(10000, 0, new PiLibrary.ListenerEmpty(showMessage));
 			} catch (DllNotFoundException nfe) {
 				MessageBox.Show("Brak biblioteki dll:" + nfe.Message);
 			}
@@ -101,6 +101,10 @@ namespace pi_counter_ui {
 
 		private void test2ToolStripMenuItem_Click(object sender, EventArgs e) {
 			test2();
+		}
+
+		private void exitToolStripMenuItem_Click(object sender, EventArgs e) {
+			this.Close();
 		}
 	}
 }

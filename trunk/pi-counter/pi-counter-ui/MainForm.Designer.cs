@@ -37,13 +37,13 @@ namespace pi_counter_ui {
 			this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.searchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.testsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.test2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
 			this.labelInfo = new System.Windows.Forms.Label();
 			this.search1 = new pi_counter_ui.Controls.Search();
 			this.constraints1 = new pi_counter_ui.Controls.Constraints();
 			this.calculationStatus1 = new pi_counter_ui.Controls.CalculationStatus();
-			this.testsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.test2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuStrip.SuspendLayout();
 			this.flowLayoutPanel1.SuspendLayout();
 			this.SuspendLayout();
@@ -129,6 +129,7 @@ namespace pi_counter_ui {
 			this.exitToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
 			this.exitToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
 			this.exitToolStripMenuItem.Text = "Exit";
+			this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
 			// 
 			// searchToolStripMenuItem
 			// 
@@ -143,6 +144,21 @@ namespace pi_counter_ui {
 			this.aboutToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
 			this.aboutToolStripMenuItem.Text = "About";
 			this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+			// 
+			// testsToolStripMenuItem
+			// 
+			this.testsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.test2ToolStripMenuItem});
+			this.testsToolStripMenuItem.Name = "testsToolStripMenuItem";
+			this.testsToolStripMenuItem.Size = new System.Drawing.Size(45, 20);
+			this.testsToolStripMenuItem.Text = "Tests";
+			// 
+			// test2ToolStripMenuItem
+			// 
+			this.test2ToolStripMenuItem.Name = "test2ToolStripMenuItem";
+			this.test2ToolStripMenuItem.Size = new System.Drawing.Size(99, 22);
+			this.test2ToolStripMenuItem.Text = "test2";
+			this.test2ToolStripMenuItem.Click += new System.EventHandler(this.test2ToolStripMenuItem_Click);
 			// 
 			// flowLayoutPanel1
 			// 
@@ -203,21 +219,6 @@ namespace pi_counter_ui {
 			this.calculationStatus1.Name = "calculationStatus1";
 			this.calculationStatus1.Size = new System.Drawing.Size(398, 117);
 			this.calculationStatus1.TabIndex = 2;
-			// 
-			// testsToolStripMenuItem
-			// 
-			this.testsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.test2ToolStripMenuItem});
-			this.testsToolStripMenuItem.Name = "testsToolStripMenuItem";
-			this.testsToolStripMenuItem.Size = new System.Drawing.Size(45, 20);
-			this.testsToolStripMenuItem.Text = "Tests";
-			// 
-			// test2ToolStripMenuItem
-			// 
-			this.test2ToolStripMenuItem.Name = "test2ToolStripMenuItem";
-			this.test2ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-			this.test2ToolStripMenuItem.Text = "test2";
-			this.test2ToolStripMenuItem.Click += new System.EventHandler(this.test2ToolStripMenuItem_Click);
 			// 
 			// MainForm
 			// 
