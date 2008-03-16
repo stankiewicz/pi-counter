@@ -481,7 +481,7 @@ bool generate(Listener listener) {
 
 		tempCounter++;
 		if (tempCounter == 2) {
-			return false;
+			//return false;
 		}
 	}
 
@@ -492,10 +492,17 @@ bool generate(Listener listener) {
 	return true;
 }
 
-void saveMpf(mpf_t var, const char * filename) {
+void saveMpf(mpf_t var, const char * filename, int base) {
 	FILE *fa = fopen(filename, "w");
-	mpf_out_str (fa, 10, 0, var);
+	//mpf_out_str (fa, 10, _digits + 2, var);
+	//mpf_out_str (fa, 10, var->_mp_size * mp_bits_per_limb, var);
+	//mpf_out_str (fa, base, 0, var);
+	gmp_fprintf(fa, "%.*Ff", _digits + 100, var);
 	fclose(fa);
+}
+
+void saveMpf(mpf_t var, const char * filename) {
+	saveMpf(var, filename, 2);
 }
 
 void saveState() {
@@ -513,9 +520,11 @@ void saveState() {
 
 void readMpf(mpf_t var, const char *filename) {
 	FILE *fa = fopen(filename, "r");
-	if (!mpf_inp_str(var, fa, 10)) {
-		printf("Error reading [%s]", filename);
-	}
+	gmp_fscanf(fa, "%Ff", var);
+	//if (!mpf_inp_str(var, fa, 10)) {
+	//	printf("Error reading [%s]", filename);
+	//}
+
 	fclose(fa);
 }
 
@@ -573,8 +582,18 @@ void __stdcall generateNewPi(int d, int alg, Listener listener) {
 	
 	char f[256];
 	int i = 0;
+	mpf_t sum6;
+	mpf_init(sum6);
 
 	while (!generate(listener)) {
+		if (i == 6) {
+			mpf_set(sum6, sum);
+		} else if (i == 7) {
+			printf("sum6==sum7: %d", mpf_cmp(sum6, sum));
+			saveMpf(sum6, "sum6");
+			saveMpf(sum, "sum7");
+		}
+
 		printf("prec: %d\tsize:%d\texp:%d", sum->_mp_prec, sum->_mp_size, sum->_mp_exp);
 		sprintf(f, "elo %d", i);
 		saveMpf(sum, f);
@@ -592,5 +611,5 @@ void __stdcall generateNewPi(int d, int alg, Listener listener) {
 	mpf_mul_2exp (a2, a2, 1);
 	my_div (a2, a2, sum);
 
-	saveMpf(a2, "pi.p");
+	saveMpf(a2, "pi.p", 10);
 }
