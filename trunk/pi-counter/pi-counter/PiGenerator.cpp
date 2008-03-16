@@ -481,7 +481,7 @@ bool generate(Listener listener) {
 
 		tempCounter++;
 		if (tempCounter == 2) {
-			//return false;
+			return false;
 		}
 	}
 
@@ -498,7 +498,7 @@ void saveMpf(mpf_t var, const char * filename, int base) {
 	fwrite(&var->_mp_prec, sizeof(var->_mp_prec), 1, fa);
 	fwrite(&var->_mp_size, sizeof(var->_mp_size), 1, fa);
 		
-	for(unsigned int i = 0; i < var->_mp_size; i++)
+	for(unsigned int i = 0; i < var->_mp_prec; i++)
 	{
 		fseek(fa, 12 + sizeof(*var->_mp_d) * i, SEEK_SET);
 		fwrite(var->_mp_d + i, sizeof(*var->_mp_d), 1, fa);	
@@ -524,22 +524,22 @@ void saveState() {
 	saveMpf(sum, "sum");
 }
 
-void readMpf(mpf_t var, const char *filename) {
+void readMpf(mpf_t var, const char *filename) 
+{
+	mpf_clear(var);
 	FILE *fa = fopen(filename, "r");
 	//gmp_fscanf(fa, "%Ff", var);
 	fread(&var->_mp_exp, sizeof(var->_mp_exp), 1, fa);
 	fread(&var->_mp_prec, sizeof(var->_mp_prec), 1, fa);
 	fread(&var->_mp_size, sizeof(var->_mp_size), 1, fa);
-	var->_mp_d = (mp_limb_t*) malloc(var->_mp_size * sizeof(*var->_mp_d));
-	for(unsigned int i = 0; i < var->_mp_size; i++)
+	var->_mp_d = (mp_limb_t*) __gmp_allocate_func((var->_mp_prec + 1) * sizeof(*var->_mp_d));
+	unsigned int i;
+	for(i = 0; i < var->_mp_prec; i++)
 	{
 		fseek(fa, 12 + sizeof(*var->_mp_d) * i, SEEK_SET);
 		fread(var->_mp_d + i, sizeof(*var->_mp_d), 1, fa);
 	}
-	//if (!mpf_inp_str(var, fa, 10)) {
-	//	printf("Error reading [%s]", filename);
-	//}
-
+	var->_mp_d[i] = 0;
 	fclose(fa);
 }
 
@@ -609,7 +609,7 @@ void __stdcall generateNewPi(int d, int alg, Listener listener)
 	mpf_init(sum6);
 
 	while (!generate(listener)) {
-		if (i == 6) {
+		/*if (i == 6) {
 			mpf_set(sum6, sum);
 		} else if (i == 7) {
 			printf("sum6==sum7: %d", mpf_cmp(sum6, sum));
@@ -624,20 +624,29 @@ void __stdcall generateNewPi(int d, int alg, Listener listener)
 		if (!test()) {
 			printf("failed: %d", i);
 		}
-
+*/
 		saveState();
 		readState();
-		printf("\nnext\n");
-		i++;
+/*		printf("\nnext\n");
+		i++;*/
 	}
 
 	mpf_mul_2exp (a2, a2, 1);
 	my_div (a2, a2, sum);
 
+	FILE *fa1 = fopen("pi1.txt", "w");	
+	gmp_fprintf(fa1, "%.*Ff", _digits + 100, a2);
+	fclose(fa1);
 	saveMpf(a2, "pi.p", 10);
-	mpf_clear(a2);
+	//mpf_clear(a2);
 	//mpf_init(a2);
 	readMpf(a2, "pi.p");
 	saveMpf(a2, "pi.p2", 10);
-	mpf_clear(a2);
+	//mpf_clear(a2);
+
+	FILE *fa2 = fopen("pi2.txt", "w");	
+	gmp_fprintf(fa2, "%.*Ff", _digits + 100, a2);
+	fclose(fa2);
+
+
 }
