@@ -557,6 +557,7 @@ void readState() {
 	readMpf(b2, "b2");
 	readMpf(c2, "c2");
 	readMpf(sum, "sum");	
+
 }
 
 bool testSingle(mpf_t src, char *file) {
