@@ -494,10 +494,16 @@ bool generate(Listener listener) {
 
 void saveMpf(mpf_t var, const char * filename, int base) {
 	FILE *fa = fopen(filename, "w");
-	//mpf_out_str (fa, 10, _digits + 2, var);
-	//mpf_out_str (fa, 10, var->_mp_size * mp_bits_per_limb, var);
-	//mpf_out_str (fa, base, 0, var);
-	gmp_fprintf(fa, "%.*Ff", _digits + 100, var);
+	fwrite(&var->_mp_exp, sizeof(var->_mp_exp), 1, fa);
+	fwrite(&var->_mp_prec, sizeof(var->_mp_prec), 1, fa);
+	fwrite(&var->_mp_size, sizeof(var->_mp_size), 1, fa);
+		
+	for(unsigned int i = 0; i < var->_mp_size; i++)
+	{
+		fseek(fa, 12 + sizeof(*var->_mp_d) * i, SEEK_SET);
+		fwrite(var->_mp_d + i, sizeof(*var->_mp_d), 1, fa);	
+	}
+	//gmp_fprintf(fa, "%.*Ff", _digits + 100, var);
 	fclose(fa);
 }
 
@@ -520,7 +526,16 @@ void saveState() {
 
 void readMpf(mpf_t var, const char *filename) {
 	FILE *fa = fopen(filename, "r");
-	gmp_fscanf(fa, "%Ff", var);
+	//gmp_fscanf(fa, "%Ff", var);
+	fread(&var->_mp_exp, sizeof(var->_mp_exp), 1, fa);
+	fread(&var->_mp_prec, sizeof(var->_mp_prec), 1, fa);
+	fread(&var->_mp_size, sizeof(var->_mp_size), 1, fa);
+	var->_mp_d = (mp_limb_t*) malloc(var->_mp_size * sizeof(*var->_mp_d));
+	for(unsigned int i = 0; i < var->_mp_size; i++)
+	{
+		fseek(fa, 12 + sizeof(*var->_mp_d) * i, SEEK_SET);
+		fread(var->_mp_d + i, sizeof(*var->_mp_d), 1, fa);
+	}
 	//if (!mpf_inp_str(var, fa, 10)) {
 	//	printf("Error reading [%s]", filename);
 	//}
@@ -569,7 +584,15 @@ bool test() {
 		&& testSingle(sum, "sumtest");
 }
 
-void __stdcall generateNewPi(int d, int alg, Listener listener) {
+void __stdcall generateNewPi(int d, int alg, Listener listener) 
+{
+	/*mpf_clear(a);
+	mpf_init (a);
+	mpf_set_str(a, "123456789011",10);//456789011223344556677889900111222333444555666777888999000", 10);
+	unsigned long aa[4];
+	for(int i = 0; i < a->_mp_size; i++)
+		aa[i] = a->_mp_d[i];
+*/
 	_count = 0;
 	_prec = -1;
 	_alg = alg;
@@ -612,4 +635,9 @@ void __stdcall generateNewPi(int d, int alg, Listener listener) {
 	my_div (a2, a2, sum);
 
 	saveMpf(a2, "pi.p", 10);
+	mpf_clear(a2);
+	//mpf_init(a2);
+	readMpf(a2, "pi.p");
+	saveMpf(a2, "pi.p2", 10);
+	mpf_clear(a2);
 }
