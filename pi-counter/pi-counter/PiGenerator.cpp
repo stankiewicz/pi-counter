@@ -481,6 +481,8 @@ bool generate(Listener listener) {
 
 		tempCounter++;
 		if (tempCounter == 2) {
+			_count++;
+			_prec = _prec * 2 + 10;
 			return false;
 		}
 	}
@@ -494,6 +496,8 @@ bool generate(Listener listener) {
 
 void saveMpf(mpf_t var, const char * filename, int base) {
 	FILE *fa = fopen(filename, "w");
+
+	/*
 	fwrite(&var->_mp_exp, sizeof(var->_mp_exp), 1, fa);
 	fwrite(&var->_mp_prec, sizeof(var->_mp_prec), 1, fa);
 	fwrite(&var->_mp_size, sizeof(var->_mp_size), 1, fa);
@@ -501,9 +505,10 @@ void saveMpf(mpf_t var, const char * filename, int base) {
 	for(unsigned int i = 0; i < var->_mp_prec; i++)
 	{
 		fseek(fa, 12 + sizeof(*var->_mp_d) * i, SEEK_SET);
-		fwrite(var->_mp_d + i, sizeof(*var->_mp_d), 1, fa);	
+		fwrite(var->_mp_d + i, sizeof(*var->_mp_d), 1, fa);
 	}
-	//gmp_fprintf(fa, "%.*Ff", _digits + 100, var);
+	*/
+	gmp_fprintf(fa, "%.*Ff", _digits + 2, var);
 	fclose(fa);
 }
 
@@ -526,9 +531,10 @@ void saveState() {
 
 void readMpf(mpf_t var, const char *filename) 
 {
-	mpf_clear(var);
+	//mpf_clear(var);
 	FILE *fa = fopen(filename, "r");
-	//gmp_fscanf(fa, "%Ff", var);
+	gmp_fscanf(fa, "%Ff", var);
+	/*
 	fread(&var->_mp_exp, sizeof(var->_mp_exp), 1, fa);
 	fread(&var->_mp_prec, sizeof(var->_mp_prec), 1, fa);
 	fread(&var->_mp_size, sizeof(var->_mp_size), 1, fa);
@@ -540,6 +546,7 @@ void readMpf(mpf_t var, const char *filename)
 		fread(var->_mp_d + i, sizeof(*var->_mp_d), 1, fa);
 	}
 	var->_mp_d[i] = 0;
+	*/
 	fclose(fa);
 }
 
