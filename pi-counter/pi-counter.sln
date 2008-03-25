@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pi-counter-ui", "pi-counter
 		{27984223-0EB6-47D0-9FD3-24FE9BA815B0} = {27984223-0EB6-47D0-9FD3-24FE9BA815B0}
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pi-counter-ui-tests", "pi-counter-ui-tests\pi-counter-ui-tests.csproj", "{822CDDB7-8426-482A-90CC-6B6EB55B51E0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +43,16 @@ Global
 		{940D1FA6-CF11-4EEB-8C0A-E1B02EC27207}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{940D1FA6-CF11-4EEB-8C0A-E1B02EC27207}.Release|Win32.ActiveCfg = Release|Any CPU
 		{940D1FA6-CF11-4EEB-8C0A-E1B02EC27207}.Release|Win32.Build.0 = Release|Any CPU
+		{822CDDB7-8426-482A-90CC-6B6EB55B51E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{822CDDB7-8426-482A-90CC-6B6EB55B51E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{822CDDB7-8426-482A-90CC-6B6EB55B51E0}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{822CDDB7-8426-482A-90CC-6B6EB55B51E0}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{822CDDB7-8426-482A-90CC-6B6EB55B51E0}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{822CDDB7-8426-482A-90CC-6B6EB55B51E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{822CDDB7-8426-482A-90CC-6B6EB55B51E0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{822CDDB7-8426-482A-90CC-6B6EB55B51E0}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{822CDDB7-8426-482A-90CC-6B6EB55B51E0}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{822CDDB7-8426-482A-90CC-6B6EB55B51E0}.Release|Win32.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

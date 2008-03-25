@@ -23,16 +23,15 @@ namespace pi_counter_ui.Dialogs {
 		/// the contents of this method with the code editor.
 		/// </summary>
 		private void InitializeComponent() {
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PiViewer));
 			this.textBoxPiView = new System.Windows.Forms.TextBox();
 			this.panelStatus = new System.Windows.Forms.Panel();
-			this.labelPosition = new System.Windows.Forms.Label();
 			this.labelPositionValue = new System.Windows.Forms.Label();
+			this.labelPosition = new System.Windows.Forms.Label();
+			this.indexer1 = new pi_counter_ui.Controls.Indexer();
 			this.menuStrip1 = new System.Windows.Forms.MenuStrip();
 			this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.hexToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.decimalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.indexer1 = new pi_counter_ui.Controls.Indexer();
+			this.hexToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.panelStatus.SuspendLayout();
 			this.menuStrip1.SuspendLayout();
 			this.SuspendLayout();
@@ -48,7 +47,6 @@ namespace pi_counter_ui.Dialogs {
 			this.textBoxPiView.ReadOnly = true;
 			this.textBoxPiView.Size = new System.Drawing.Size(377, 400);
 			this.textBoxPiView.TabIndex = 0;
-			this.textBoxPiView.Text = resources.GetString("textBoxPiView.Text");
 			// 
 			// panelStatus
 			// 
@@ -61,6 +59,15 @@ namespace pi_counter_ui.Dialogs {
 			this.panelStatus.Size = new System.Drawing.Size(401, 38);
 			this.panelStatus.TabIndex = 1;
 			// 
+			// labelPositionValue
+			// 
+			this.labelPositionValue.AutoSize = true;
+			this.labelPositionValue.Location = new System.Drawing.Point(282, 3);
+			this.labelPositionValue.Name = "labelPositionValue";
+			this.labelPositionValue.Size = new System.Drawing.Size(13, 13);
+			this.labelPositionValue.TabIndex = 2;
+			this.labelPositionValue.Text = "0";
+			// 
 			// labelPosition
 			// 
 			this.labelPosition.AutoSize = true;
@@ -70,14 +77,12 @@ namespace pi_counter_ui.Dialogs {
 			this.labelPosition.TabIndex = 1;
 			this.labelPosition.Text = "Digit position:";
 			// 
-			// labelPositionValue
+			// indexer1
 			// 
-			this.labelPositionValue.AutoSize = true;
-			this.labelPositionValue.Location = new System.Drawing.Point(282, 3);
-			this.labelPositionValue.Name = "labelPositionValue";
-			this.labelPositionValue.Size = new System.Drawing.Size(13, 13);
-			this.labelPositionValue.TabIndex = 2;
-			this.labelPositionValue.Text = "0";
+			this.indexer1.Location = new System.Drawing.Point(3, 3);
+			this.indexer1.Name = "indexer1";
+			this.indexer1.Size = new System.Drawing.Size(197, 31);
+			this.indexer1.TabIndex = 0;
 			// 
 			// menuStrip1
 			// 
@@ -98,14 +103,6 @@ namespace pi_counter_ui.Dialogs {
 			this.viewToolStripMenuItem.Size = new System.Drawing.Size(41, 20);
 			this.viewToolStripMenuItem.Text = "View";
 			// 
-			// hexToolStripMenuItem
-			// 
-			this.hexToolStripMenuItem.CheckOnClick = true;
-			this.hexToolStripMenuItem.Name = "hexToolStripMenuItem";
-			this.hexToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
-			this.hexToolStripMenuItem.Text = "Hexadecimal";
-			this.hexToolStripMenuItem.Click += new System.EventHandler(this.hexToolStripMenuItem_Click);
-			// 
 			// decimalToolStripMenuItem
 			// 
 			this.decimalToolStripMenuItem.Checked = true;
@@ -115,12 +112,13 @@ namespace pi_counter_ui.Dialogs {
 			this.decimalToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
 			this.decimalToolStripMenuItem.Text = "Decimal";
 			// 
-			// indexer1
+			// hexToolStripMenuItem
 			// 
-			this.indexer1.Location = new System.Drawing.Point(3, 3);
-			this.indexer1.Name = "indexer1";
-			this.indexer1.Size = new System.Drawing.Size(197, 31);
-			this.indexer1.TabIndex = 0;
+			this.hexToolStripMenuItem.CheckOnClick = true;
+			this.hexToolStripMenuItem.Name = "hexToolStripMenuItem";
+			this.hexToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+			this.hexToolStripMenuItem.Text = "Hexadecimal";
+			this.hexToolStripMenuItem.Click += new System.EventHandler(this.hexToolStripMenuItem_Click);
 			// 
 			// PiViewer
 			// 
@@ -133,6 +131,7 @@ namespace pi_counter_ui.Dialogs {
 			this.MainMenuStrip = this.menuStrip1;
 			this.Name = "PiViewer";
 			this.Text = "PiViewer";
+			this.Load += new System.EventHandler(this.PiViewer_Load);
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.PiViewer_FormClosing);
 			this.panelStatus.ResumeLayout(false);
 			this.panelStatus.PerformLayout();
