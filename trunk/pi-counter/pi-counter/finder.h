@@ -1,3 +1,5 @@
+#pragma once
+
 typedef void (__stdcall *LISTENER) (long, long);
 
 extern "C" __declspec(dllexport) long __stdcall findNumber1(char * number);

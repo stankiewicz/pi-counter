@@ -20,20 +20,12 @@ namespace pi_counter_ui {
 
 		private void Form1_Load(object sender, EventArgs e) {
 			calculationStatus1.buttonResult.Click += new EventHandler(buttonResult_Click);
-
-			//TODO: remove when ready
-			test2();
 		}
 
 		void buttonResult_Click(object sender, EventArgs e) {
 			IndicesViewer i = getIndicesViewer();
 			i.Show();
-		}
-
-		static void Test(int idxTab, int idxPi) {
-			System.Console.Out.WriteLine(idxTab.ToString() + " " + idxPi.ToString());
-			System.Console.Out.WriteLine("hello");
-		}
+		}		
 
 		private void aboutToolStripMenuItem_Click(object sender, EventArgs e) {
 			About about = getAbout();
@@ -61,46 +53,9 @@ namespace pi_counter_ui {
 			return indicesViewer;
 		}
 
-		private void test() {
-			try {
-				int idx = PiLibrary.findNumber1("1234");
-				System.Console.Out.WriteLine(idx.ToString());
-				int count = 10000;
-				int[] tab = new int[count];
-				PiLibrary.Listener listener = new PiLibrary.Listener(Test);
-				PiLibrary.findNumbersFT("10000", "11000", tab, listener);
-
-				String[] n1 = new string[count];
-				for (int i = 0; i < count; ++i) n1[i] = i.ToString();
-
-				PiLibrary.findNumbers2(n1, count, tab, listener);
-				//foreach (int t in tab) {
-				//    System.Console.Out.WriteLine(t.ToString());
-				//}
-			} catch (DllNotFoundException nfe) {
-				MessageBox.Show("Brak biblioteki dll:" + nfe.Message);
-			}
-		}
-
-		private void test2() {
-			try {
-				PiLibrary.generateNewPi(10000, 0, new PiLibrary.ListenerEmpty(showMessage));
-			} catch (DllNotFoundException nfe) {
-				MessageBox.Show("Brak biblioteki dll:" + nfe.Message);
-			}
-		}
-
-		void showMessage() {
-			Console.WriteLine("OK!");
-		}
-
 		private void viewToolStripMenuItem_Click(object sender, EventArgs e) {
 			PiViewer p = getPiViewer();
 			p.Show();
-		}
-
-		private void test2ToolStripMenuItem_Click(object sender, EventArgs e) {
-			test2();
 		}
 
 		private void exitToolStripMenuItem_Click(object sender, EventArgs e) {

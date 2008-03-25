@@ -37,8 +37,6 @@ namespace pi_counter_ui {
 			this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.searchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.testsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.test2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
 			this.labelInfo = new System.Windows.Forms.Label();
 			this.search1 = new pi_counter_ui.Controls.Search();
@@ -62,8 +60,7 @@ namespace pi_counter_ui {
 			this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.piToolStripMenuItem,
             this.searchToolStripMenuItem,
-            this.aboutToolStripMenuItem,
-            this.testsToolStripMenuItem});
+            this.aboutToolStripMenuItem});
 			this.menuStrip.Location = new System.Drawing.Point(0, 0);
 			this.menuStrip.Name = "menuStrip";
 			this.menuStrip.Size = new System.Drawing.Size(491, 24);
@@ -144,21 +141,6 @@ namespace pi_counter_ui {
 			this.aboutToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
 			this.aboutToolStripMenuItem.Text = "About";
 			this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
-			// 
-			// testsToolStripMenuItem
-			// 
-			this.testsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.test2ToolStripMenuItem});
-			this.testsToolStripMenuItem.Name = "testsToolStripMenuItem";
-			this.testsToolStripMenuItem.Size = new System.Drawing.Size(45, 20);
-			this.testsToolStripMenuItem.Text = "Tests";
-			// 
-			// test2ToolStripMenuItem
-			// 
-			this.test2ToolStripMenuItem.Name = "test2ToolStripMenuItem";
-			this.test2ToolStripMenuItem.Size = new System.Drawing.Size(99, 22);
-			this.test2ToolStripMenuItem.Text = "test2";
-			this.test2ToolStripMenuItem.Click += new System.EventHandler(this.test2ToolStripMenuItem_Click);
 			// 
 			// flowLayoutPanel1
 			// 
@@ -261,8 +243,6 @@ namespace pi_counter_ui {
 		private pi_counter_ui.Controls.CalculationStatus calculationStatus1;
 		private System.Windows.Forms.Label labelInfo;
 		private pi_counter_ui.Controls.Search search1;
-		private System.Windows.Forms.ToolStripMenuItem testsToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem test2ToolStripMenuItem;
 	}
 }
 

@@ -90,7 +90,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="Copy &quot;$(TargetDir)*.dll&quot; &quot;$(SolutionDir)pi-counter-ui\bin\$(ConfigurationName)&quot;"
+				CommandLine="Copy &quot;$(TargetDir)*.dll&quot; &quot;$(SolutionDir)pi-counter-ui\bin\$(ConfigurationName)&quot;&#x0D;&#x0A;Copy &quot;$(TargetDir)*.dll&quot; &quot;$(SolutionDir)pi-counter-ui-tests\bin\$(ConfigurationName)&quot;"
 			/>
 		</Configuration>
 		<Configuration
@@ -166,7 +166,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="Copy &quot;$(TargetDir)*.dll&quot; &quot;$(SolutionDir)pi-counter-ui\bin\$(ConfigurationName)&quot;"
+				CommandLine="Copy &quot;$(TargetDir)*.dll&quot; &quot;$(SolutionDir)pi-counter-ui\bin\$(ConfigurationName)&quot;&#x0D;&#x0A;Copy &quot;$(TargetDir)*.dll&quot; &quot;$(SolutionDir)pi-counter-ui-tests\bin\$(ConfigurationName)&quot;"
 			/>
 		</Configuration>
 	</Configurations>
@@ -183,7 +183,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Helpers.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\PiGenerator.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\tests.cpp"
 				>
 			</File>
 		</Filter>
@@ -201,6 +209,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Helpers.h"
+				>
+			</File>
+			<File
 				RelativePath=".\PiGenerator.h"
 				>
 			</File>
@@ -211,6 +223,10 @@
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
 		</Filter>
+		<File
+			RelativePath=".\doc.txt"
+			>
+		</File>
 	</Files>
 	<Globals>
 	</Globals>
