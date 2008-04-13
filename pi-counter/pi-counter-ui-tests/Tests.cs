@@ -59,8 +59,9 @@ namespace pi_counter_ui {
 			System.Console.Out.WriteLine("hello");
 		}
 
-		static void showMessage(float percentComplete) {
+		static bool showMessage(float percentComplete) {
 			Console.WriteLine("OK!");
+			return false;
 		}
 	}
 }

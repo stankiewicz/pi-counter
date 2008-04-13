@@ -10,6 +10,9 @@ using pi_counter_ui.Dialogs;
 namespace pi_counter_ui {
 	public partial class MainForm : Form {
 		enum Modes { PiCalculation, PiSearch };
+		enum State { Ready, Calculating, Searching };
+
+		State currentState = State.Ready;
 
 		public MainForm() {
 			InitializeComponent();
@@ -108,6 +111,8 @@ namespace pi_counter_ui {
 		/// <param name="digitsPercentage"></param>
 		/// <returns></returns>
 		bool piListener(float digitsPercentage) {
+			Console.WriteLine("Percent complete: {0}", digitsPercentage);
+
 			if (unconditionalStop) {
 				Console.WriteLine("Aborting calculations...");
 				return true;
@@ -118,11 +123,21 @@ namespace pi_counter_ui {
 		}
 
 		void buttonStart_Click_Calculate(object sender, EventArgs e) {
-			int digitsToCalculate = 2000000000;
-			try {
-				PiLibrary.generatePi(digitsToCalculate, new PiLibrary.ListenerEmpty(piListener));
-			} catch (DllNotFoundException nfe) {
-				MessageBox.Show("Could not found piCounter.dll");
+			if (currentState == State.Ready) {
+				int digitsToCalculate = 1000;
+				if (panelConstraints.LengthConstraintEnabled) {
+					digitsToCalculate = (int)panelConstraints.LengthConstraint;
+				}
+				try {
+					Console.WriteLine("Starting calculations for {0} digits", digitsToCalculate);
+					PiLibrary.generatePi(digitsToCalculate, new PiLibrary.ListenerEmpty(piListener));
+				} catch (DllNotFoundException nfe) {
+					MessageBox.Show("Could not found piCounter.dll\r\n" + nfe.ToString());
+				}
+				Console.WriteLine("Finished");
+			} else if (currentState == State.Calculating) {
+				Console.WriteLine("Stopping");
+				unconditionalStop = true;
 			}
 		}
 	}

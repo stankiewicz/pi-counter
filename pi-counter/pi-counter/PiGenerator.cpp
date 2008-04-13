@@ -106,7 +106,7 @@ bool generate(Listener listener) {
 
 		bool stop = false;
 		if (listener != 0) {
-			stop = (*listener)();
+			stop = (*listener)((float)(_prec) / (float)(prec0 * 2 + 10));
 		}
 		if (stop) {
 			_count++;
@@ -224,6 +224,7 @@ void __stdcall generateNewPi(int d, int alg, Listener listener) {
 	if (readState() && _alg == alg) {
 		//mo¿na wznowiæ obliczenia
 		if (_digits >= d) { //pi ju¿ jest wygenerowane z niemniejsz¹ dok³adnoœci¹
+			cout << "Pi already generated with precision: " << _digits << endl;
 			return;
 		}
 	} else {
