@@ -14,7 +14,7 @@ namespace pi_counter_ui_tests {
 		}
 
 		private void button1_Click(object sender, EventArgs e) {
-			Tests.test();
+			//Tests.test();
 		}
 
 		private void button2_Click(object sender, EventArgs e) {
