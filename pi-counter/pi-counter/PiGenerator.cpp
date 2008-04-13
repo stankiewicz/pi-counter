@@ -18,7 +18,6 @@ int prec0;			/* require precision */
 mpf_t a, b, a2, b2, c2, sum; /* used for pi generation */
 
 int _digits, _alg, _count, _prec;
-bool stop = false;
 
 void setPrecision() {
 	prec0 = _digits * BITS_PER_DIGIT + 16;
@@ -105,16 +104,16 @@ bool generate(Listener listener) {
 			mpf_div_2exp (a2, a2, 1);
 		}
 
+		bool stop = false;
+		if (listener != 0) {
+			stop = (*listener)();
+		}
 		if (stop) {
 			_count++;
 			_prec = _prec * 2 + 10;
 			return false;
 		}
-	}
-
-	if (listener != 0) {
-		(*listener)();
-	}
+	}	
 
 	return true;
 }
@@ -215,17 +214,21 @@ bool readState() {
 	return true;
 }
 
-void __stdcall generatePi(int d, Listener listener) {
-	generateNewPi(d, 0, listener);
+void __stdcall generatePi(int digits, Listener listener) {
+	generateNewPi(digits, 0, listener);
 }
 
-void __stdcall generateNewPi(int d, int alg, Listener listener) {
 
-	_digits = d;
+void __stdcall generateNewPi(int d, int alg, Listener listener) {
+		//_digits = d;
 	if (readState() && _alg == alg) {
 		//mo¿na wznowiæ obliczenia
+		if (_digits >= d) { //pi ju¿ jest wygenerowane z niemniejsz¹ dok³adnoœci¹
+			return;
+		}
 	} else {
 		//trzeba zainicjalizowaæ
+		_digits = d;
 		_count = 0;
 		_prec = -1;
 		_alg = alg;
@@ -242,5 +245,8 @@ void __stdcall generateNewPi(int d, int alg, Listener listener) {
 	mpf_mul_2exp (a2, a2, 1);
 	my_div (a2, a2, sum);
 
-	saveMpf(a2, "pi.p", 10);
+	//saveMpf(a2, "pi.p", 10);
+	FILE *fa = fopen("pi.p", "w");
+	gmp_fprintf(fa, "%.*Ff", _digits + 2, a2);
+	fclose(fa);	
 }

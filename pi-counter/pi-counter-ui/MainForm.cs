@@ -9,17 +9,17 @@ using pi_counter_ui.Dialogs;
 
 namespace pi_counter_ui {
 	public partial class MainForm : Form {
-
-		About about = null;
-		PiViewer piViewer = null;
-		IndicesViewer indicesViewer = null;
+		enum Modes { PiCalculation, PiSearch };
 
 		public MainForm() {
 			InitializeComponent();
 		}
 
 		private void Form1_Load(object sender, EventArgs e) {
-			calculationStatus1.buttonResult.Click += new EventHandler(buttonResult_Click);
+			//TODO: remove when ready
+			//calculationStatus1.buttonResult.Click += new EventHandler(buttonResult_Click);
+
+			setMode(Modes.PiCalculation);
 		}
 
 		void buttonResult_Click(object sender, EventArgs e) {
@@ -31,6 +31,11 @@ namespace pi_counter_ui {
 			About about = getAbout();
 			about.ShowDialog();
 		}
+
+		#region forms
+		About about = null;
+		PiViewer piViewer = null;
+		IndicesViewer indicesViewer = null;
 
 		About getAbout() {
 			if (about == null) {
@@ -52,14 +57,73 @@ namespace pi_counter_ui {
 			}
 			return indicesViewer;
 		}
+		#endregion
 
+		#region menu handlers
 		private void viewToolStripMenuItem_Click(object sender, EventArgs e) {
 			PiViewer p = getPiViewer();
-			p.Show();
+			p.ShowDialog();
 		}
 
 		private void exitToolStripMenuItem_Click(object sender, EventArgs e) {
 			this.Close();
+		}
+
+		private void calculateToolStripMenuItem_Click(object sender, EventArgs e) {
+			setMode(Modes.PiCalculation);
+		}
+		#endregion
+
+		void setMode(Modes mode) {
+			switch (mode) {
+				case Modes.PiCalculation:
+					this.labelInfo.Text = "Pi calculation mode.\r\nYou can specify constraints.";
+					this.panelSearch.Visible = false;
+
+					this.panelCalculationStatus.buttonStart.Click -= new EventHandler(buttonStart_Click_Calculate);
+					this.panelCalculationStatus.buttonStart.Click -= new EventHandler(buttonStart_Click_Search);
+					this.panelCalculationStatus.buttonStart.Click += new EventHandler(buttonStart_Click_Calculate);
+					break;
+				case Modes.PiSearch:
+					this.labelInfo.Text = "Pi search mode.\r\nYou can specify constraints and searched numbers' range.";
+					this.panelSearch.Visible = true;
+
+					this.panelCalculationStatus.buttonStart.Click -= new EventHandler(buttonStart_Click_Calculate);
+					this.panelCalculationStatus.buttonStart.Click -= new EventHandler(buttonStart_Click_Search);
+					this.panelCalculationStatus.buttonStart.Click += new EventHandler(buttonStart_Click_Search);
+					break;
+				default:
+					break;
+			}
+		}
+
+		void buttonStart_Click_Search(object sender, EventArgs e) {
+			
+		}
+
+		bool unconditionalStop = false;
+		/// <summary>
+		/// Zwraca true gdy obliczenie pi ma siê zakoñczyæ
+		/// </summary>
+		/// <param name="digitsPercentage"></param>
+		/// <returns></returns>
+		bool piListener(float digitsPercentage) {
+			if (unconditionalStop) {
+				Console.WriteLine("Aborting calculations...");
+				return true;
+			}
+
+			//sprawdŸ czas
+			return false;
+		}
+
+		void buttonStart_Click_Calculate(object sender, EventArgs e) {
+			int digitsToCalculate = 2000000000;
+			try {
+				PiLibrary.generatePi(digitsToCalculate, new PiLibrary.ListenerEmpty(piListener));
+			} catch (DllNotFoundException nfe) {
+				MessageBox.Show("Could not found piCounter.dll");
+			}
 		}
 	}
 }

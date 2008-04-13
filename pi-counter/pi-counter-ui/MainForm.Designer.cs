@@ -39,9 +39,9 @@ namespace pi_counter_ui {
 			this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
 			this.labelInfo = new System.Windows.Forms.Label();
-			this.search1 = new pi_counter_ui.Controls.Search();
-			this.constraints1 = new pi_counter_ui.Controls.Constraints();
-			this.calculationStatus1 = new pi_counter_ui.Controls.CalculationStatus();
+			this.panelSearch = new pi_counter_ui.Controls.Search();
+			this.panelConstraints = new pi_counter_ui.Controls.Constraints();
+			this.panelCalculationStatus = new pi_counter_ui.Controls.CalculationStatus();
 			this.menuStrip.SuspendLayout();
 			this.flowLayoutPanel1.SuspendLayout();
 			this.SuspendLayout();
@@ -95,6 +95,7 @@ namespace pi_counter_ui {
 			this.calculateToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
 			this.calculateToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
 			this.calculateToolStripMenuItem.Text = "Calculate";
+			this.calculateToolStripMenuItem.Click += new System.EventHandler(this.calculateToolStripMenuItem_Click);
 			// 
 			// toolStripSeparator2
 			// 
@@ -145,9 +146,9 @@ namespace pi_counter_ui {
 			// flowLayoutPanel1
 			// 
 			this.flowLayoutPanel1.Controls.Add(this.labelInfo);
-			this.flowLayoutPanel1.Controls.Add(this.search1);
-			this.flowLayoutPanel1.Controls.Add(this.constraints1);
-			this.flowLayoutPanel1.Controls.Add(this.calculationStatus1);
+			this.flowLayoutPanel1.Controls.Add(this.panelSearch);
+			this.flowLayoutPanel1.Controls.Add(this.panelConstraints);
+			this.flowLayoutPanel1.Controls.Add(this.panelCalculationStatus);
 			this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
 			this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 24);
@@ -164,43 +165,45 @@ namespace pi_counter_ui {
 			this.labelInfo.TabIndex = 4;
 			this.labelInfo.Text = "[info info info]";
 			// 
-			// search1
+			// panelSearch
 			// 
-			this.search1.Location = new System.Drawing.Point(3, 16);
-			this.search1.Name = "search1";
-			this.search1.Size = new System.Drawing.Size(241, 83);
-			this.search1.TabIndex = 3;
+			this.panelSearch.Location = new System.Drawing.Point(3, 16);
+			this.panelSearch.Name = "panelSearch";
+			this.panelSearch.Size = new System.Drawing.Size(241, 83);
+			this.panelSearch.TabIndex = 3;
 			// 
-			// constraints1
+			// panelConstraints
 			// 
-			this.constraints1.LengthConstraint = new decimal(new int[] {
+			this.panelConstraints.LengthConstraint = new decimal(new int[] {
             1000,
             0,
             0,
             0});
-			this.constraints1.Location = new System.Drawing.Point(3, 105);
-			this.constraints1.Name = "constraints1";
-			this.constraints1.Size = new System.Drawing.Size(278, 76);
-			this.constraints1.TabIndex = 1;
-			this.constraints1.TimeConstraint = new decimal(new int[] {
-            0,
+			this.panelConstraints.LengthConstraintEnabled = false;
+			this.panelConstraints.Location = new System.Drawing.Point(3, 105);
+			this.panelConstraints.Name = "panelConstraints";
+			this.panelConstraints.Size = new System.Drawing.Size(278, 76);
+			this.panelConstraints.TabIndex = 1;
+			this.panelConstraints.TimeConstraint = new decimal(new int[] {
+            1,
             0,
             0,
             0});
+			this.panelConstraints.TimeConstraintEnabled = false;
 			// 
-			// calculationStatus1
+			// panelCalculationStatus
 			// 
-			this.calculationStatus1.ConstraintLength = 0;
-			this.calculationStatus1.ConstraintLengthMax = 100;
-			this.calculationStatus1.ConstraintTime = 0;
-			this.calculationStatus1.ConstraintTimeMax = 100;
-			this.calculationStatus1.Found = ((long)(0));
-			this.calculationStatus1.FoundMax = ((long)(0));
-			this.calculationStatus1.FoundVisibility = true;
-			this.calculationStatus1.Location = new System.Drawing.Point(3, 187);
-			this.calculationStatus1.Name = "calculationStatus1";
-			this.calculationStatus1.Size = new System.Drawing.Size(398, 117);
-			this.calculationStatus1.TabIndex = 2;
+			this.panelCalculationStatus.ConstraintLength = 0;
+			this.panelCalculationStatus.ConstraintLengthMax = 100;
+			this.panelCalculationStatus.ConstraintTime = 0;
+			this.panelCalculationStatus.ConstraintTimeMax = 100;
+			this.panelCalculationStatus.Found = ((long)(0));
+			this.panelCalculationStatus.FoundMax = ((long)(0));
+			this.panelCalculationStatus.FoundVisibility = true;
+			this.panelCalculationStatus.Location = new System.Drawing.Point(3, 187);
+			this.panelCalculationStatus.Name = "panelCalculationStatus";
+			this.panelCalculationStatus.Size = new System.Drawing.Size(398, 117);
+			this.panelCalculationStatus.TabIndex = 2;
 			// 
 			// MainForm
 			// 
@@ -239,10 +242,10 @@ namespace pi_counter_ui {
 		private System.Windows.Forms.ToolStripMenuItem searchToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
 		private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
-		private pi_counter_ui.Controls.Constraints constraints1;
-		private pi_counter_ui.Controls.CalculationStatus calculationStatus1;
+		private pi_counter_ui.Controls.Constraints panelConstraints;
+		private pi_counter_ui.Controls.CalculationStatus panelCalculationStatus;
 		private System.Windows.Forms.Label labelInfo;
-		private pi_counter_ui.Controls.Search search1;
+		private pi_counter_ui.Controls.Search panelSearch;
 	}
 }
 

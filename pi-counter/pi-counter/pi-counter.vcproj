@@ -90,7 +90,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="Copy &quot;$(TargetDir)*.dll&quot; &quot;$(SolutionDir)pi-counter-ui\bin\$(ConfigurationName)&quot;&#x0D;&#x0A;Copy &quot;$(TargetDir)*.dll&quot; &quot;$(SolutionDir)pi-counter-ui-tests\bin\$(ConfigurationName)&quot;"
+				CommandLine="Copy &quot;$(TargetDir)*.dll&quot; &quot;$(SolutionDir)pi-counter-ui\bin\$(ConfigurationName)&quot;&#x0D;&#x0A;Copy &quot;$(TargetDir)*.dll&quot; &quot;$(SolutionDir)pi-counter-ui-tests\bin\$(ConfigurationName)&quot;&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
@@ -166,7 +166,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="Copy &quot;$(TargetDir)*.dll&quot; &quot;$(SolutionDir)pi-counter-ui\bin\$(ConfigurationName)&quot;&#x0D;&#x0A;Copy &quot;$(TargetDir)*.dll&quot; &quot;$(SolutionDir)pi-counter-ui-tests\bin\$(ConfigurationName)&quot;"
+				CommandLine="Copy &quot;$(TargetDir)*.dll&quot; &quot;$(SolutionDir)pi-counter-ui\bin\$(ConfigurationName)&quot;&#x0D;&#x0A;Copy &quot;$(TargetDir)*.dll&quot; &quot;$(SolutionDir)pi-counter-ui-tests\bin\$(ConfigurationName)&quot;&#x0D;&#x0A;"
 			/>
 		</Configuration>
 	</Configurations>
