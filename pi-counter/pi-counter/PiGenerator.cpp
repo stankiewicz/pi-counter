@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include "gmp.h"
+#include "File.h"
 
 using namespace std;
 
@@ -111,7 +112,7 @@ bool generate(Listener listener) {
 		if (stop) {
 			_count++;
 			_prec = _prec * 2 + 10;
-			return false;
+			//return false;
 		}
 	}	
 
@@ -247,7 +248,11 @@ void __stdcall generateNewPi(int d, int alg, Listener listener) {
 	my_div (a2, a2, sum);
 
 	//saveMpf(a2, "pi.p", 10);
+
+	File file;
+	file.SaveBIGNUM(a2, L"pi.BIGNUM");
+
 	FILE *fa = fopen("pi.p", "w");
 	gmp_fprintf(fa, "%.*Ff", _digits + 2, a2);
-	fclose(fa);	
+	fclose(fa);
 }
