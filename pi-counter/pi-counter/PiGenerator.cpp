@@ -181,24 +181,31 @@ bool readMpf(mpf_t var, const char *filename) {
 	return true;
 }
 
-bool readState() {
+//0 - ok, 1 - nie ok, >1 - ju¿ wygenerowano, nawet wiêcej
+int readState(int algorithm) {
 	int ret;
 
 	FILE *input = fopen("savedState", "r");
-	if (input == 0) {
-		return false;
+	if (input == 0) { //brak pliku
+		return 1;
 	}
 
 	int computedDigits;
 	ret = fscanf(input, "%d %d %d %d", &computedDigits, &_alg, &_count, &_prec);
 	fclose(input);
-	if (ret == EOF) {
-		return false;
+	if (ret == EOF) { // b³¹d w pliku
+		return 1;
 	}
 
-	if (computedDigits > _digits) {
-		_digits = computedDigits;
+	if (algorithm != _alg) { //zapisane obliczenia zrobione innym algorytmem
+		return 1;
 	}
+
+	if (computedDigits >= _digits) { //wygenerowano wczeœniej wiêcej 
+		return computedDigits;
+	}
+
+	//zapisane obliczenia, ale dla mniejszej iloœci cyfr
 
 	setPrecision();
 	init();
@@ -209,10 +216,10 @@ bool readState() {
 		!readMpf(b2, "b2") ||
 		!readMpf(c2, "c2") ||
 		!readMpf(sum, "sum")) {
-			return false;
+			return 1;
 	}
 
-	return true;
+	return 0;
 }
 
 void __stdcall generatePi(int digits, Listener listener) {
@@ -221,15 +228,13 @@ void __stdcall generatePi(int digits, Listener listener) {
 
 
 void __stdcall generateNewPi(int d, int alg, Listener listener) {
-		//_digits = d;
-	if (readState() && _alg == alg) {
-		//mo¿na wznowiæ obliczenia
-		if (_digits >= d) { //pi ju¿ jest wygenerowane z niemniejsz¹ dok³adnoœci¹
-			cout << "Pi already generated with precision: " << _digits << endl;
-			return;
-		}
-	} else {
-		//trzeba zainicjalizowaæ
+	_digits = d; //tyle chcemy wygenerowaæ
+
+	int ret = readState(alg);
+	if (ret > 1) { // pi ju¿ zosta³o wygenerowane z wiêksz¹ dok³adnoœci¹
+		cout << "Pi already generated with higher precision: " << ret << endl;
+		return;
+	} else if (ret == 1) { //trzeba liczyæ od pocz¹tku
 		_digits = d;
 		_count = 0;
 		_prec = -1;
@@ -240,6 +245,7 @@ void __stdcall generateNewPi(int d, int alg, Listener listener) {
 
 		setStartValues();
 	}
+	//ret == 0: mo¿na wznowiæ, wszystkie wartoœci pocz¹tkowe ustawione przez readState()
 	
 	bool res = generate(listener);
 	saveState();
@@ -255,4 +261,7 @@ void __stdcall generateNewPi(int d, int alg, Listener listener) {
 	FILE *fa = fopen("pi.p", "w");
 	gmp_fprintf(fa, "%.*Ff", _digits + 2, a2);
 	fclose(fa);
+
+	mpf_clear(a2);
+	mpf_clear(sum);
 }
