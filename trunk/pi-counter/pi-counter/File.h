@@ -5,9 +5,9 @@
 class File
 {
 public:
-	bool SaveBIGNUM(mpf_ptr value, wchar_t *filename);
+	bool SaveBIGNUM(mpf_ptr value, wchar_t *filename, int numberOfDigits = 0);
 	bool LoadBIGNUM(mpf_ptr value, wchar_t *filename);
-private:
+private:	
 };
 
 #endif
