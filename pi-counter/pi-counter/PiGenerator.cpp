@@ -106,13 +106,16 @@ bool generate(Listener listener) {
 		}
 
 		bool stop = false;
-		if (listener != 0) {
+		/*if (listener != 0) {
 			stop = (*listener)((float)(_prec) / (float)(prec0 * 2 + 10));
+		}*/
+		if (listener != 0) {
+			(*listener)();
 		}
 		if (stop) {
 			_count++;
 			_prec = _prec * 2 + 10;
-			//return false;
+			return false;
 		}
 	}	
 
@@ -122,7 +125,7 @@ bool generate(Listener listener) {
 bool saveMpf(mpf_t var, const char * filename, int base) {
 	FILE *fa = fopen(filename, "w");
 
-	fwrite(&var->_mp_exp, sizeof(var->_mp_exp), 1, fa);
+	/*fwrite(&var->_mp_exp, sizeof(var->_mp_exp), 1, fa);
 	fwrite(&var->_mp_prec, sizeof(var->_mp_prec), 1, fa);
 	fwrite(&var->_mp_size, sizeof(var->_mp_size), 1, fa);
 		
@@ -130,9 +133,9 @@ bool saveMpf(mpf_t var, const char * filename, int base) {
 	{
 		fseek(fa, 12 + sizeof(*var->_mp_d) * i, SEEK_SET);
 		fwrite(var->_mp_d + i, sizeof(*var->_mp_d), 1, fa);
-	}
+	}*/
 
-	//gmp_fprintf(fa, "%.*Ff", _digits + 2, var);
+	gmp_fprintf(fa, "%.*Ff", _digits, var);
 	fclose(fa);
 
 	return true;
@@ -144,7 +147,7 @@ bool saveMpf(mpf_t var, const char * filename) {
 
 bool saveState() {
 	FILE *output = fopen("savedState", "w");
-	fprintf(output, "%d %d %d %d", _digits, _alg, _count, _prec);
+	fprintf(output, "%d %d %d %d", _digits + 2, _alg, _count, _prec);
 	fclose(output);
 
 	saveMpf(a, "a");
@@ -159,23 +162,25 @@ bool saveState() {
 
 bool readMpf(mpf_t var, const char *filename) {
 	mpf_clear(var);
+	mpf_init(var);
 	FILE *fa = fopen(filename, "r");
 	if (fa == 0) {
 		return false;
 	}
-//	gmp_fscanf(fa, "%Ff", var);
+	gmp_fscanf(fa, "%Ff", var);
 
-	fread(&var->_mp_exp, sizeof(var->_mp_exp), 1, fa);
-	fread(&var->_mp_prec, sizeof(var->_mp_prec), 1, fa);
-	fread(&var->_mp_size, sizeof(var->_mp_size), 1, fa);
-	var->_mp_d = (mp_limb_t*) __gmp_allocate_func((var->_mp_prec + 1) * sizeof(*var->_mp_d));
-	unsigned int i;
-	for(i = 0; i < var->_mp_prec; i++)
-	{
-		fseek(fa, 12 + sizeof(*var->_mp_d) * i, SEEK_SET);
-		fread(var->_mp_d + i, sizeof(*var->_mp_d), 1, fa);
-	}
-	var->_mp_d[i] = 0;
+	//fread(&var->_mp_exp, sizeof(var->_mp_exp), 1, fa);
+	//fread(&var->_mp_prec, sizeof(var->_mp_prec), 1, fa);
+	//fread(&var->_mp_size, sizeof(var->_mp_size), 1, fa);
+	//var->_mp_d = (mp_limb_t*) __gmp_allocate_func((var->_mp_prec + 1) * sizeof(*var->_mp_d));
+	////var->_mp_d = (mp_limb_t*) __gmp_allocate_func((var->_mp_prec + 1) * BYTES_PER_MP_LIMB);
+	//unsigned int i;
+	//for(i = 0; i < var->_mp_prec; i++)
+	//{
+	//	fseek(fa, 12 + sizeof(*var->_mp_d) * i, SEEK_SET);
+	//	fread(var->_mp_d + i, sizeof(*var->_mp_d), 1, fa);
+	//}
+	//var->_mp_d[i] = 0;
 
 	fclose(fa);
 	return true;
@@ -210,13 +215,14 @@ int readState(int algorithm) {
 	setPrecision();
 	init();
 
-	if (!readMpf(a, "a") ||
-		!readMpf(b, "b") ||
-		!readMpf(a2, "a2") ||
-		!readMpf(b2, "b2") ||
-		!readMpf(c2, "c2") ||
-		!readMpf(sum, "sum")) {
-			return 1;
+	bool ares = readMpf(a, "a");
+	bool bres = readMpf(b, "b");
+	bool a2res = readMpf(a2, "a2");
+	bool b2res = readMpf(b2, "b2");
+	bool c2res = readMpf(c2, "c2");
+	bool sumres = readMpf(sum, "sum");
+	if (!ares || !bres || !a2res || !b2res || !c2res || !sumres) {
+		return 1;
 	}
 
 	return 0;
@@ -256,10 +262,10 @@ void __stdcall generateNewPi(int d, int alg, Listener listener) {
 	//saveMpf(a2, "pi.p", 10);
 
 	File file;
-	file.SaveBIGNUM(a2, L"pi.BIGNUM");
+	//file.SaveBIGNUM(a2, L"pi.BIGNUM");
 
 	FILE *fa = fopen("pi.p", "w");
-	gmp_fprintf(fa, "%.*Ff", _digits + 2, a2);
+	gmp_fprintf(fa, "%.*Ff", _digits+2, a2);
 	fclose(fa);
 
 	mpf_clear(a2);

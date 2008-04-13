@@ -28,7 +28,7 @@ namespace pi_counter_ui {
 
 		public static void test2() {
 			try {
-				PiLibrary.generatePi(10000, new PiLibrary.ListenerEmpty(showMessage));
+				PiLibrary.generatePi(10000, new PiLibrary.ListenerEmpty(showMessage2));
 			} catch (DllNotFoundException nfe) {
 				MessageBox.Show("Brak biblioteki dll:" + nfe.Message);
 			}
@@ -62,6 +62,10 @@ namespace pi_counter_ui {
 		static bool showMessage(float percentComplete) {
 			Console.WriteLine("OK!");
 			return false;
+		}
+
+		static void showMessage2() {
+			Console.WriteLine("OK!");
 		}
 	}
 }

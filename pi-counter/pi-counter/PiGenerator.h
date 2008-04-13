@@ -6,7 +6,7 @@ using namespace std;
 
 //return value indicates whether to stop calculation
 //typedef bool (__stdcall *Listener) (float percentComplete);
-typedef bool (__stdcall *Listener) (float percentComplete);
+typedef void (__stdcall *Listener) ();
 
 extern "C" __declspec(dllexport) void __stdcall generatePi(int digits, Listener listener);
 
