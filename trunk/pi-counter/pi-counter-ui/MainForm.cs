@@ -105,6 +105,7 @@ namespace pi_counter_ui {
 		}
 
 		bool unconditionalStop = false;
+
 		/// <summary>
 		/// Zwraca true gdy obliczenie pi ma siê zakoñczyæ
 		/// </summary>
@@ -122,6 +123,10 @@ namespace pi_counter_ui {
 			return false;
 		}
 
+		void piListener2() {
+			Console.WriteLine("Listener called.");
+		}
+
 		void buttonStart_Click_Calculate(object sender, EventArgs e) {
 			if (currentState == State.Ready) {
 				int digitsToCalculate = 1000;
@@ -130,7 +135,7 @@ namespace pi_counter_ui {
 				}
 				try {
 					Console.WriteLine("Starting calculations for {0} digits", digitsToCalculate);
-					PiLibrary.generatePi(digitsToCalculate, new PiLibrary.ListenerEmpty(piListener));
+					PiLibrary.generatePi(digitsToCalculate, new PiLibrary.ListenerEmpty(piListener2));
 				} catch (DllNotFoundException nfe) {
 					MessageBox.Show("Could not found piCounter.dll\r\n" + nfe.ToString());
 				}

@@ -9,7 +9,8 @@ namespace pi_counter_ui {
 		public const String libPath = "pi-counter.dll";
 
 		//public delegate void Listener(Int32 idxInTable, Int32 idxInPi);
-		public delegate bool ListenerEmpty(float percentComplete);
+		//public delegate bool ListenerEmpty(float percentComplete);
+		public delegate void ListenerEmpty();
 
 		//[DllImport(libPath, CharSet = CharSet.Auto)]
 		//public static extern int findNumber1([MarshalAs(UnmanagedType.LPStr)] String number);
