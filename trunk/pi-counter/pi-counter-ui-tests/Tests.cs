@@ -5,26 +5,26 @@ using System.Windows.Forms;
 
 namespace pi_counter_ui {
 	public static class Tests {
-		public static void test() {
-			try {
-				int idx = PiLibrary.findNumber1("1234");
-				System.Console.Out.WriteLine(idx.ToString());
-				int count = 10000;
-				int[] tab = new int[count];
-				PiLibrary.Listener listener = new PiLibrary.Listener(Test);
-				PiLibrary.findNumbersFT("10000", "11000", tab, listener);
+		//public static void test() {
+		//    try {
+		//        int idx = PiLibrary.findNumber1("1234");
+		//        System.Console.Out.WriteLine(idx.ToString());
+		//        int count = 10000;
+		//        int[] tab = new int[count];
+		//        PiLibrary.Listener listener = new PiLibrary.Listener(Test);
+		//        PiLibrary.findNumbersFT("10000", "11000", tab, listener);
 
-				String[] n1 = new string[count];
-				for (int i = 0; i < count; ++i) n1[i] = i.ToString();
+		//        String[] n1 = new string[count];
+		//        for (int i = 0; i < count; ++i) n1[i] = i.ToString();
 
-				PiLibrary.findNumbers2(n1, count, tab, listener);
-				//foreach (int t in tab) {
-				//    System.Console.Out.WriteLine(t.ToString());
-				//}
-			} catch (DllNotFoundException nfe) {
-				MessageBox.Show("Brak biblioteki dll:" + nfe.Message);
-			}
-		}
+		//        PiLibrary.findNumbers2(n1, count, tab, listener);
+		//        //foreach (int t in tab) {
+		//        //    System.Console.Out.WriteLine(t.ToString());
+		//        //}
+		//    } catch (DllNotFoundException nfe) {
+		//        MessageBox.Show("Brak biblioteki dll:" + nfe.Message);
+		//    }
+		//}
 
 		public static void test2() {
 			try {
@@ -59,7 +59,7 @@ namespace pi_counter_ui {
 			System.Console.Out.WriteLine("hello");
 		}
 
-		static void showMessage() {
+		static void showMessage(float percentComplete) {
 			Console.WriteLine("OK!");
 		}
 	}

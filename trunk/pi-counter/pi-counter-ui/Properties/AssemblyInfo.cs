@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("pi-counter-ui")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("pi-counter")]
+[assembly: AssemblyDescription("Aplikacja licząca rozwienięcie liczby Pi oraz wyszukująca w niej ciągi znaków.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("IBM")]
-[assembly: AssemblyProduct("pi-counter-ui")]
-[assembly: AssemblyCopyright("Copyright © IBM 2008")]
+[assembly: AssemblyCompany("MiNI PW")]
+[assembly: AssemblyProduct("pi-counter")]
+[assembly: AssemblyCopyright("Copyright © MiNI PW 2008")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
