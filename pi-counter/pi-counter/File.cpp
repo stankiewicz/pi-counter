@@ -119,6 +119,13 @@ bool File::SaveBIGNUM(mpf_ptr value, wchar_t *filename, int numberOfDigits)
 	{
 		out.open(filename);
 		out<<numberOfFiles;
+		out<<' ';
+		out<<exp;
+		out<<' ';
+		if((stringNumber[0] == '-') || (stringNumber[0] == '+'))
+			out<<digits - exp - 1;
+		else
+			out<<digits - exp;
 		out.close();
 	}
 	catch(...)
