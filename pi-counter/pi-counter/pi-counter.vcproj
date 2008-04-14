@@ -187,6 +187,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Function.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\Helpers.cpp"
 				>
 			</File>
@@ -210,6 +214,10 @@
 			</File>
 			<File
 				RelativePath=".\finder.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Function.h"
 				>
 			</File>
 			<File
