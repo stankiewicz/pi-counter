@@ -25,22 +25,26 @@ void setPrecision() {
 	mpf_set_default_prec (prec0);
 }
 
-void init() {
-	mpf_clear(a);
+void initAll() {
 	mpf_init (a);
-
-	mpf_clear (b);
 	mpf_init (b);
-	mpf_clear (a2);
 	mpf_init (a2);
-	mpf_clear (b2);
 	mpf_init (b2);
-	mpf_clear (c2);
 	mpf_init (c2);
-	mpf_clear (sum);
 	mpf_init (sum);
 
 	helpers_init();
+}
+
+void clearAll() {
+	mpf_clear(a);
+	mpf_clear (b);
+	mpf_clear (a2);
+	mpf_clear (b2);
+	mpf_clear (c2);
+	mpf_clear (sum);
+
+	helpers_clear();
 }
 
 void setStartValues() {
@@ -147,7 +151,7 @@ bool saveMpf(mpf_t var, const char * filename) {
 
 bool saveState() {
 	FILE *output = fopen("savedState", "w");
-	fprintf(output, "%d %d %d %d", _digits + 2, _alg, _count, _prec);
+	fprintf(output, "%d %d %d %d", _digits, _alg, _count, _prec);
 	fclose(output);
 
 	saveMpf(a, "a");
@@ -160,8 +164,9 @@ bool saveState() {
 	return true;
 }
 
+//automatycznie czyœci zmienn¹ do której ma zwróciæ wynik
 bool readMpf(mpf_t var, const char *filename) {
-	mpf_clear(var);
+	//mpf_clear(var);
 	//mpf_init(var);
 	FILE *fa = fopen(filename, "r");
 	if (fa == 0) {
@@ -221,18 +226,48 @@ int readState(int algorithm) {
 
 	//zapisane obliczenia, ale dla mniejszej iloœci cyfr
 
-	setPrecision();
-	init();
+	setPrecision(); // ustaw domyœln¹ precyzjê
 
-	bool ares = readMpf(a, "a");
-	bool bres = readMpf(b, "b");
-	bool a2res = readMpf(a2, "a2");
-	bool b2res = readMpf(b2, "b2");
-	bool c2res = readMpf(c2, "c2");
-	bool sumres = readMpf(sum, "sum");
-	if (!ares || !bres || !a2res || !b2res || !c2res || !sumres) {
+	//wszelkie zmienne powinny byæ niezainicjalizowane
+	if (!readMpf(a, "a")) {
 		return 1;
 	}
+	if (!readMpf(b, "b")) {
+		mpf_clear(a);
+		return 1;
+	}
+	if (!readMpf(a2, "a2")) {
+		mpf_clear(a);
+		mpf_clear(b);
+		return 1;
+	}
+
+	if (!readMpf(b2, "b2")) {
+		mpf_clear(a);
+		mpf_clear(b);
+		mpf_clear(a2);
+		return 1;
+	}
+
+	if (!readMpf(c2, "c2")) {
+		mpf_clear(a);
+		mpf_clear(b);
+		mpf_clear(a2);
+		mpf_clear(b2);
+		return 1;
+	}
+
+	if (!readMpf(sum, "sum")) {
+		mpf_clear(a);
+		mpf_clear(b);
+		mpf_clear(a2);
+		mpf_clear(b2);
+		mpf_clear(c2);
+		return 1;
+	}
+
+	//jeœli wszystko ok to inicjalizujemy te¿ zmienne pomocnicze
+	helpers_init();
 
 	return 0;
 }
@@ -256,7 +291,7 @@ void __stdcall generateNewPi(int d, int alg, Listener listener) {
 		_alg = alg;
 
 		setPrecision();
-		init();
+		initAll();
 
 		setStartValues();
 	}
@@ -271,18 +306,16 @@ void __stdcall generateNewPi(int d, int alg, Listener listener) {
 	//saveMpf(a2, "pi.p", 10);	
 	
 	// Testy BIGNUMa
-	File file;
+	/*File file;
 	mpf_t newPi;	
 	mpf_init(newPi);
 	file.SaveBIGNUM(a2, L"pi.BIGNUM");
 	file.LoadBIGNUM(newPi, L"pi.BIGNUM");
-	file.SaveBIGNUM(newPi, L"pi2.BIGNUM");
+	file.SaveBIGNUM(newPi, L"pi2.BIGNUM");*/
 	
-
 	FILE *fa = fopen("pi.p", "w");
-	gmp_fprintf(fa, "%.*Ff", _digits+2, a2);
+	gmp_fprintf(fa, "%.*Ff", _digits, a2);
 	fclose(fa);
 
-	mpf_clear(a2);
-	mpf_clear(sum);
+	clearAll();
 }
