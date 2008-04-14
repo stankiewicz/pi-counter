@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Diagnostics;
+using System.Threading;
 
 namespace pi_counter_ui_tests {
 	static class Program {
@@ -10,8 +11,6 @@ namespace pi_counter_ui_tests {
 		/// </summary>
 		[STAThread]
 		static void Main() {
-			Process.GetCurrentProcess().PriorityClass = ProcessPriorityClass.High;
-
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
 			Application.Run(new TestsForm());

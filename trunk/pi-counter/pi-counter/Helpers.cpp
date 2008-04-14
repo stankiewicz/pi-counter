@@ -5,12 +5,15 @@ extern int prec0;
 mpf_t t0, t1, t2; /* used for sqrt and div */
 
 void helpers_init() {
-	mpf_clear (t0);
 	mpf_init (t0);
-	mpf_clear (t1);
 	mpf_init2 (t1, half (prec0));
-	mpf_clear (t2);
 	mpf_init2 (t2, half (prec0));
+}
+
+void helpers_clear() {
+	mpf_clear (t0);
+	mpf_clear (t1);
+	mpf_clear (t2);
 }
 
 void my_sqrt (mpf_t r, mpf_t x) {

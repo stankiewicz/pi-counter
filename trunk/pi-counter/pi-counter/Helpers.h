@@ -7,3 +7,4 @@
 void my_sqrt (mpf_t r, mpf_t x);
 void my_div (mpf_t r, mpf_t y, mpf_t x);
 void helpers_init();
+void helpers_clear();
