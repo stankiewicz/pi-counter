@@ -177,8 +177,9 @@ bool readMpf(mpf_t var, const char *filename) {
 	fread(&var->_mp_size, sizeof(var->_mp_size), 1, fa);
 	int allocationSize = (var->_mp_prec + 1) * sizeof(*var->_mp_d);
 	var->_mp_d = (mp_limb_t*) __gmp_allocate_func(allocationSize);
+	char *p = (char *) (void *) var->_mp_d;
 	for(int i = 0; i < allocationSize; i++)
-		var->_mp_d[i] = 0;
+		*(p + i) = 0;
 	fread(var->_mp_d, sizeof(*var->_mp_d), toRead, fa);
 	var->_mp_d[var->_mp_prec] = 0;
 	//var->_mp_d = (mp_limb_t*) __gmp_allocate_func((var->_mp_prec + 1) * bytes_per_mp_limb);
