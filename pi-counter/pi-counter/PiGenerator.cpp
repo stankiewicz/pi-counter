@@ -7,6 +7,7 @@
 #include <time.h>
 #include "gmp.h"
 #include "File.h"
+#include "Function.h"
 
 using namespace std;
 
@@ -306,13 +307,44 @@ void __stdcall generateNewPi(int d, int alg, Listener listener) {
 	//saveMpf(a2, "pi.p", 10);	
 	
 	// Testy BIGNUMa
-	/*File file;
-	mpf_t newPi;	
+	File file;
+	/*mpf_t newPi;	
 	mpf_init(newPi);
 	file.SaveBIGNUM(a2, L"pi.BIGNUM");
 	file.LoadBIGNUM(newPi, L"pi.BIGNUM");
 	file.SaveBIGNUM(newPi, L"pi2.BIGNUM");*/
+
+	Function function;
+	unsigned int length;
+	mp_exp_t exp;
+	char *stringNumber = mpf_get_str(NULL, &exp, 10, 0, a2);	
+	mpf_t a, b;
+	mpf_init(a);
+	mpf_init(b);
+	char strA[] = "3";
+	char strB[] = "3141";
+	mpf_set_prec(a, 10000);
+	mpf_set_prec(b, 10000);
+	mpf_set_str(a, strA, 10);
+	mpf_set_str(b, strB, 10);
+	unsigned int digitsChecked;
+	unsigned int numberOfFound;
+	unsigned int *result = function.Calculate(&length, stringNumber, 1000, a, b, strlen(strA), strlen(strB), &numberOfFound, &digitsChecked);
+	/*if(digitsChecked == 10000)
+		printf("Number Of Digits - OK\n");
+	else
+		printf("Number Of Digits - Wrong\n");*/
+	printf("Found:%d\n", numberOfFound);
+	delete[] stringNumber;
+	file.SaveWARFUN(result, length, a, L"pi.warfun");
+	delete[] result;
+	mpf_clear(a);
+	mpf_clear(b);
+	//unsigned int *result2;
+	//file.LoadWARFUN(&result2, &length, a, L"pi.warfun");
+	//file.SaveWARFUN(result2, length, a, L"pi2.warfun");
 	
+
 	FILE *fa = fopen("pi.p", "w");
 	gmp_fprintf(fa, "%.*Ff", _digits, a2);
 	fclose(fa);
