@@ -1,7 +1,7 @@
 #include "gmp.h"
 #include "File.h"
 #include "string.h"
-#include <iostream>
+#include <stdio.h>
 #include <fstream>
 #include "stdio.h"
 
@@ -192,3 +192,205 @@ bool File::SaveBIGNUM(mpf_ptr value, wchar_t *filename, int numberOfDigits)
 	return true;
 }
 
+#define NUMBER_OF_VALUES_PER_FILE 1000000
+
+bool File::SaveWARFUN(unsigned int *result, unsigned int length, mpf_ptr a,wchar_t *filename)
+{
+	unsigned int numberOfFiles = (length + NUMBER_OF_VALUES_PER_FILE - 1) / NUMBER_OF_VALUES_PER_FILE;
+	ofstream out;
+	try
+	{
+		out.open(filename);
+		out<<numberOfFiles;		
+		out.close();
+	}
+	catch(...)
+	{		
+		return false;
+	}	
+
+	int filenameLength = wcslen(filename);
+	wchar_t *dataFileName = new wchar_t[filenameLength + 6];
+	int i;
+	for(i = 0; i < filenameLength; i++)
+		dataFileName[i] = filename[i];
+	
+	for(i = 0; i < 5; i++)
+		dataFileName[filenameLength + i] = '0';
+	dataFileName[filenameLength + i] = 0;
+		
+	mpf_t currentValue;
+	mpf_init(currentValue);
+	mpf_set_prec(currentValue, mpf_get_prec(a) + 10);
+	mpf_set(currentValue, a);
+	char *stringNumber;
+	unsigned int currentIndex = 0;
+	for(i = 0; i < numberOfFiles; i++)
+	{
+		swprintf(dataFileName + filenameLength, L"%.5i", i);	
+		try
+		{
+			out.open(dataFileName);
+			mp_exp_t exp;
+			stringNumber = mpf_get_str(NULL, &exp, 10, 0, currentValue);
+			if(stringNumber == 0)
+			{
+				stringNumber = new char[2];
+				stringNumber[0] = '0';
+				stringNumber[1] = 0;
+			}
+			else if(stringNumber[0] == 0)
+			{
+				delete[] stringNumber;
+				stringNumber = new char[2];
+				stringNumber[0] = '0';
+				stringNumber[1] = 0;
+			}
+
+			mpf_add_ui(currentValue, currentValue, NUMBER_OF_VALUES_PER_FILE);
+			out<<stringNumber<<';';
+			delete[] stringNumber;
+			if(length > NUMBER_OF_VALUES_PER_FILE)			
+				out << NUMBER_OF_VALUES_PER_FILE << ';';							
+			else			
+				out << length << ';';							
+
+			for(int j = 0; (j < NUMBER_OF_VALUES_PER_FILE - 1) && (j < length - 1); j++)
+			{
+				if(result[currentIndex])
+					out << result[currentIndex] << ',';							
+				else
+					out<< ',';
+				currentIndex++;
+			}
+			length -= NUMBER_OF_VALUES_PER_FILE;
+			if(result[currentIndex])
+				out << result[currentIndex];					
+			currentIndex++;
+			out.close();
+		}
+		catch(...)
+		{
+			delete[] dataFileName;	
+			mpf_clear(currentValue);
+			return false;
+		}		
+	}	
+	delete[] dataFileName;
+	mpf_clear(currentValue);
+	return true;
+}
+
+bool File::LoadWARFUN(unsigned int **result, unsigned int *length, mpf_ptr a, wchar_t *filename)
+{
+	int numberOfFiles;
+	ifstream in;
+	try
+	{
+		in.open(filename);
+		in>>numberOfFiles;
+		in.close();
+	}
+	catch(...)
+	{
+		return false;
+	}
+	if(numberOfFiles < 1)			
+		return true;
+
+	int filenameLength = wcslen(filename);
+	wchar_t *dataFileName = new wchar_t[filenameLength + 6];
+	int i;
+	for(i = 0; i < filenameLength; i++)
+		dataFileName[i] = filename[i];
+	
+	for(i = 0; i < 5; i++)
+		dataFileName[filenameLength + i] = '0';
+	dataFileName[filenameLength + i] = 0;
+	
+	swprintf(dataFileName + filenameLength, L"%.5i", numberOfFiles - 1);	
+	//*length = 5;
+	
+	FILE *file = _wfopen(dataFileName, L"r");
+	if(file == NULL)
+	{
+		delete[] dataFileName;
+		return false;
+	}	
+	fscanf(file, "%d;%d", &i, length);	
+	fclose(file);	
+	*length += NUMBER_OF_VALUES_PER_FILE * (numberOfFiles - 1);
+	*result = new unsigned int[*length];
+	int fileLength;
+	char* stringNumber;
+	int lengthA = 0;
+	char c;
+	int currentIndex = 0;
+	for(i = 0; i < numberOfFiles; i++)
+	{
+		swprintf(dataFileName + filenameLength, L"%.5i", i);	
+			
+		file = _wfopen(dataFileName, L"r");
+		if(file == NULL)
+		{
+			delete[] dataFileName;			
+			return false;
+		}
+		if(i == 0)
+		{
+			lengthA = 0;
+			while(1)
+			{
+				fread(&c, 1, 1, file);
+				if(c == ';')
+					break;
+				lengthA++;
+			}
+			fseek(file, 0, SEEK_SET);
+			stringNumber = new char[lengthA + 1];			
+			fread(stringNumber, 1, lengthA + 1, file);
+			stringNumber[lengthA] = 0;			
+			mpf_set_prec(a, lengthA * BITS_PER_DIGIT + 16);
+			mpf_set_str(a, stringNumber, 10);
+			delete[] stringNumber;
+		}
+		else
+		{
+			while(1)
+			{
+				fread(&c, 1, 1, file);
+				if(c == ';')
+					break;				
+			}
+		}
+
+		fscanf(file, "%d;", &fileLength);
+		for(int j = 0; j < fileLength; j++)
+		{
+			fscanf(file, "%d", *result + currentIndex);
+			if(j < fileLength)
+				fseek(file, 1, SEEK_CUR);
+			currentIndex++;
+		}
+
+		fclose(file);
+	}
+	return true;
+/*totalBytes += (numberOfFiles - 1) * NUMBER_OD_BYTES_PER_FILE;
+	int bytes = totalBytes;
+	char *data = new char[totalBytes + 1];
+	data[totalBytes] = 0;
+	int readCount;
+	
+	
+	mpf_set_prec(value, totalBytes * BITS_PER_DIGIT + 16);
+	if(data[0] == '+')
+		mpf_set_str(value, data + 1, 10);	
+	else
+		mpf_set_str(value, data, 10);	
+				
+	delete[] dataFileName;
+	delete[] data;
+	return true;
+	*/
+}
