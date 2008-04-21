@@ -1,4 +1,5 @@
 #include "Function.h"
+#include <windows.h>
 
 unsigned int ToInt(mpf_ptr value)
 {
@@ -8,8 +9,9 @@ unsigned int ToInt(mpf_ptr value)
 	return result;
 }
 #define BITS_PER_DIGIT   3.32192809488736234787
-unsigned int *Function::Calculate(unsigned int *resultLength, char *pi, int checkNumberOfDigits, mpf_ptr a, mpf_ptr b, int lengthA, int lengthB, unsigned int *numberOfFound, unsigned int *digitsChecked, unsigned int firstIndex)
+unsigned int *Function::Calculate(unsigned int *resultLength, char *pi, int checkNumberOfDigits, mpf_ptr a, mpf_ptr b, int lengthA, int lengthB, unsigned int *numberOfFound, unsigned int *digitsChecked, int maxTimeMs, unsigned int firstIndex)
 {
+	int startTime = GetTickCount();
 	mpf_t temp;
 	mpf_init(temp);
 	mpf_set_prec(temp, lengthB * BITS_PER_DIGIT + 16);
@@ -51,6 +53,8 @@ unsigned int *Function::Calculate(unsigned int *resultLength, char *pi, int chec
 			}
 		}
 		*digitsChecked = j + 1;
+		if(GetTickCount() >= startTime + maxTimeMs)
+			break;
 	}
 	mpf_clear(temp);
 	return result;
