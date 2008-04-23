@@ -9,6 +9,7 @@ using namespace std;
 typedef void (__stdcall *Listener) ();
 
 extern "C" __declspec(dllexport) void __stdcall generatePi(int digits, Listener listener);
+extern "C" __declspec(dllexport) void __stdcall CalculateFunction(wchar_t *filename, char *a, char *b, int maxTimeMs, unsigned int numberOfDigitsToCheck, Listener listener);
 
 void __stdcall generateNewPi(int d, int alg, Listener listener);
 bool saveState(int d, int alg, int count, int prec);
