@@ -26,5 +26,6 @@ namespace pi_counter_ui {
 
 		[DllImport(libPath, CharSet = CharSet.Auto)]
 		public static extern void generatePi(Int32 digits, ListenerEmpty listner);
+        public static extern void CalculateFunction(string filename, char a, char b, int maxTimeMs, uint numberOfDigitsToCheck, ListenerEmpty listener);
     }
 }
