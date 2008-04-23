@@ -274,9 +274,45 @@ int readState(int algorithm) {
 }
 
 void __stdcall generatePi(int digits, Listener listener) {
-	generateNewPi(digits, 0, listener);
+	generateNewPi(digits, 0, listener);		
 }
 
+void __stdcall CalculateFunction(wchar_t *filename, char *a, char *b, int maxTimeMs, unsigned int numberOfDigitsToCheck, Listener listener)
+{
+	Function function;
+	File file;
+	unsigned int length;
+	mp_exp_t exp;
+	char *stringNumber = mpf_get_str(NULL, &exp, 10, 0, a2);
+	
+	mpf_t mpf_a, mpf_b;
+	mpf_init(mpf_a);
+	mpf_init(mpf_b);
+	
+	unsigned int aLen = strlen(a);
+	unsigned int bLen = strlen(b);
+
+	mpf_set_prec(mpf_a, aLen * BITS_PER_DIGIT + 16);
+	mpf_set_prec(mpf_b, bLen * BITS_PER_DIGIT + 16);	
+	mpf_set_str(mpf_a, a, 10);
+	mpf_set_str(mpf_b, b, 10);
+	unsigned int digitsChecked;
+	unsigned int numberOfFound;
+
+	unsigned int *result = function.Calculate(&length, stringNumber, 1000, mpf_a, mpf_b, aLen, bLen, &numberOfFound, &digitsChecked);
+	/*if(digitsChecked == 10000)
+		printf("Number Of Digits - OK\n");
+	else
+		printf("Number Of Digits - Wrong\n");*/
+	//printf("Found:%d\n", numberOfFound);
+	delete[] stringNumber;
+	if(filename)
+		file.SaveWARFUN(result, length, mpf_a, filename);
+	delete[] result;
+	mpf_clear(mpf_a);
+	mpf_clear(mpf_b);
+	
+}
 
 void __stdcall generateNewPi(int d, int alg, Listener listener) {
 	_digits = d; //tyle chcemy wygenerowaæ
@@ -318,6 +354,8 @@ void __stdcall generateNewPi(int d, int alg, Listener listener) {
 	unsigned int length;
 	mp_exp_t exp;
 	char *stringNumber = mpf_get_str(NULL, &exp, 10, 0, a2);	
+
+	/*
 	mpf_t a, b;
 	mpf_init(a);
 	mpf_init(b);
@@ -334,12 +372,13 @@ void __stdcall generateNewPi(int d, int alg, Listener listener) {
 		printf("Number Of Digits - OK\n");
 	else
 		printf("Number Of Digits - Wrong\n");*/
+	/*
 	printf("Found:%d\n", numberOfFound);
 	delete[] stringNumber;
 	file.SaveWARFUN(result, length, a, L"pi.warfun");
 	delete[] result;
 	mpf_clear(a);
-	mpf_clear(b);
+	mpf_clear(b);*/
 	//unsigned int *result2;
 	//file.LoadWARFUN(&result2, &length, a, L"pi.warfun");
 	//file.SaveWARFUN(result2, length, a, L"pi2.warfun");
