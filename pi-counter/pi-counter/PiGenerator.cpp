@@ -299,7 +299,9 @@ void __stdcall CalculateFunction(wchar_t *filename, char *a, char *b, int maxTim
 	unsigned int digitsChecked;
 	unsigned int numberOfFound;
 
-	unsigned int *result = function.Calculate(&length, stringNumber, 1000, mpf_a, mpf_b, aLen, bLen, &numberOfFound, &digitsChecked);
+	if(maxTimeMs == 0)
+		maxTimeMs = 1000000000;
+	unsigned int *result = function.Calculate(&length, stringNumber, numberOfDigitsToCheck, mpf_a, mpf_b, aLen, bLen, &numberOfFound, &digitsChecked, maxTimeMs);
 	/*if(digitsChecked == 10000)
 		printf("Number Of Digits - OK\n");
 	else
