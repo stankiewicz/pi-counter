@@ -9,7 +9,7 @@ using System.Windows.Forms;
 namespace pi_counter_ui.Controls {
 	public partial class CalculationStatus : UserControl {
 
-		enum CalculationState { Start=0, Stop=1 };
+		public enum CalculationState { Start=0, Stop=1 };
 		CalculationState _cs;
 
 		public CalculationStatus() {
@@ -20,7 +20,8 @@ namespace pi_counter_ui.Controls {
 			FoundMax = 0;
 		}
 
-		void setState(CalculationState cs) {
+		[Browsable(true)]
+		public void setState(CalculationState cs) {
 			this._cs = cs;
 			buttonStart.Text = cs.ToString();
 		}

@@ -152,7 +152,7 @@ bool saveMpf(mpf_t var, const char * filename) {
 
 bool saveState() {
 	FILE *output = fopen("savedState", "w");
-	fprintf(output, "%d %d %d %d", _digits, _alg, _count, _prec);
+	fprintf(output, "%d %d %d %d", _digits + 100, _alg, _count, _prec);
 	fclose(output);
 
 	saveMpf(a, "a");
@@ -273,50 +273,13 @@ int readState(int algorithm) {
 	return 0;
 }
 
-void __stdcall generatePi(int digits, Listener listener) {
+void generatePi(int digits, Listener listener) {
 	generateNewPi(digits, 0, listener);		
 }
 
-void __stdcall CalculateFunction(wchar_t *filename, char *a, char *b, int maxTimeMs, unsigned int numberOfDigitsToCheck, Listener listener)
-{
-	Function function;
-	File file;
-	unsigned int length;
-	mp_exp_t exp;
-	char *stringNumber = mpf_get_str(NULL, &exp, 10, 0, a2);
-	
-	mpf_t mpf_a, mpf_b;
-	mpf_init(mpf_a);
-	mpf_init(mpf_b);
-	
-	unsigned int aLen = strlen(a);
-	unsigned int bLen = strlen(b);
 
-	mpf_set_prec(mpf_a, aLen * BITS_PER_DIGIT + 16);
-	mpf_set_prec(mpf_b, bLen * BITS_PER_DIGIT + 16);	
-	mpf_set_str(mpf_a, a, 10);
-	mpf_set_str(mpf_b, b, 10);
-	unsigned int digitsChecked;
-	unsigned int numberOfFound;
 
-	if(maxTimeMs == 0)
-		maxTimeMs = 1000000000;
-	unsigned int *result = function.Calculate(&length, stringNumber, numberOfDigitsToCheck, mpf_a, mpf_b, aLen, bLen, &numberOfFound, &digitsChecked, maxTimeMs);
-	/*if(digitsChecked == 10000)
-		printf("Number Of Digits - OK\n");
-	else
-		printf("Number Of Digits - Wrong\n");*/
-	//printf("Found:%d\n", numberOfFound);
-	delete[] stringNumber;
-	if(filename)
-		file.SaveWARFUN(result, length, mpf_a, filename);
-	delete[] result;
-	mpf_clear(mpf_a);
-	mpf_clear(mpf_b);
-	
-}
-
-void __stdcall generateNewPi(int d, int alg, Listener listener) {
+void generateNewPi(int d, int alg, Listener listener) {
 	_digits = d; //tyle chcemy wygenerowaæ
 
 	int ret = readState(alg);
@@ -337,7 +300,7 @@ void __stdcall generateNewPi(int d, int alg, Listener listener) {
 	//ret == 0: mo¿na wznowiæ, wszystkie wartoœci pocz¹tkowe ustawione przez readState()
 	
 	bool res = generate(listener);
-	saveState();
+	//saveState();
 
 	mpf_mul_2exp (a2, a2, 1);
 	my_div (a2, a2, sum);
@@ -346,16 +309,16 @@ void __stdcall generateNewPi(int d, int alg, Listener listener) {
 	
 	// Testy BIGNUMa
 	File file;
-	/*mpf_t newPi;	
-	mpf_init(newPi);
-	file.SaveBIGNUM(a2, L"pi.BIGNUM");
-	file.LoadBIGNUM(newPi, L"pi.BIGNUM");
-	file.SaveBIGNUM(newPi, L"pi2.BIGNUM");*/
+	//mpf_t newPi;	
+	//mpf_init(newPi);
+	file.SaveBIGNUM(a2, L"pi.bignum");
+	//file.LoadBIGNUM(newPi, L"pi.BIGNUM");
+	//file.SaveBIGNUM(newPi, L"pi2.BIGNUM");*/
 
-	Function function;
+	/*Function function;
 	unsigned int length;
 	mp_exp_t exp;
-	char *stringNumber = mpf_get_str(NULL, &exp, 10, 0, a2);	
+	char *stringNumber = mpf_get_str(NULL, &exp, 10, 0, a2);*/	
 
 	/*
 	mpf_t a, b;
@@ -386,9 +349,9 @@ void __stdcall generateNewPi(int d, int alg, Listener listener) {
 	//file.SaveWARFUN(result2, length, a, L"pi2.warfun");
 	
 
-	FILE *fa = fopen("pi.p", "w");
-	gmp_fprintf(fa, "%.*Ff", _digits, a2);
-	fclose(fa);
+	//FILE *fa = fopen("pi.p", "w");
+	//gmp_fprintf(fa, "%.*Ff", _digits, a2);
+	//fclose(fa);
 
 	clearAll();
 }

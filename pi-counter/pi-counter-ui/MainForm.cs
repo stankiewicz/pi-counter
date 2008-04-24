@@ -101,7 +101,27 @@ namespace pi_counter_ui {
 		}
 
 		void buttonStart_Click_Search(object sender, EventArgs e) {
-			
+			if (currentState == State.Ready) {
+				int maxTimeMs = 0;
+				if (panelConstraints.TimeConstraintEnabled) {
+					maxTimeMs = (int)(panelConstraints.TimeConstraint) * 60 * 1000;
+				}
+
+				try {
+					Console.WriteLine("Starting search");
+					unconditionalStop = false;
+					panelCalculationStatus.setState(pi_counter_ui.Controls.CalculationStatus.CalculationState.Stop);
+					PiLibrary.CalculateFunction("result.warfun", panelSearch.fieldFrom.Text, panelSearch.fieldTo.Text, maxTimeMs, 4294967295, null);
+				} catch (DllNotFoundException nfe) {
+					MessageBox.Show("Could not found piCounter.dll\r\n" + nfe.ToString());
+				} finally {
+					panelCalculationStatus.setState(pi_counter_ui.Controls.CalculationStatus.CalculationState.Start);
+				}
+				Console.WriteLine("Finished");
+			} else if (currentState == State.Searching) {
+				Console.WriteLine("Stopping search");
+				unconditionalStop = true;
+			}
 		}
 
 		bool unconditionalStop = false;
@@ -123,7 +143,7 @@ namespace pi_counter_ui {
 			return false;
 		}
 
-		void piListener2() {
+		void voidListener() {
 			Console.WriteLine("Listener called.");
 		}
 
@@ -135,15 +155,23 @@ namespace pi_counter_ui {
 				}
 				try {
 					Console.WriteLine("Starting calculations for {0} digits", digitsToCalculate);
-					PiLibrary.generatePi(digitsToCalculate, new PiLibrary.ListenerEmpty(piListener2));
+					unconditionalStop = false;
+					panelCalculationStatus.setState(pi_counter_ui.Controls.CalculationStatus.CalculationState.Stop);
+					PiLibrary.generatePi(digitsToCalculate, new PiLibrary.ListenerEmpty(voidListener));
 				} catch (DllNotFoundException nfe) {
 					MessageBox.Show("Could not found piCounter.dll\r\n" + nfe.ToString());
+				} finally {
+					panelCalculationStatus.setState(pi_counter_ui.Controls.CalculationStatus.CalculationState.Start);
 				}
 				Console.WriteLine("Finished");
 			} else if (currentState == State.Calculating) {
 				Console.WriteLine("Stopping");
 				unconditionalStop = true;
 			}
+		}
+
+		private void searchToolStripMenuItem_Click_1(object sender, EventArgs e) {
+			setMode(Modes.PiSearch);
 		}
 	}
 }

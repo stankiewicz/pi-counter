@@ -1,5 +1,10 @@
 #include "Function.h"
 #include <windows.h>
+#include "PiGenerator.h"
+#include "File.h"
+#include "gmp.h"
+
+extern mpf_t a2;
 
 unsigned int ToInt(mpf_ptr value)
 {
@@ -58,4 +63,57 @@ unsigned int *Function::Calculate(unsigned int *resultLength, char *pi, int chec
 	}
 	mpf_clear(temp);
 	return result;
+}
+
+void CalculateFunction(wchar_t *filename, char *a, char *b, int maxTimeMs, unsigned int numberOfDigitsToCheck, BoolListener listener)
+{
+	Function function;
+	File file;
+	unsigned int length;
+	//mp_exp_t exp;
+	//mpf_t pi;
+	//mpf_init(pi);
+	//char *stringNumber = mpf_get_str(NULL, &exp, 10, 0, a2);
+	
+
+	mpf_t mpf_a, mpf_b;
+	mpf_init(mpf_a);
+	mpf_init(mpf_b);
+	
+	unsigned int aLen = strlen(a);
+	unsigned int bLen = strlen(b);
+
+	mpf_set_prec(mpf_a, aLen * BITS_PER_DIGIT + 16);
+	mpf_set_prec(mpf_b, bLen * BITS_PER_DIGIT + 16);	
+	mpf_set_str(mpf_a, a, 10);
+	mpf_set_str(mpf_b, b, 10);
+	if(mpf_cmp(mpf_a, mpf_b) > 0)
+	{
+		mpf_clear(mpf_a);
+		mpf_clear(mpf_b);
+		return;
+	}
+
+	char *pi;
+	file.LoadBIGNUM(NULL, &pi, L"pi.bignum");
+
+	unsigned int digitsChecked;
+	unsigned int numberOfFound;
+
+	if(maxTimeMs == 0)
+		maxTimeMs = 1000000000;
+	
+	unsigned int *result = function.Calculate(&length, pi, strlen(pi), mpf_a, mpf_b, aLen, bLen, &numberOfFound, &digitsChecked, maxTimeMs);
+	/*if(digitsChecked == 10000)
+		printf("Number Of Digits - OK\n");
+	else
+		printf("Number Of Digits - Wrong\n");*/
+	//printf("Found:%d\n", numberOfFound);
+	delete[] pi;
+	if(filename)
+		file.SaveWARFUN(result, length, mpf_a, filename);
+	delete[] result;
+	mpf_clear(mpf_a);
+	mpf_clear(mpf_b);
+	
 }

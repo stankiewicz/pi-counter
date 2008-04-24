@@ -10,7 +10,7 @@ using namespace std;
 #define NUMBER_OD_BYTES_PER_FILE 50000000
 #define BITS_PER_DIGIT   3.32192809488736234787
 
-bool File::LoadBIGNUM(mpf_ptr value, wchar_t *filename)
+bool File::LoadBIGNUM(mpf_ptr value, char **piString, wchar_t *       filename)
 {	
 	int numberOfFiles;
 	ifstream in;
@@ -26,7 +26,14 @@ bool File::LoadBIGNUM(mpf_ptr value, wchar_t *filename)
 	}
 	if(numberOfFiles < 1)
 	{
-		mpf_set_str(value, "0", 10);
+		if(piString)
+		{
+			*piString = new char[1];
+			**piString = 0;
+		}
+		else
+			mpf_set_str(value, "0", 10);
+
 		return true;
 	}
 	int exp = 0;
@@ -92,14 +99,29 @@ bool File::LoadBIGNUM(mpf_ptr value, wchar_t *filename)
 		fclose(file);
 	}
 	
-	mpf_set_prec(value, totalBytes * BITS_PER_DIGIT + 16);
-	if(data[0] == '+')
-		mpf_set_str(value, data + 1, 10);	
+
+	if(piString)
+	{
+		int kr = 0;
+		for(i = 0; i < totalBytes; i++)
+		{
+			if(data[i + 1] == '.')
+				kr = 1;
+			data[i] = data[i + 1 + kr];
+		}
+		*piString = data;
+	}
 	else
-		mpf_set_str(value, data, 10);	
+	{
+		mpf_set_prec(value, totalBytes * BITS_PER_DIGIT + 16);
+		if(data[0] == '+')
+			mpf_set_str(value, data + 1, 10);	
+		else
+			mpf_set_str(value, data, 10);	
+		delete[] data;
+	}
 				
-	delete[] dataFileName;
-	delete[] data;
+	delete[] dataFileName;	
 	return true;
 }
 
@@ -232,7 +254,7 @@ bool File::SaveWARFUN(unsigned int *result, unsigned int length, mpf_ptr a,wchar
 		{
 			out.open(dataFileName);
 			mp_exp_t exp;
-			stringNumber = mpf_get_str(NULL, &exp, 10, 0, currentValue);
+			stringNumber = mpf_get_str(NULL, &exp, 10, 0, currentValue);			
 			if(stringNumber == 0)
 			{
 				stringNumber = new char[2];
@@ -248,7 +270,10 @@ bool File::SaveWARFUN(unsigned int *result, unsigned int length, mpf_ptr a,wchar
 			}
 
 			mpf_add_ui(currentValue, currentValue, NUMBER_OF_VALUES_PER_FILE);
-			out<<stringNumber<<';';
+			out<<stringNumber;
+			for(i = 1; i < exp; i++)
+				out<<'0';
+			out<<';';
 			delete[] stringNumber;
 			if(length > NUMBER_OF_VALUES_PER_FILE)			
 				out << NUMBER_OF_VALUES_PER_FILE << ';';							
@@ -376,21 +401,4 @@ bool File::LoadWARFUN(unsigned int **result, unsigned int *length, mpf_ptr a, wc
 		fclose(file);
 	}
 	return true;
-/*totalBytes += (numberOfFiles - 1) * NUMBER_OD_BYTES_PER_FILE;
-	int bytes = totalBytes;
-	char *data = new char[totalBytes + 1];
-	data[totalBytes] = 0;
-	int readCount;
-	
-	
-	mpf_set_prec(value, totalBytes * BITS_PER_DIGIT + 16);
-	if(data[0] == '+')
-		mpf_set_str(value, data + 1, 10);	
-	else
-		mpf_set_str(value, data, 10);	
-				
-	delete[] dataFileName;
-	delete[] data;
-	return true;
-	*/
 }

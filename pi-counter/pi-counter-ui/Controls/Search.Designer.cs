@@ -23,29 +23,48 @@ namespace pi_counter_ui.Controls {
 		/// the contents of this method with the code editor.
 		/// </summary>
 		private void InitializeComponent() {
+			this.components = new System.ComponentModel.Container();
 			this.groupBoxSearch = new System.Windows.Forms.GroupBox();
+			this.fieldTo = new System.Windows.Forms.TextBox();
+			this.fieldFrom = new System.Windows.Forms.TextBox();
 			this.labelTo = new System.Windows.Forms.Label();
 			this.labelFrom = new System.Windows.Forms.Label();
-			this.numericUpDownFrom = new System.Windows.Forms.NumericUpDown();
-			this.numericUpDownTo = new System.Windows.Forms.NumericUpDown();
+			this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
 			this.groupBoxSearch.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.numericUpDownFrom)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.numericUpDownTo)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// groupBoxSearch
 			// 
-			this.groupBoxSearch.Controls.Add(this.numericUpDownTo);
-			this.groupBoxSearch.Controls.Add(this.numericUpDownFrom);
+			this.groupBoxSearch.Controls.Add(this.fieldTo);
+			this.groupBoxSearch.Controls.Add(this.fieldFrom);
 			this.groupBoxSearch.Controls.Add(this.labelTo);
 			this.groupBoxSearch.Controls.Add(this.labelFrom);
 			this.groupBoxSearch.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.groupBoxSearch.Location = new System.Drawing.Point(0, 0);
 			this.groupBoxSearch.Name = "groupBoxSearch";
-			this.groupBoxSearch.Size = new System.Drawing.Size(241, 83);
+			this.groupBoxSearch.Size = new System.Drawing.Size(267, 80);
 			this.groupBoxSearch.TabIndex = 1;
 			this.groupBoxSearch.TabStop = false;
 			this.groupBoxSearch.Text = "Search range";
+			// 
+			// fieldTo
+			// 
+			this.fieldTo.Location = new System.Drawing.Point(45, 49);
+			this.fieldTo.Name = "fieldTo";
+			this.fieldTo.Size = new System.Drawing.Size(190, 20);
+			this.fieldTo.TabIndex = 3;
+			this.fieldTo.Text = "1";
+			this.fieldTo.Validating += new System.ComponentModel.CancelEventHandler(this.gmpNumber_Validating);
+			// 
+			// fieldFrom
+			// 
+			this.fieldFrom.Location = new System.Drawing.Point(45, 22);
+			this.fieldFrom.Name = "fieldFrom";
+			this.fieldFrom.Size = new System.Drawing.Size(190, 20);
+			this.fieldFrom.TabIndex = 2;
+			this.fieldFrom.Text = "0";
+			this.fieldFrom.Validating += new System.ComponentModel.CancelEventHandler(this.gmpNumber_Validating);
 			// 
 			// labelTo
 			// 
@@ -65,19 +84,9 @@ namespace pi_counter_ui.Controls {
 			this.labelFrom.TabIndex = 0;
 			this.labelFrom.Text = "From:";
 			// 
-			// numericUpDownFrom
+			// errorProvider1
 			// 
-			this.numericUpDownFrom.Location = new System.Drawing.Point(45, 23);
-			this.numericUpDownFrom.Name = "numericUpDownFrom";
-			this.numericUpDownFrom.Size = new System.Drawing.Size(185, 20);
-			this.numericUpDownFrom.TabIndex = 2;
-			// 
-			// numericUpDownTo
-			// 
-			this.numericUpDownTo.Location = new System.Drawing.Point(45, 50);
-			this.numericUpDownTo.Name = "numericUpDownTo";
-			this.numericUpDownTo.Size = new System.Drawing.Size(185, 20);
-			this.numericUpDownTo.TabIndex = 3;
+			this.errorProvider1.ContainerControl = this;
 			// 
 			// Search
 			// 
@@ -85,11 +94,10 @@ namespace pi_counter_ui.Controls {
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.Controls.Add(this.groupBoxSearch);
 			this.Name = "Search";
-			this.Size = new System.Drawing.Size(241, 83);
+			this.Size = new System.Drawing.Size(267, 80);
 			this.groupBoxSearch.ResumeLayout(false);
 			this.groupBoxSearch.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.numericUpDownFrom)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.numericUpDownTo)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
 			this.ResumeLayout(false);
 
 		}
@@ -97,9 +105,10 @@ namespace pi_counter_ui.Controls {
 		#endregion
 
 		private System.Windows.Forms.GroupBox groupBoxSearch;
-		private System.Windows.Forms.NumericUpDown numericUpDownFrom;
 		private System.Windows.Forms.Label labelTo;
 		private System.Windows.Forms.Label labelFrom;
-		private System.Windows.Forms.NumericUpDown numericUpDownTo;
+		private System.Windows.Forms.ErrorProvider errorProvider1;
+		public System.Windows.Forms.TextBox fieldTo;
+		public System.Windows.Forms.TextBox fieldFrom;
 	}
 }
