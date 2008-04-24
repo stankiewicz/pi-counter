@@ -30,12 +30,12 @@ namespace pi_counter_ui {
 			this.piToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.calculateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.searchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
 			this.loadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
 			this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.searchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
 			this.labelInfo = new System.Windows.Forms.Label();
@@ -59,11 +59,10 @@ namespace pi_counter_ui {
 			// 
 			this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.piToolStripMenuItem,
-            this.searchToolStripMenuItem,
             this.aboutToolStripMenuItem});
 			this.menuStrip.Location = new System.Drawing.Point(0, 0);
 			this.menuStrip.Name = "menuStrip";
-			this.menuStrip.Size = new System.Drawing.Size(491, 24);
+			this.menuStrip.Size = new System.Drawing.Size(409, 24);
 			this.menuStrip.TabIndex = 0;
 			this.menuStrip.Text = "menuStrip1";
 			// 
@@ -72,6 +71,7 @@ namespace pi_counter_ui {
 			this.piToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.viewToolStripMenuItem,
             this.calculateToolStripMenuItem,
+            this.searchToolStripMenuItem,
             this.toolStripSeparator2,
             this.loadToolStripMenuItem,
             this.saveToolStripMenuItem,
@@ -96,6 +96,13 @@ namespace pi_counter_ui {
 			this.calculateToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
 			this.calculateToolStripMenuItem.Text = "Calculate";
 			this.calculateToolStripMenuItem.Click += new System.EventHandler(this.calculateToolStripMenuItem_Click);
+			// 
+			// searchToolStripMenuItem
+			// 
+			this.searchToolStripMenuItem.Name = "searchToolStripMenuItem";
+			this.searchToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+			this.searchToolStripMenuItem.Text = "Search";
+			this.searchToolStripMenuItem.Click += new System.EventHandler(this.searchToolStripMenuItem_Click_1);
 			// 
 			// toolStripSeparator2
 			// 
@@ -129,12 +136,6 @@ namespace pi_counter_ui {
 			this.exitToolStripMenuItem.Text = "Exit";
 			this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
 			// 
-			// searchToolStripMenuItem
-			// 
-			this.searchToolStripMenuItem.Name = "searchToolStripMenuItem";
-			this.searchToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
-			this.searchToolStripMenuItem.Text = "Search";
-			// 
 			// aboutToolStripMenuItem
 			// 
 			this.aboutToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
@@ -153,7 +154,7 @@ namespace pi_counter_ui {
 			this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
 			this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 24);
 			this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-			this.flowLayoutPanel1.Size = new System.Drawing.Size(491, 406);
+			this.flowLayoutPanel1.Size = new System.Drawing.Size(409, 334);
 			this.flowLayoutPanel1.TabIndex = 1;
 			// 
 			// labelInfo
@@ -169,7 +170,7 @@ namespace pi_counter_ui {
 			// 
 			this.panelSearch.Location = new System.Drawing.Point(3, 16);
 			this.panelSearch.Name = "panelSearch";
-			this.panelSearch.Size = new System.Drawing.Size(241, 83);
+			this.panelSearch.Size = new System.Drawing.Size(269, 80);
 			this.panelSearch.TabIndex = 3;
 			// 
 			// panelConstraints
@@ -180,9 +181,9 @@ namespace pi_counter_ui {
             0,
             0});
 			this.panelConstraints.LengthConstraintEnabled = false;
-			this.panelConstraints.Location = new System.Drawing.Point(3, 105);
+			this.panelConstraints.Location = new System.Drawing.Point(3, 102);
 			this.panelConstraints.Name = "panelConstraints";
-			this.panelConstraints.Size = new System.Drawing.Size(278, 76);
+			this.panelConstraints.Size = new System.Drawing.Size(282, 76);
 			this.panelConstraints.TabIndex = 1;
 			this.panelConstraints.TimeConstraint = new decimal(new int[] {
             1,
@@ -200,16 +201,16 @@ namespace pi_counter_ui {
 			this.panelCalculationStatus.Found = ((long)(0));
 			this.panelCalculationStatus.FoundMax = ((long)(0));
 			this.panelCalculationStatus.FoundVisibility = true;
-			this.panelCalculationStatus.Location = new System.Drawing.Point(3, 187);
+			this.panelCalculationStatus.Location = new System.Drawing.Point(3, 184);
 			this.panelCalculationStatus.Name = "panelCalculationStatus";
-			this.panelCalculationStatus.Size = new System.Drawing.Size(398, 117);
+			this.panelCalculationStatus.Size = new System.Drawing.Size(403, 117);
 			this.panelCalculationStatus.TabIndex = 2;
 			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(491, 430);
+			this.ClientSize = new System.Drawing.Size(409, 358);
 			this.Controls.Add(this.flowLayoutPanel1);
 			this.Controls.Add(this.menuStrip);
 			this.MainMenuStrip = this.menuStrip;
@@ -239,13 +240,13 @@ namespace pi_counter_ui {
 		private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
 		private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
 		private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem searchToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
 		private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
 		private pi_counter_ui.Controls.Constraints panelConstraints;
 		private pi_counter_ui.Controls.CalculationStatus panelCalculationStatus;
 		private System.Windows.Forms.Label labelInfo;
 		private pi_counter_ui.Controls.Search panelSearch;
+		private System.Windows.Forms.ToolStripMenuItem searchToolStripMenuItem;
 	}
 }
 
