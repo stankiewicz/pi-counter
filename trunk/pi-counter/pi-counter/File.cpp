@@ -263,15 +263,12 @@ bool File::SaveWARFUN(unsigned int *result, unsigned int length, mpf_ptr a,wchar
 			}
 			else if(stringNumber[0] == 0)
 			{
-				delete[] stringNumber;
-				stringNumber = new char[2];
-				stringNumber[0] = '0';
-				stringNumber[1] = 0;
+				exp = 1;
 			}
 
 			mpf_add_ui(currentValue, currentValue, NUMBER_OF_VALUES_PER_FILE);
 			out<<stringNumber;
-			for(i = 1; i < exp; i++)
+			for(i = 0; i < exp - strlen(stringNumber); i++)
 				out<<'0';
 			out<<';';
 			delete[] stringNumber;
