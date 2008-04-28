@@ -6,13 +6,11 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using pi_counter_ui.Dialogs;
+using pi_counter_ui.Classes;
 
 namespace pi_counter_ui {
 	public partial class MainForm : Form {
 		enum Modes { PiCalculation, PiSearch };
-		enum State { Ready, Calculating, Searching };
-
-		State currentState = State.Ready;
 		Modes currentMode = Modes.PiCalculation;
 
 		bool unconditionalStop = false;
@@ -104,6 +102,7 @@ namespace pi_counter_ui {
 				case Modes.PiCalculation:
 					if (!threadCalculation.IsBusy) {
 						panelCalculationStatus.buttonStart.Text = "Stop";
+						panelConstraints.Enabled = false;
 						threadCalculation.RunWorkerAsync();
 					} else {
 						Console.WriteLine("Stopping");
@@ -113,6 +112,7 @@ namespace pi_counter_ui {
 				case Modes.PiSearch:
 					if (!threadSearch.IsBusy) {
 						panelCalculationStatus.buttonStart.Text = "Stop";
+						panelConstraints.Enabled = false;
 						threadSearch.RunWorkerAsync();
 						Console.WriteLine("Finished");
 					} else {
@@ -172,6 +172,7 @@ namespace pi_counter_ui {
 			panelCalculationStatus.buttonStart.Text = "Start";
 			Console.WriteLine("Finished");
 			MessageBox.Show("Calculation finished");
+			panelConstraints.Enabled = true;
 		}
 
 		private void threadSearch_DoWork(object sender, DoWorkEventArgs e) {
@@ -193,6 +194,28 @@ namespace pi_counter_ui {
 			panelCalculationStatus.buttonStart.Text = "Start";
 			Console.WriteLine("Finished");
 			MessageBox.Show("Search finished");
+			panelConstraints.Enabled = true;
+		}
+
+		private void loadToolStripMenuItem_Click(object sender, EventArgs e) {
+			if (openFileDialog.ShowDialog() != DialogResult.OK) {
+				return;
+			}
+
+			string filepath = openFileDialog.FileName;
+			Bignum b = new Bignum(filepath);
+			if (!b.Open()) {
+				MessageBox.Show("Load failed :(");
+				return;
+			}
+
+			PiViewer pV = getPiViewer();
+			pV.Bignum = b;
+			if (!pV.updatePage()) {
+				MessageBox.Show("Load failed :(");
+				return;
+			}
+			pV.ShowDialog();
 		}
 	}
 }
