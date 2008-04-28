@@ -25,7 +25,7 @@ namespace pi_counter_ui {
 		private void InitializeComponent() {
 			this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
 			this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
-			this.backgroundWorker = new System.ComponentModel.BackgroundWorker();
+			this.threadCalculation = new System.ComponentModel.BackgroundWorker();
 			this.menuStrip = new System.Windows.Forms.MenuStrip();
 			this.piToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -42,6 +42,7 @@ namespace pi_counter_ui {
 			this.panelSearch = new pi_counter_ui.Controls.Search();
 			this.panelConstraints = new pi_counter_ui.Controls.Constraints();
 			this.panelCalculationStatus = new pi_counter_ui.Controls.CalculationStatus();
+			this.threadSearch = new System.ComponentModel.BackgroundWorker();
 			this.menuStrip.SuspendLayout();
 			this.flowLayoutPanel1.SuspendLayout();
 			this.SuspendLayout();
@@ -54,6 +55,11 @@ namespace pi_counter_ui {
 			// 
 			this.saveFileDialog.DefaultExt = "pi";
 			this.saveFileDialog.SupportMultiDottedExtensions = true;
+			// 
+			// threadCalculation
+			// 
+			this.threadCalculation.DoWork += new System.ComponentModel.DoWorkEventHandler(this.threadCalculation_DoWork);
+			this.threadCalculation.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.threadCalculation_RunWorkerCompleted);
 			// 
 			// menuStrip
 			// 
@@ -206,6 +212,11 @@ namespace pi_counter_ui {
 			this.panelCalculationStatus.Size = new System.Drawing.Size(403, 117);
 			this.panelCalculationStatus.TabIndex = 2;
 			// 
+			// threadSearch
+			// 
+			this.threadSearch.DoWork += new System.ComponentModel.DoWorkEventHandler(this.threadSearch_DoWork);
+			this.threadSearch.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.threadSearch_RunWorkerCompleted);
+			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -230,7 +241,7 @@ namespace pi_counter_ui {
 
 		private System.Windows.Forms.OpenFileDialog openFileDialog;
 		private System.Windows.Forms.SaveFileDialog saveFileDialog;
-		private System.ComponentModel.BackgroundWorker backgroundWorker;
+		private System.ComponentModel.BackgroundWorker threadCalculation;
 		private System.Windows.Forms.MenuStrip menuStrip;
 		private System.Windows.Forms.ToolStripMenuItem piToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;
@@ -247,6 +258,7 @@ namespace pi_counter_ui {
 		private System.Windows.Forms.Label labelInfo;
 		private pi_counter_ui.Controls.Search panelSearch;
 		private System.Windows.Forms.ToolStripMenuItem searchToolStripMenuItem;
+		private System.ComponentModel.BackgroundWorker threadSearch;
 	}
 }
 

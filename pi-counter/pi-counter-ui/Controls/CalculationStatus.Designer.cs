@@ -86,7 +86,6 @@ namespace pi_counter_ui.Controls {
 			this.buttonStart.TabIndex = 9;
 			this.buttonStart.Text = "Start";
 			this.buttonStart.UseVisualStyleBackColor = true;
-			this.buttonStart.Click += new System.EventHandler(this.buttonStart_Click);
 			// 
 			// panelFound
 			// 

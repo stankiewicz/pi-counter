@@ -65,7 +65,7 @@ unsigned int *Function::Calculate(unsigned int *resultLength, char *pi, int chec
 	return result;
 }
 
-void CalculateFunction(wchar_t *filename, char *a, char *b, int maxTimeMs, unsigned int numberOfDigitsToCheck, BoolListener listener)
+void CalculateFunction(wchar_t *filename, char *a, char *b, int maxTimeMs, unsigned int numberOfDigitsToCheck, CoolListener listener)
 {
 	Function function;
 	File file;
