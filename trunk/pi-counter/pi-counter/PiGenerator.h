@@ -5,14 +5,14 @@
 using namespace std;
 
 //return value indicates whether to stop calculation
-//typedef bool (__stdcall *Listener) (float percentComplete);
-typedef void (*Listener) ();
-typedef bool (*BoolListener) ();
+typedef bool (__stdcall *CoolListener) (int timePercentComplete, int lengthPercentComplete);
+typedef void (__stdcall *Listener) ();
+typedef bool (__stdcall *BoolListener) ();
 
-extern "C" __declspec(dllexport) void generatePi(int digits, Listener listener);
-extern "C" __declspec(dllexport) void CalculateFunction(wchar_t *filename, char *a, char *b, int maxTimeMs, unsigned int numberOfDigitsToCheck, BoolListener listener);
+extern "C" __declspec(dllexport) void generatePi(int digits, CoolListener listener);
+extern "C" __declspec(dllexport) void CalculateFunction(wchar_t *filename, char *a, char *b, int maxTimeMs, unsigned int numberOfDigitsToCheck, CoolListener listener);
 
-void generateNewPi(int d, int alg, Listener listener);
+void generateNewPi(int d, int alg, CoolListener listener);
 bool saveState(int d, int alg, int count, int prec);
 int readState(int *d, int *alg, int *count, int *prec);
 bool savePi(char* filename);

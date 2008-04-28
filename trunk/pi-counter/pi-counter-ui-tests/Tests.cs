@@ -28,7 +28,7 @@ namespace pi_counter_ui {
 
 		public static void test2() {
 			try {
-				PiLibrary.generatePi(10000, new PiLibrary.ListenerEmpty(showMessage2));
+				PiLibrary.generatePi(10000, /* new PiLibrary.ListenerEmpty(showMessage2) */ null);
 			} catch (DllNotFoundException nfe) {
 				MessageBox.Show("Brak biblioteki dll:" + nfe.Message);
 			}

@@ -56,7 +56,7 @@ void setStartValues() {
 	mpf_set_ui (sum, 1);
 }
 
-bool generate(Listener listener) {
+bool generate(CoolListener listener) {
 	int tempCounter = 0;
 	for (; _prec < prec0 * 2 + 10; _count++, _prec = _prec * 2 + 10) {
 		if (_alg != 1) {
@@ -115,7 +115,7 @@ bool generate(Listener listener) {
 			stop = (*listener)((float)(_prec) / (float)(prec0 * 2 + 10));
 		}*/
 		if (listener != 0) {
-			(*listener)();
+			stop = (*listener)(0, 0);
 		}
 		if (stop) {
 			_count++;
@@ -273,13 +273,11 @@ int readState(int algorithm) {
 	return 0;
 }
 
-void generatePi(int digits, Listener listener) {
+void generatePi(int digits, CoolListener listener) {
 	generateNewPi(digits, 0, listener);		
 }
 
-
-
-void generateNewPi(int d, int alg, Listener listener) {
+void generateNewPi(int d, int alg, CoolListener listener) {
 	_digits = d; //tyle chcemy wygenerowaæ
 
 	int ret = readState(alg);

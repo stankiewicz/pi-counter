@@ -183,10 +183,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\finder.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\Function.cpp"
 				>
 			</File>
@@ -210,10 +206,6 @@
 			>
 			<File
 				RelativePath=".\File.h"
-				>
-			</File>
-			<File
-				RelativePath=".\finder.h"
 				>
 			</File>
 			<File
