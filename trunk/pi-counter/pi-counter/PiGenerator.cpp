@@ -220,7 +220,7 @@ bool readMpf(mpf_t var, const char *filename) {
 	//if(prec0 > var->_mp_prec) //ssij Tomek! Nie ma to jak alokowaæ parêdziesi¹t razy wiêcej pamiêci na ka¿d¹ zmienn¹! :D
 	//	var->_mp_prec = prec0;
 	if (mpf_get_default_prec() > mpf_get_prec(var)) {
-		mpf_set_prec_raw(var, prec0);
+		mpf_set_prec_raw(var, prec0); //byæ mo¿e to trzeba zostawiæ w spokoju, i dopiero po wczytaniu liczby wywo³aæ "mpf_set_prec"
 	}
 	fread(&var->_mp_size, sizeof(var->_mp_size), 1, fa);
 	int allocationSize = (var->_mp_prec + 1) * sizeof(*var->_mp_d);
