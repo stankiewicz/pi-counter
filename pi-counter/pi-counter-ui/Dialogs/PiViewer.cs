@@ -30,6 +30,7 @@ namespace pi_counter_ui.Dialogs {
 				_bignum = value;
 				indexer1.PagesCount = (int)(_bignum.getMaxDigits() / DigitsPerPage);
 				indexer1.PageCurrent = Math.Max(Math.Min(indexer1.PageCurrent, indexer1.PagesCount), 0); // 0 <= currPage <= maxPage
+				updatePage();
 			}
 		}
 
