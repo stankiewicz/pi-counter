@@ -79,7 +79,7 @@ bool generate(CoolListener listener) {
 			/*  b2   = ((a2+b2)/4-c2)*2; */
 			mpf_add (b2, b2, a2);
 			mpf_div_2exp (b2, b2, 2);
-			mpf_sub (b2, b2, c2);
+			mpf_sub (b2, b2, c2); //FIXME: czasami (b2->_mp_size == -1041) => wtf?? a potem siê my_sqrt wykrzacza... na razie zmieniam alg na 1
 			mpf_mul_2exp (b2, b2, 1);
 			/*  a2   = b2+c2; */
 			mpf_add (a2, b2, c2);
@@ -153,15 +153,53 @@ bool saveMpf(mpf_t var, const char * filename) {
 
 bool saveState() {
 	FILE *output = fopen("savedState", "w");
-	fprintf(output, "%d %d %d %d", _digits + 100, _alg, _count, _prec);
+	fprintf(output, "%d %d %d %d", _digits, _alg, _count, _prec);
 	fclose(output);
 
+	int res;
 	saveMpf(a, "a");
+	mpf_t test;
+	readMpf(test, "a");
+	res = mpf_cmp(a, test);
+	if (res != 0) {
+		cout << "a - dammit!" << endl;
+	}
+	mpf_clear(test);
 	saveMpf(b, "b");
+	readMpf(test, "b");
+	res = mpf_cmp(b, test);
+	if (res != 0) {
+		cout << "b - dammit!" << endl;
+	}
+	mpf_clear(test);
 	saveMpf(a2, "a2");
+	readMpf(test, "a2");
+	res = mpf_cmp(a2, test);
+	if (res != 0) {
+		cout << "a2 - dammit!" << endl;
+	}
+	mpf_clear(test);
 	saveMpf(b2, "b2");
+	readMpf(test, "b2");
+	res = mpf_cmp(b2, test);
+	if (res != 0) {
+		cout << "b2 - dammit!" << endl;
+	}
+	mpf_clear(test);
 	saveMpf(c2, "c2");
+	readMpf(test, "c2");
+	res = mpf_cmp(c2, test);
+	if (res != 0) {
+		cout << "c2 - dammit!" << endl;
+	}
+	mpf_clear(test);
 	saveMpf(sum, "sum");
+	readMpf(test, "sum");
+	res = mpf_cmp(sum, test);
+	if (res != 0) {
+		cout << "sum - dammit!" << endl;
+	}
+	mpf_clear(test);
 
 	return true;
 }
@@ -179,8 +217,11 @@ bool readMpf(mpf_t var, const char *filename) {
 	fread(&var->_mp_exp, sizeof(var->_mp_exp), 1, fa);
 	fread(&var->_mp_prec, sizeof(var->_mp_prec), 1, fa);
 	int toRead = var->_mp_prec;
-	if(prec0 > var->_mp_prec)
-		var->_mp_prec = prec0;
+	//if(prec0 > var->_mp_prec) //ssij Tomek! Nie ma to jak alokowaæ parêdziesi¹t razy wiêcej pamiêci na ka¿d¹ zmienn¹! :D
+	//	var->_mp_prec = prec0;
+	if (mpf_get_default_prec() > mpf_get_prec(var)) {
+		mpf_set_prec_raw(var, prec0);
+	}
 	fread(&var->_mp_size, sizeof(var->_mp_size), 1, fa);
 	int allocationSize = (var->_mp_prec + 1) * sizeof(*var->_mp_d);
 	var->_mp_d = (mp_limb_t*) __gmp_allocate_func(allocationSize);
@@ -275,7 +316,7 @@ int readState(int algorithm) {
 }
 
 void generatePi(int digits, CoolListener listener) {
-	generateNewPi(digits, 0, listener);		
+	generateNewPi(digits, 1, listener);		
 }
 
 void generateNewPi(int d, int alg, CoolListener listener) {
@@ -301,8 +342,9 @@ void generateNewPi(int d, int alg, CoolListener listener) {
 	bool res = generate(listener);
 	//if res - wygenerowano wszystko
 	// if !res - wygenerowano tylko czêœæ, zmienna _prec po której iterujemy prawdopodobnie definiuje ile mamy ju¿ cyfr
-	
-	//saveState();
+	if (res) {
+		saveState();
+	}
 
 	mpf_mul_2exp (a2, a2, 1);
 	my_div (a2, a2, sum);
