@@ -27,7 +27,8 @@ namespace pi_counter_ui.Controls {
 			this.buttonNext = new System.Windows.Forms.Button();
 			this.labelOf = new System.Windows.Forms.Label();
 			this.fieldMaxPage = new System.Windows.Forms.Label();
-			this.fieldPage = new System.Windows.Forms.MaskedTextBox();
+			this.fieldPage = new System.Windows.Forms.NumericUpDown();
+			((System.ComponentModel.ISupportInitialize)(this.fieldPage)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// buttonPrev
@@ -73,25 +74,24 @@ namespace pi_counter_ui.Controls {
 			// 
 			// fieldPage
 			// 
-			this.fieldPage.AllowPromptAsInput = false;
-			this.fieldPage.Location = new System.Drawing.Point(34, 5);
+			this.fieldPage.Location = new System.Drawing.Point(34, 6);
 			this.fieldPage.Name = "fieldPage";
-			this.fieldPage.RejectInputOnFirstFailure = true;
 			this.fieldPage.Size = new System.Drawing.Size(66, 20);
 			this.fieldPage.TabIndex = 5;
-			this.fieldPage.Text = "50000";
+			this.fieldPage.ValueChanged += new System.EventHandler(this.fieldPage_ValueChanged);
 			// 
 			// Indexer
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.Controls.Add(this.fieldPage);
 			this.Controls.Add(this.buttonNext);
 			this.Controls.Add(this.fieldMaxPage);
 			this.Controls.Add(this.labelOf);
-			this.Controls.Add(this.fieldPage);
 			this.Controls.Add(this.buttonPrev);
 			this.Name = "Indexer";
 			this.Size = new System.Drawing.Size(197, 31);
+			((System.ComponentModel.ISupportInitialize)(this.fieldPage)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -101,8 +101,8 @@ namespace pi_counter_ui.Controls {
 
 		private System.Windows.Forms.Label labelOf;
 		private System.Windows.Forms.Label fieldMaxPage;
-		private System.Windows.Forms.MaskedTextBox fieldPage;
 		private System.Windows.Forms.Button buttonPrev;
 		private System.Windows.Forms.Button buttonNext;
+		private System.Windows.Forms.NumericUpDown fieldPage;
 	}
 }

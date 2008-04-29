@@ -27,6 +27,7 @@ namespace pi_counter_ui.Controls {
 			set {
 				_pagesCount = value;
 				this.fieldMaxPage.Text = _pagesCount.ToString();
+				this.fieldPage.Maximum = _pagesCount;
 			}
 		}
 
@@ -48,6 +49,11 @@ namespace pi_counter_ui.Controls {
 			if (IndexUpdated != null) {
 				IndexUpdated(this, EventArgs.Empty);
 			}
+		}
+
+		private void fieldPage_ValueChanged(object sender, EventArgs e) {
+			PageCurrent = (int)this.fieldPage.Value;
+			fireIndexUpdated();
 		}
 	}
 }

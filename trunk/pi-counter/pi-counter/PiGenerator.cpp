@@ -118,6 +118,7 @@ bool generate(CoolListener listener) {
 			stop = (*listener)(0, 0);
 		}
 		if (stop) {
+			cout << "Pi generation stopped" << endl;
 			_count++;
 			_prec = _prec * 2 + 10;
 			return false;
@@ -298,58 +299,21 @@ void generateNewPi(int d, int alg, CoolListener listener) {
 	//ret == 0: mo¿na wznowiæ, wszystkie wartoœci pocz¹tkowe ustawione przez readState()
 	
 	bool res = generate(listener);
+	//if res - wygenerowano wszystko
+	// if !res - wygenerowano tylko czêœæ, zmienna _prec po której iterujemy prawdopodobnie definiuje ile mamy ju¿ cyfr
+	
 	//saveState();
 
 	mpf_mul_2exp (a2, a2, 1);
 	my_div (a2, a2, sum);
 
-	//saveMpf(a2, "pi.p", 10);	
-	
-	// Testy BIGNUMa
 	File file;
-	//mpf_t newPi;	
-	//mpf_init(newPi);
+	/*
+	TODO: Tomek:
+	- poprawiæ zapisywanie gdy res == false (zatrzymano obliczenia)
+	- sparametryzowaæ nazwê pliku
+	*/
 	file.SaveBIGNUM(a2, L"pi.bignum");
-	//file.LoadBIGNUM(newPi, L"pi.BIGNUM");
-	//file.SaveBIGNUM(newPi, L"pi2.BIGNUM");*/
-
-	/*Function function;
-	unsigned int length;
-	mp_exp_t exp;
-	char *stringNumber = mpf_get_str(NULL, &exp, 10, 0, a2);*/	
-
-	/*
-	mpf_t a, b;
-	mpf_init(a);
-	mpf_init(b);
-	char strA[] = "3";
-	char strB[] = "3141";
-	mpf_set_prec(a, 10000);
-	mpf_set_prec(b, 10000);
-	mpf_set_str(a, strA, 10);
-	mpf_set_str(b, strB, 10);
-	unsigned int digitsChecked;
-	unsigned int numberOfFound;
-	unsigned int *result = function.Calculate(&length, stringNumber, 1000, a, b, strlen(strA), strlen(strB), &numberOfFound, &digitsChecked);
-	/*if(digitsChecked == 10000)
-		printf("Number Of Digits - OK\n");
-	else
-		printf("Number Of Digits - Wrong\n");*/
-	/*
-	printf("Found:%d\n", numberOfFound);
-	delete[] stringNumber;
-	file.SaveWARFUN(result, length, a, L"pi.warfun");
-	delete[] result;
-	mpf_clear(a);
-	mpf_clear(b);*/
-	//unsigned int *result2;
-	//file.LoadWARFUN(&result2, &length, a, L"pi.warfun");
-	//file.SaveWARFUN(result2, length, a, L"pi2.warfun");
-	
-
-	//FILE *fa = fopen("pi.p", "w");
-	//gmp_fprintf(fa, "%.*Ff", _digits, a2);
-	//fclose(fa);
 
 	clearAll();
 }

@@ -126,23 +126,6 @@ namespace pi_counter_ui {
 		}
 
 		#region listeners
-		/// <summary>
-		/// Zwraca true gdy obliczenie pi ma siê zakoñczyæ
-		/// </summary>
-		/// <param name="digitsPercentage"></param>
-		/// <returns></returns>
-		bool piListener(float digitsPercentage) {
-			Console.WriteLine("Percent complete: {0}", digitsPercentage);
-
-			if (unconditionalStop) {
-				Console.WriteLine("Aborting calculations...");
-				return true;
-			}
-
-			//sprawdŸ czas
-			return false;
-		}
-
 		void voidListener() {
 			Console.WriteLine("Listener called.");
 		}
@@ -173,6 +156,18 @@ namespace pi_counter_ui {
 			Console.WriteLine("Finished");
 			MessageBox.Show("Calculation finished");
 			panelConstraints.Enabled = true;
+			panelCalculationStatus.Enabled = true;
+
+			//open pi viewer
+			Bignum b = new Bignum("pi.bignum");
+			if (!b.Open()) {
+				MessageBox.Show("Load failed :(");
+				return;
+			}
+
+			PiViewer pV = getPiViewer();
+			pV.Bignum = b;
+			pV.ShowDialog();
 		}
 
 		private void threadSearch_DoWork(object sender, DoWorkEventArgs e) {
@@ -195,6 +190,7 @@ namespace pi_counter_ui {
 			Console.WriteLine("Finished");
 			MessageBox.Show("Search finished");
 			panelConstraints.Enabled = true;
+			panelCalculationStatus.Enabled = true;
 		}
 
 		private void loadToolStripMenuItem_Click(object sender, EventArgs e) {
@@ -211,10 +207,6 @@ namespace pi_counter_ui {
 
 			PiViewer pV = getPiViewer();
 			pV.Bignum = b;
-			if (!pV.updatePage()) {
-				MessageBox.Show("Load failed :(");
-				return;
-			}
 			pV.ShowDialog();
 		}
 	}
