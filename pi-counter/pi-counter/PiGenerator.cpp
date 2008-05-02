@@ -121,7 +121,7 @@ bool generate(CoolListener listener) {
 			stop = (*listener)((float)(_prec) / (float)(prec0 * 2 + 10));
 		}*/
 		if (listener != 0) {
-			int length = (100 * _prec) / prec0m2p10;
+			int length = ((long)100 * (long)_prec) / (long)prec0m2p10;
 			int time = (_maxTimeMs != 0) ? (100 * (GetTickCount() - startTime)) / _maxTimeMs : 0;
 			stop = (*listener)(time , length); //time, length
 		}

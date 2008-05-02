@@ -44,7 +44,7 @@ namespace pi_counter_ui {
 			this.panelConstraints = new pi_counter_ui.Controls.Constraints();
 			this.panelCalculationStatus = new pi_counter_ui.Controls.CalculationStatus();
 			this.threadSearch = new System.ComponentModel.BackgroundWorker();
-			this.openFileDialogSearch = new System.Windows.Forms.OpenFileDialog();
+			this.saveFileDialogSearch = new System.Windows.Forms.SaveFileDialog();
 			this.menuStrip.SuspendLayout();
 			this.flowLayoutPanel1.SuspendLayout();
 			this.SuspendLayout();
@@ -229,10 +229,10 @@ namespace pi_counter_ui {
 			this.threadSearch.DoWork += new System.ComponentModel.DoWorkEventHandler(this.threadSearch_DoWork);
 			this.threadSearch.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.threadSearch_RunWorkerCompleted);
 			// 
-			// openFileDialogSearch
+			// saveFileDialogSearch
 			// 
-			this.openFileDialogSearch.Filter = "Wartoœci funkcji (*.warfun) | *.warfun";
-			this.openFileDialogSearch.Title = "Choose file to search within";
+			this.saveFileDialogSearch.DefaultExt = "*.warfun";
+			this.saveFileDialogSearch.Filter = "Wartoœci funkcji (*.warfun) | *.warfun";
 			// 
 			// MainForm
 			// 
@@ -277,7 +277,7 @@ namespace pi_counter_ui {
 		private System.Windows.Forms.ToolStripMenuItem searchToolStripMenuItem;
 		private System.ComponentModel.BackgroundWorker threadSearch;
 		private System.Windows.Forms.ToolStripMenuItem calculatorToolStripMenuItem;
-		private System.Windows.Forms.OpenFileDialog openFileDialogSearch;
+		private System.Windows.Forms.SaveFileDialog saveFileDialogSearch;
 	}
 }
 

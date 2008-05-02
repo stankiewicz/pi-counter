@@ -5,16 +5,12 @@ using System.IO;
 
 namespace pi_counter_ui.Classes {
 	class FunReader {
-		public static ulong[] getValues(string filename, ulong startIndex, ushort count) {
-			FileStream fs;
-			try {
-				fs = File.OpenRead(filename);
-			} catch (Exception exc) {
-				return null;
+		public static string[] getValues(string filename, uint startIndex, uint count) {
+			Random rnd = new Random();
+			string[] res = new string[count];
+			for (int i = 0; i < count; i++) {
+				res[i] = rnd.Next().ToString();
 			}
-
-			ulong[] res = new ulong[count];
-			fs.ReadByte();
 			return res;
 		}
 	}

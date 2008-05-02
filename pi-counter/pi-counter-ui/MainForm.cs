@@ -13,6 +13,7 @@ namespace pi_counter_ui {
 		enum Modes { PiCalculation, PiSearch };
 		Modes currentMode = Modes.PiCalculation;
 		String piFilename;
+		String warfun;
 
 		bool unconditionalStop = false;
 
@@ -117,10 +118,14 @@ namespace pi_counter_ui {
 					break;
 				case Modes.PiSearch:
 					if (!threadSearch.IsBusy) {
-						if (openFileDialogSearch.ShowDialog() != DialogResult.OK) {
+						if (openFileDialog.ShowDialog() != DialogResult.OK) {
 							return;
 						}
-						piFilename = openFileDialogSearch.FileName;
+						if (saveFileDialogSearch.ShowDialog() != DialogResult.OK) {
+							return;
+						}
+						piFilename = openFileDialog.FileName;
+						warfun = saveFileDialogSearch.FileName;
 						panelCalculationStatus.buttonStart.Text = "Stop";
 						panelConstraints.Enabled = false;
 						threadSearch.RunWorkerAsync();
@@ -212,7 +217,7 @@ namespace pi_counter_ui {
 			try {
 				Console.WriteLine("Starting search");
 				unconditionalStop = false;
-				PiLibrary.CalculateFunction(piFilename, panelSearch.fieldFrom.Text, panelSearch.fieldTo.Text, maxTimeMs, digitsToCheck, new PiLibrary.CoolListener(coolListener));
+				PiLibrary.CalculateFunction(new PiLibrary.CoolListener(coolListener), piFilename, warfun, panelSearch.fieldFrom.Text, panelSearch.fieldTo.Text, maxTimeMs, digitsToCheck);
 			} catch (DllNotFoundException nfe) {
 				MessageBox.Show("Could not found piCounter.dll\r\n" + nfe.ToString());
 			}
