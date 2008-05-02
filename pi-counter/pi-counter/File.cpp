@@ -10,7 +10,7 @@ using namespace std;
 #define NUMBER_OD_BYTES_PER_FILE 50000000
 #define BITS_PER_DIGIT   3.32192809488736234787
 
-bool File::LoadBIGNUM(mpf_ptr value, char **piString, wchar_t *       filename)
+bool File::LoadBIGNUM(mpf_ptr value, char **piString, wchar_t *filename)
 {	
 	int numberOfFiles;
 	ifstream in;

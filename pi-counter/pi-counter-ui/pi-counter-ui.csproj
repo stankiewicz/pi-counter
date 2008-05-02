@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\Bignum.cs" />
+    <Compile Include="Classes\FunReader.cs" />
     <Compile Include="Controls\CalculationStatus.cs">
       <SubType>UserControl</SubType>
     </Compile>
