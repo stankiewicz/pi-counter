@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <windows.h>
 #include "gmp.h"
 #include "File.h"
 #include "Function.h"
@@ -21,7 +22,7 @@ using namespace std;
 int prec0;			/* require precision */
 mpf_t a, b, a2, b2, c2, sum; /* used for pi generation */
 
-int _digits, _alg, _count, _prec;
+int _digits, _alg, _count, _prec, _maxTimeMs;
 
 void setPrecision() {
 	prec0 = _digits * BITS_PER_DIGIT + 16;
@@ -60,7 +61,10 @@ void setStartValues() {
 
 bool generate(CoolListener listener) {
 	int tempCounter = 0;
-	for (; _prec < prec0 * 2 + 10; _count++, _prec = _prec * 2 + 10) {
+	int prec0m2p10 = prec0 * 2 + 10;
+	int startTime = GetTickCount();
+
+	for (; _prec < prec0m2p10; _count++, _prec = _prec * 2 + 10) {
 		if (_alg != 1) {
 			/*   c2   = a2 - b2; */
 			mpf_sub (c2, a2, b2);
@@ -81,7 +85,7 @@ bool generate(CoolListener listener) {
 			/*  b2   = ((a2+b2)/4-c2)*2; */
 			mpf_add (b2, b2, a2);
 			mpf_div_2exp (b2, b2, 2);
-			mpf_sub (b2, b2, c2); //FIXME: czasami (b2->_mp_size == -1041) => wtf?? a potem siê my_sqrt wykrzacza... na razie zmieniam alg na 1
+			mpf_sub (b2, b2, c2);
 			mpf_mul_2exp (b2, b2, 1);
 			/*  a2   = b2+c2; */
 			mpf_add (a2, b2, c2);
@@ -117,10 +121,13 @@ bool generate(CoolListener listener) {
 			stop = (*listener)((float)(_prec) / (float)(prec0 * 2 + 10));
 		}*/
 		if (listener != 0) {
-			stop = (*listener)(0, 0);
+			int length = (100 * _prec) / prec0m2p10;
+			int time = (_maxTimeMs != 0) ? (100 * (GetTickCount() - startTime)) / _maxTimeMs : 0;
+			stop = (*listener)(time , length); //time, length
 		}
-		if (stop) {
-			cout << "Pi generation stopped" << endl;
+		bool timeout = (_maxTimeMs != 0) ? (GetTickCount() >= startTime + _maxTimeMs) : false;
+		if (stop || timeout) {
+			cout << "Pi generation stopped or timeouted" << endl;
 			_count++;
 			_prec = _prec * 2 + 10;
 			return false;
@@ -295,8 +302,9 @@ int readState(int algorithm) {
 	return 0;
 }
 
-void generatePi(wchar_t *fileName, int d, CoolListener listener) {
+void generatePi(wchar_t *fileName, int d, int maxTimeMs, CoolListener listener) {
 	_digits = d; //tyle chcemy wygenerowaæ
+	_maxTimeMs = maxTimeMs;
 
 	int ret = readState(alg);
 	if (ret > 1) { // pi ju¿ zosta³o wygenerowane z wiêksz¹ dok³adnoœci¹
@@ -319,7 +327,7 @@ void generatePi(wchar_t *fileName, int d, CoolListener listener) {
 	//if res - wygenerowano wszystko
 	// if !res - wygenerowano tylko czêœæ, zmienna _prec po której iterujemy prawdopodobnie definiuje ile mamy ju¿ cyfr
 	if (res) {
-		saveState();
+		//saveState(); //to niestety nie zadzia³a :]
 	}
 
 	mpf_mul_2exp (a2, a2, 1);

@@ -12,6 +12,7 @@ namespace pi_counter_ui {
 	public partial class MainForm : Form {
 		enum Modes { PiCalculation, PiSearch };
 		Modes currentMode = Modes.PiCalculation;
+		String piFilename;
 
 		bool unconditionalStop = false;
 
@@ -101,22 +102,32 @@ namespace pi_counter_ui {
 			switch (currentMode) {
 				case Modes.PiCalculation:
 					if (!threadCalculation.IsBusy) {
+						if (saveFileDialog.ShowDialog() != DialogResult.OK) {
+							return;
+						}
+						piFilename = saveFileDialog.FileName;
 						panelCalculationStatus.buttonStart.Text = "Stop";
-						panelConstraints.Enabled = false;
+						panelConstraints.Enabled = false;						
 						threadCalculation.RunWorkerAsync();
 					} else {
 						Console.WriteLine("Stopping");
+						MessageBox.Show("The calculation will stop as soon as possible (without loosing calculation results)");
 						unconditionalStop = true;
 					}
 					break;
 				case Modes.PiSearch:
 					if (!threadSearch.IsBusy) {
+						if (openFileDialogSearch.ShowDialog() != DialogResult.OK) {
+							return;
+						}
+						piFilename = openFileDialogSearch.FileName;
 						panelCalculationStatus.buttonStart.Text = "Stop";
 						panelConstraints.Enabled = false;
 						threadSearch.RunWorkerAsync();
 						Console.WriteLine("Finished");
 					} else {
 						Console.WriteLine("Stopping search");
+						MessageBox.Show("The search will stop as soon as possible (without loosing search results)");
 						unconditionalStop = true;
 					}
 					break;
@@ -133,19 +144,36 @@ namespace pi_counter_ui {
 		bool coolListener(Int32 timePercent, Int32 lengthPercent) {
 			Console.WriteLine("coolListenerCalled, time=" + timePercent + ", length=" + lengthPercent);
 			Console.WriteLine("returning:" + unconditionalStop);
+
+			timePercent = Math.Max(Math.Min(100, timePercent), 0);
+			lengthPercent = Math.Max(Math.Min(100, lengthPercent), 0);
+			if (panelCalculationStatus.InvokeRequired) {
+				panelCalculationStatus.Invoke(new MethodInvoker(
+					delegate() {
+						panelCalculationStatus.ConstraintTime = timePercent;
+						panelCalculationStatus.ConstraintLength = lengthPercent;
+					}));
+			} else {
+				panelCalculationStatus.ConstraintLength = lengthPercent;
+				panelCalculationStatus.ConstraintTime = timePercent;
+			}
 			return unconditionalStop;
 		}
 		#endregion
 
 		private void threadCalculation_DoWork(object sender, DoWorkEventArgs e) {
 			int digitsToCalculate = 1000;
+			int maxTimeMs = 0;
+			if (panelConstraints.TimeConstraintEnabled) {
+				maxTimeMs = (int)(panelConstraints.TimeConstraint) * 60 * 1000;
+			}
 			if (panelConstraints.LengthConstraintEnabled) {
 				digitsToCalculate = (int)panelConstraints.LengthConstraint;
 			}
 			try {
 				Console.WriteLine("Starting calculations for {0} digits", digitsToCalculate);
 				unconditionalStop = false;
-				PiLibrary.generatePi(null, digitsToCalculate, new PiLibrary.CoolListener(coolListener));
+				PiLibrary.generatePi(piFilename, digitsToCalculate, maxTimeMs, new PiLibrary.CoolListener(coolListener));
 			} catch (DllNotFoundException nfe) {
 				MessageBox.Show("Could not found piCounter.dll\r\n" + nfe.ToString());
 			}
@@ -157,9 +185,10 @@ namespace pi_counter_ui {
 			MessageBox.Show("Calculation finished");
 			panelConstraints.Enabled = true;
 			panelCalculationStatus.Enabled = true;
+			panelCalculationStatus.ConstraintLength = panelCalculationStatus.ConstraintTime = 0;
 
 			//open pi viewer
-			Bignum b = new Bignum("pi.bignum");
+			Bignum b = new Bignum(piFilename);
 			if (!b.Open()) {
 				MessageBox.Show("Load failed :(");
 				return;
@@ -172,14 +201,18 @@ namespace pi_counter_ui {
 
 		private void threadSearch_DoWork(object sender, DoWorkEventArgs e) {
 			int maxTimeMs = 0;
+			uint digitsToCheck = 2000000000;
 			if (panelConstraints.TimeConstraintEnabled) {
 				maxTimeMs = (int)(panelConstraints.TimeConstraint) * 60 * 1000;
+			}
+			if (panelConstraints.LengthConstraintEnabled) {
+				digitsToCheck = (uint)panelConstraints.LengthConstraint;
 			}
 
 			try {
 				Console.WriteLine("Starting search");
 				unconditionalStop = false;
-				PiLibrary.CalculateFunction("result.warfun", panelSearch.fieldFrom.Text, panelSearch.fieldTo.Text, maxTimeMs, 4294967295, new PiLibrary.CoolListener(coolListener));
+				PiLibrary.CalculateFunction(piFilename, panelSearch.fieldFrom.Text, panelSearch.fieldTo.Text, maxTimeMs, digitsToCheck, new PiLibrary.CoolListener(coolListener));
 			} catch (DllNotFoundException nfe) {
 				MessageBox.Show("Could not found piCounter.dll\r\n" + nfe.ToString());
 			}
@@ -191,6 +224,9 @@ namespace pi_counter_ui {
 			MessageBox.Show("Search finished");
 			panelConstraints.Enabled = true;
 			panelCalculationStatus.Enabled = true;
+			panelCalculationStatus.ConstraintLength = panelCalculationStatus.ConstraintTime = 0;
+
+			//todo: poka¿ wynik
 		}
 
 		private void loadToolStripMenuItem_Click(object sender, EventArgs e) {
