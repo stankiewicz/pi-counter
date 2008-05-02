@@ -28,7 +28,7 @@ namespace pi_counter_ui {
 
 		public static void test2() {
 			try {
-				PiLibrary.generatePi(10000, /* new PiLibrary.ListenerEmpty(showMessage2) */ null);
+                PiLibrary.generatePi(null, 10000, /* new PiLibrary.ListenerEmpty(showMessage2) */ null);
 			} catch (DllNotFoundException nfe) {
 				MessageBox.Show("Brak biblioteki dll:" + nfe.Message);
 			}
@@ -36,14 +36,14 @@ namespace pi_counter_ui {
 
 		public static void testIncrementalGeneration() {
 			int digits = 1000000;
-			int moreDigits = 1010000;
+			int moreDigits = 1000000;
 			try {
 				int start = Environment.TickCount;
-				PiLibrary.generatePi(digits, null);
+                PiLibrary.generatePi(null, digits, null);
 				int middle1 = Environment.TickCount;
-				PiLibrary.generatePi(digits, null);
+                PiLibrary.generatePi(null, digits, null);
 				int middle2 = Environment.TickCount;
-				PiLibrary.generatePi(moreDigits, null);
+                PiLibrary.generatePi(null, moreDigits, null);
 				int end = Environment.TickCount;
 
 				Console.WriteLine("First, digits={0}, time={1}", digits, middle1 - start);

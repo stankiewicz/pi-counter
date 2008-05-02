@@ -145,7 +145,7 @@ namespace pi_counter_ui {
 			try {
 				Console.WriteLine("Starting calculations for {0} digits", digitsToCalculate);
 				unconditionalStop = false;
-				PiLibrary.generatePi(digitsToCalculate, new PiLibrary.CoolListener(coolListener));
+				PiLibrary.generatePi(null, digitsToCalculate, new PiLibrary.CoolListener(coolListener));
 			} catch (DllNotFoundException nfe) {
 				MessageBox.Show("Could not found piCounter.dll\r\n" + nfe.ToString());
 			}

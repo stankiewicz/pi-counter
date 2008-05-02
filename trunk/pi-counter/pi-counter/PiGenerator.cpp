@@ -295,7 +295,7 @@ int readState(int algorithm) {
 	return 0;
 }
 
-void generatePi(int d, CoolListener listener) {
+void generatePi(wchar_t *fileName, int d, CoolListener listener) {
 	_digits = d; //tyle chcemy wygenerowaæ
 
 	int ret = readState(alg);
@@ -331,7 +331,8 @@ void generatePi(int d, CoolListener listener) {
 	- poprawiæ zapisywanie gdy res == false (zatrzymano obliczenia)
 	- sparametryzowaæ nazwê pliku
 	*/
-	file.SaveBIGNUM(a2, L"pi.bignum");
+	if(fileName)
+		file.SaveBIGNUM(a2, fileName);
 
 	clearAll();
 }
