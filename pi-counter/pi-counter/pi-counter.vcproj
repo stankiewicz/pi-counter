@@ -62,7 +62,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="&quot;$(SolutionDir)libs\gmpxx.lib&quot;"
+				AdditionalDependencies="&quot;$(SolutionDir)libs_dbg\gmp.lib&quot; &quot;$(SolutionDir)libs_dbg\mpn.lib&quot;"
 				GenerateDebugInformation="true"
 				AssemblyDebug="1"
 				MapExports="true"

@@ -34,7 +34,7 @@ void my_sqrt (mpf_t r, mpf_t x) {
 	mpf_set_prec_raw (t1, DOUBLE_PREC);
 	double d = mpf_get_d (x);
 	double d2 = 1 / sqrt (d);
-	mpf_set_d (t1, d2); //FIXME: this suxxs
+	mpf_set_d (t1, d2);
 
 	while (prec < prec0) {
 		prec *= 2;

@@ -11,6 +11,8 @@
 
 using namespace std;
 
+#define alg 2 //0 lub 2 (1 nie dzia³a :P)
+
 #define BITS_PER_DIGIT   3.32192809488736234787
 
 #define show(x)      {printf(#x"="); mpf_out_str(stdout, 10, 0, x); printf("\n");}
@@ -128,118 +130,96 @@ bool generate(CoolListener listener) {
 	return true;
 }
 
-bool saveMpf(mpf_t var, const char * filename, int base) {
-	FILE *fa = fopen(filename, "w");
-
-	fwrite(&var->_mp_exp, sizeof(var->_mp_exp), 1, fa);
-	fwrite(&var->_mp_prec, sizeof(var->_mp_prec), 1, fa);
-	fwrite(&var->_mp_size, sizeof(var->_mp_size), 1, fa);
-	fwrite(var->_mp_d, sizeof(*var->_mp_d), var->_mp_prec, fa);
-	/*for(unsigned int i = 0; i < var->_mp_prec; i++)
-	{
-		fseek(fa, 12 + sizeof(*var->_mp_d) * i, SEEK_SET);
-		fwrite(var->_mp_d + i, sizeof(*var->_mp_d), 1, fa);
-	}*/
-
-	//gmp_fprintf(fa, "%.*Ff", _digits, var);
-	fclose(fa);
-
-	return true;
-}
-
-bool saveMpf(mpf_t var, const char * filename) {
-	return saveMpf(var, filename, 2);
-}
-
 bool saveState() {
 	FILE *output = fopen("savedState", "w");
 	fprintf(output, "%d %d %d %d", _digits, _alg, _count, _prec);
 	fclose(output);
 
+	//mpf_t test;
+
 	int res;
 	saveMpf(a, "a");
-	mpf_t test;
-	readMpf(test, "a");
-	res = mpf_cmp(a, test);
-	if (res != 0) {
-		cout << "a - dammit!" << endl;
-	}
-	mpf_clear(test);
 	saveMpf(b, "b");
-	readMpf(test, "b");
-	res = mpf_cmp(b, test);
-	if (res != 0) {
-		cout << "b - dammit!" << endl;
-	}
-	mpf_clear(test);
+
 	saveMpf(a2, "a2");
-	readMpf(test, "a2");
-	res = mpf_cmp(a2, test);
-	if (res != 0) {
-		cout << "a2 - dammit!" << endl;
-	}
-	mpf_clear(test);
+	//readMpf(test, "a2");
+	//saveMpf(test, "a2test");
+	//res = mpf_cmp(a2, test);
+	//if (res != 0) {
+	//	cout << "a2 - dammit!" << endl;
+	//}
+	//mpf_clear(test);
+
 	saveMpf(b2, "b2");
-	readMpf(test, "b2");
+	/*readMpf(test, "b2");
 	res = mpf_cmp(b2, test);
 	if (res != 0) {
 		cout << "b2 - dammit!" << endl;
+		saveMpf(test, "b2test");
 	}
-	mpf_clear(test);
+	mpf_clear(test);*/
+
 	saveMpf(c2, "c2");
-	readMpf(test, "c2");
+	/*readMpf(test, "c2");
 	res = mpf_cmp(c2, test);
 	if (res != 0) {
 		cout << "c2 - dammit!" << endl;
+		saveMpf(test, "c2test");
 	}
-	mpf_clear(test);
+	mpf_clear(test);*/
+
 	saveMpf(sum, "sum");
-	readMpf(test, "sum");
+	/*readMpf(test, "sum");
 	res = mpf_cmp(sum, test);
 	if (res != 0) {
 		cout << "sum - dammit!" << endl;
+		saveMpf(test, "sumtest");
 	}
-	mpf_clear(test);
+	mpf_clear(test);*/
 
 	return true;
 }
 
-//automatycznie czyœci zmienn¹ do której ma zwróciæ wynik
+bool saveMpf(mpf_t var, const char * filename) {
+	FILE *fa = fopen(filename, "wb"); //ja pierdole...
+
+	fwrite(&var->_mp_exp, sizeof(var->_mp_exp), 1, fa);
+	fwrite(&var->_mp_prec, sizeof(var->_mp_prec), 1, fa);
+	fwrite(&var->_mp_size, sizeof(var->_mp_size), 1, fa);
+	int maxVal = max( var->_mp_prec + 1, abs(var->_mp_size));
+	size_t mp_d_size = sizeof(*var->_mp_d);
+	fwrite(var->_mp_d, mp_d_size, maxVal, fa);
+	//if (fwrite(var->_mp_d, mp_d_size, maxVal, fa) < maxVal) cout << "write error";
+	//cout << "Should be: " << sizeof(var->_mp_exp) + sizeof(var->_mp_prec) + sizeof(var->_mp_size) + mp_d_size * maxVal << endl;
+
+	fclose(fa);
+
+	return true;
+}
+
+//nale¿y podaæ niezainicjalizowan¹ zmienn¹
 bool readMpf(mpf_t var, const char *filename) {
-	//mpf_clear(var);
-	//mpf_init(var);
-	FILE *fa = fopen(filename, "r");
+	FILE *fa = fopen(filename, "rb"); //ja pierdole...
 	if (fa == 0) {
 		return false;
 	}
-	//gmp_fscanf(fa, "%Ff", var);
+	if (fread(&var->_mp_exp, sizeof(var->_mp_exp), 1, fa) == 0) cout << "exp";
+	if (fread(&var->_mp_prec, sizeof(var->_mp_prec), 1, fa) == 0) cout << "prec";
+	if (fread(&var->_mp_size, sizeof(var->_mp_size), 1, fa) == 0) cout << "size";
 
-	fread(&var->_mp_exp, sizeof(var->_mp_exp), 1, fa);
-	fread(&var->_mp_prec, sizeof(var->_mp_prec), 1, fa);
-	int toRead = var->_mp_prec;
-	//if(prec0 > var->_mp_prec) //ssij Tomek! Nie ma to jak alokowaæ parêdziesi¹t razy wiêcej pamiêci na ka¿d¹ zmienn¹! :D
-	//	var->_mp_prec = prec0;
-	if (mpf_get_default_prec() > mpf_get_prec(var)) {
-		mpf_set_prec_raw(var, prec0); //byæ mo¿e to trzeba zostawiæ w spokoju, i dopiero po wczytaniu liczby wywo³aæ "mpf_set_prec"
-	}
-	fread(&var->_mp_size, sizeof(var->_mp_size), 1, fa);
-	int allocationSize = (var->_mp_prec + 1) * sizeof(*var->_mp_d);
+	int maxVal = max(var->_mp_prec + 1, abs(var->_mp_size));
+	int allocationSize = (maxVal) * sizeof(*var->_mp_d);
 	var->_mp_d = (mp_limb_t*) __gmp_allocate_func(allocationSize);
-	char *p = (char *) (void *) var->_mp_d;
-	for(int i = 0; i < allocationSize; i++)
-		*(p + i) = 0;
-	fread(var->_mp_d, sizeof(*var->_mp_d), toRead, fa);
-	var->_mp_d[var->_mp_prec] = 0;
-	//var->_mp_d = (mp_limb_t*) __gmp_allocate_func((var->_mp_prec + 1) * bytes_per_mp_limb);
-	/*unsigned int i;
-	for(i = 0; i < var->_mp_prec; i++)
-	{
-		fseek(fa, 12 + sizeof(*var->_mp_d) * i, seek_set);
-		fread(var->_mp_d + i, sizeof(*var->_mp_d), 1, fa);
-	}
-	var->_mp_d[i] = 0;*/
+	size_t read = fread(var->_mp_d, sizeof(*var->_mp_d), maxVal, fa);
 
 	fclose(fa);
+
+	//jeœli teraz operujemy na wiêkszej precyzji to zwiêkszamy
+	//TODO: test
+	if (mpf_get_default_prec() > mpf_get_prec(var)) {
+		mpf_set_prec(var, prec0);
+	}
+
 	return true;
 }
 
@@ -315,11 +295,7 @@ int readState(int algorithm) {
 	return 0;
 }
 
-void generatePi(int digits, CoolListener listener) {
-	generateNewPi(digits, 1, listener);		
-}
-
-void generateNewPi(int d, int alg, CoolListener listener) {
+void generatePi(int d, CoolListener listener) {
 	_digits = d; //tyle chcemy wygenerowaæ
 
 	int ret = readState(alg);
