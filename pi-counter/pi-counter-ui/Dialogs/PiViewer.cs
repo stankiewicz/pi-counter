@@ -12,9 +12,9 @@ namespace pi_counter_ui.Dialogs {
 	public partial class PiViewer : Form {
 		byte[] digits;
 
-		private int _digitsPerPage;
+		private uint _digitsPerPage;
 
-		public int DigitsPerPage {
+		public uint DigitsPerPage {
 			get { return _digitsPerPage; }
 			set {
 				_digitsPerPage = value;
@@ -62,7 +62,7 @@ namespace pi_counter_ui.Dialogs {
 				return false;
 			}
 
-			StringBuilder sb = new StringBuilder(DigitsPerPage);
+			StringBuilder sb = new StringBuilder();
 
 			int three = 2, six = 5 /*, thirty = 29 */;
 			for (int i = 0; i < read; i++, three--, six-- /*, thirty-- */) {

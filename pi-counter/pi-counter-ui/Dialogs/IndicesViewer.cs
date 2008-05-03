@@ -10,19 +10,16 @@ using pi_counter_ui.Classes;
 namespace pi_counter_ui.Dialogs {
 	public partial class IndicesViewer : Form {
 		String _warFun;
-		public String WarFun {
-			get { return _warFun; }
-			set {
-				_warFun = value;
-				//init maxPage, etc
-			}
-		}
+		ulong _searchedIndices;
 
 		private uint _resultsPerPage;
 
 		public uint ResultsPerPage {
 			get { return _resultsPerPage; }
-			set { _resultsPerPage = value; }
+			set {
+				_resultsPerPage = value;
+				setPageCount();
+			}
 		}
 
 		public IndicesViewer() {
@@ -30,6 +27,20 @@ namespace pi_counter_ui.Dialogs {
 
 			ResultsPerPage = 200;
 			indexer.IndexUpdated += new EventHandler(indexer_IndexUpdated);
+		}
+
+
+
+		public void init(String warfunFile, ulong searchedIndices) {
+			_warFun = warfunFile;
+			_searchedIndices = searchedIndices;
+
+			setPageCount();
+		}
+
+		private void setPageCount() {
+			indexer.PagesCount = _searchedIndices / ResultsPerPage;
+			indexer.PageCurrent = Math.Max(Math.Min(indexer.PageCurrent, indexer.PagesCount), 0);
 		}
 
 		void indexer_IndexUpdated(object sender, EventArgs e) {
@@ -46,9 +57,10 @@ namespace pi_counter_ui.Dialogs {
 		}
 
 		public bool updatePage() {
-			string[] values = FunReader.getValues(WarFun, indexer.PageCurrent * ResultsPerPage, ResultsPerPage);
+			string[] values = FunReader.getValues(_warFun, indexer.PageCurrent * ResultsPerPage, ResultsPerPage);
 
 			flowLayoutPanel1.SuspendLayout();
+			flowLayoutPanel1.Controls.Clear();
 			for (uint i = 0; i < values.Length; i++) {
 				Label l = new Label();
 				l.Text = i.ToString() + " : " + values[i];

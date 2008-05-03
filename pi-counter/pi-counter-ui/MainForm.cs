@@ -11,13 +11,14 @@ using pi_counter_ui.Classes;
 namespace pi_counter_ui {
 	public partial class MainForm : Form {
 		enum Modes { PiCalculation, PiSearch };
-		Modes currentMode = Modes.PiCalculation;
-		String piFilename;
-		String warfun;
+		Modes _currentMode = Modes.PiCalculation;
+		String _piFilename;
+		String _warfun;
 		ulong _numberOfFoundIndices;
 		uint _numberOfDigitsChecked;
+		ulong _numberOfSearchedIndices;
 
-		bool unconditionalStop = false;
+		bool _unconditionalStop = false;
 
 		public MainForm() {
 			InitializeComponent();
@@ -86,7 +87,7 @@ namespace pi_counter_ui {
 		#endregion
 
 		void setMode(Modes mode) {
-			currentMode = mode;
+			_currentMode = mode;
 			switch (mode) {
 				case Modes.PiCalculation:
 					this.labelInfo.Text = "Pi calculation mode.\r\nYou can specify constraints.";
@@ -102,20 +103,20 @@ namespace pi_counter_ui {
 		}
 
 		void buttonStart_Click(object sender, EventArgs e) {
-			switch (currentMode) {
+			switch (_currentMode) {
 				case Modes.PiCalculation:
 					if (!threadCalculation.IsBusy) {
 						if (saveFileDialog.ShowDialog() != DialogResult.OK) {
 							return;
 						}
-						piFilename = saveFileDialog.FileName;
+						_piFilename = saveFileDialog.FileName;
 						panelCalculationStatus.buttonStart.Text = "Stop";
 						panelConstraints.Enabled = false;						
 						threadCalculation.RunWorkerAsync();
 					} else {
 						Console.WriteLine("Stopping");
 						MessageBox.Show("The calculation will stop as soon as possible (without loosing calculation results)");
-						unconditionalStop = true;
+						_unconditionalStop = true;
 					}
 					break;
 				case Modes.PiSearch:
@@ -126,8 +127,8 @@ namespace pi_counter_ui {
 						if (saveFileDialogSearch.ShowDialog() != DialogResult.OK) {
 							return;
 						}
-						piFilename = openFileDialog.FileName;
-						warfun = saveFileDialogSearch.FileName;
+						_piFilename = openFileDialog.FileName;
+						_warfun = saveFileDialogSearch.FileName;
 						panelCalculationStatus.buttonStart.Text = "Stop";
 						panelConstraints.Enabled = false;
 						threadSearch.RunWorkerAsync();
@@ -135,7 +136,7 @@ namespace pi_counter_ui {
 					} else {
 						Console.WriteLine("Stopping search");
 						MessageBox.Show("The search will stop as soon as possible (without loosing search results)");
-						unconditionalStop = true;
+						_unconditionalStop = true;
 					}
 					break;
 				default:
@@ -150,7 +151,7 @@ namespace pi_counter_ui {
 
 		bool coolListener(Int32 timePercent, Int32 lengthPercent) {
 			Console.WriteLine("coolListenerCalled, time=" + timePercent + ", length=" + lengthPercent);
-			Console.WriteLine("returning:" + unconditionalStop);
+			Console.WriteLine("returning:" + _unconditionalStop);
 
 			timePercent = Math.Max(Math.Min(100, timePercent), 0);
 			lengthPercent = Math.Max(Math.Min(100, lengthPercent), 0);
@@ -164,7 +165,7 @@ namespace pi_counter_ui {
 				panelCalculationStatus.ConstraintLength = lengthPercent;
 				panelCalculationStatus.ConstraintTime = timePercent;
 			}
-			return unconditionalStop;
+			return _unconditionalStop;
 		}
 		#endregion
 
@@ -179,8 +180,8 @@ namespace pi_counter_ui {
 			}
 			try {
 				Console.WriteLine("Starting calculations for {0} digits", digitsToCalculate);
-				unconditionalStop = false;
-				PiLibrary.generatePi(piFilename, digitsToCalculate, maxTimeMs, new PiLibrary.CoolListener(coolListener));
+				_unconditionalStop = false;
+				PiLibrary.generatePi(_piFilename, digitsToCalculate, maxTimeMs, new PiLibrary.CoolListener(coolListener));
 			} catch (DllNotFoundException nfe) {
 				MessageBox.Show("Could not found piCounter.dll\r\n" + nfe.ToString());
 			}
@@ -195,7 +196,7 @@ namespace pi_counter_ui {
 			panelCalculationStatus.ConstraintLength = panelCalculationStatus.ConstraintTime = 0;
 
 			//open pi viewer
-			Bignum b = new Bignum(piFilename);
+			Bignum b = new Bignum(_piFilename);
 			if (!b.Open()) {
 				MessageBox.Show("Load failed :(");
 				return;
@@ -218,8 +219,8 @@ namespace pi_counter_ui {
 
 			try {
 				Console.WriteLine("Starting search");
-				unconditionalStop = false;
-				PiLibrary.CalculateFunction(new PiLibrary.CoolListener(coolListener), piFilename, warfun, panelSearch.fieldFrom.Text, panelSearch.fieldTo.Text, maxTimeMs, digitsToCheck, ref _numberOfFoundIndices, ref _numberOfDigitsChecked);
+				_unconditionalStop = false;
+				PiLibrary.CalculateFunction(new PiLibrary.CoolListener(coolListener), _piFilename, _warfun, panelSearch.fieldFrom.Text, panelSearch.fieldTo.Text, maxTimeMs, digitsToCheck, ref _numberOfFoundIndices, ref _numberOfDigitsChecked, ref _numberOfSearchedIndices);
 			} catch (DllNotFoundException nfe) {
 				MessageBox.Show("Could not found piCounter.dll\r\n" + nfe.ToString());
 			}
@@ -235,6 +236,9 @@ namespace pi_counter_ui {
 
 			//todo: poka¿ wynik
 			MessageBox.Show(String.Format("Found: {0}, Checked: {1}", _numberOfFoundIndices, _numberOfDigitsChecked));
+			IndicesViewer iv = getIndicesViewer();
+			iv.init(_warfun, _numberOfSearchedIndices);
+			iv.ShowDialog();
 		}
 
 		private void loadToolStripMenuItem_Click(object sender, EventArgs e) {
