@@ -15,7 +15,7 @@ unsigned int ToInt(mpf_ptr value)
 	return value->_mp_d[0];
 }
 #define BITS_PER_DIGIT   3.32192809488736234787
-unsigned int *Function::Calculate(CoolListener listener, unsigned int *resultLength, char *pi, int checkNumberOfDigits, mpf_ptr a, mpf_ptr b, int lengthA, int lengthB, unsigned int *numberOfFound, unsigned int *digitsChecked, int maxTimeMs, unsigned int firstIndex)
+unsigned int *Function::Calculate(CoolListener listener, unsigned int *resultLength, char *pi, int checkNumberOfDigits, mpf_ptr a, mpf_ptr b, int lengthA, int lengthB, unsigned __int64 *numberOfFound, unsigned int *digitsChecked, int maxTimeMs, unsigned int firstIndex)
 {
 	int startTime = GetTickCount();
 	mpf_t temp, temp2;
@@ -100,7 +100,7 @@ unsigned int *Function::Calculate(CoolListener listener, unsigned int *resultLen
 	return result;
 }
 
-void CalculateFunction(CoolListener listener, wchar_t *piFileName, wchar_t *resultFileName, char *a, char *b, int maxTimeMs, unsigned int numberOfDigitsToCheck)
+void CalculateFunction(CoolListener listener, wchar_t *piFileName, wchar_t *resultFileName, char *a, char *b, int maxTimeMs, unsigned int numberOfDigitsToCheck, unsigned __int64 *numberOfFound, unsigned int *digitsChecked)
 {
 	Function function;
 	File file;
@@ -133,8 +133,8 @@ void CalculateFunction(CoolListener listener, wchar_t *piFileName, wchar_t *resu
 	if(!file.LoadBIGNUM(NULL, &pi, piFileName))
 		return;
 
-	unsigned int digitsChecked;
-	unsigned int numberOfFound;
+	//unsigned int digitsChecked;
+	//unsigned int numberOfFound;
 
 	if(maxTimeMs == 0)
 		maxTimeMs = 2000000000;
@@ -143,7 +143,7 @@ void CalculateFunction(CoolListener listener, wchar_t *piFileName, wchar_t *resu
 		numberOfDigitsToCheck = piLength;
 	else if(numberOfDigitsToCheck > piLength)
 		numberOfDigitsToCheck = piLength;
-	unsigned int *result = function.Calculate(listener, &length, pi, numberOfDigitsToCheck, mpf_a, mpf_b, aLen, bLen, &numberOfFound, &digitsChecked, maxTimeMs);
+	unsigned int *result = function.Calculate(listener, &length, pi, numberOfDigitsToCheck, mpf_a, mpf_b, aLen, bLen, numberOfFound, digitsChecked, maxTimeMs);
 	/*if(digitsChecked == 10000)
 		printf("Number Of Digits - OK\n");
 	else
