@@ -4,6 +4,11 @@
 #include "File.h"
 #include "gmp.h"
 
+#include <fstream>
+#include <stdio.h>
+
+using namespace std;
+
 extern mpf_t a2;
 
 unsigned int ToInt(mpf_ptr value)
@@ -107,6 +112,9 @@ unsigned int *Function::Calculate(CoolListener listener, unsigned __int64 *resul
 	return result;
 }
 
+void GetResultValues(char ***arguments, unsigned int **values, wchar_t *fileName, unsigned __int64 offset, int numberOfValuesToMaintain);
+void CleanAfterGettingResultValues(void);
+
 void CalculateFunction(CoolListener listener, wchar_t *piFileName, wchar_t *resultFileName, char *a, char *b, int maxTimeMs, unsigned int numberOfDigitsToCheck, unsigned __int64 *numberOfFound, unsigned int *digitsChecked, unsigned __int64 *resultLength)
 {
 	Function function;
@@ -162,4 +170,207 @@ void CalculateFunction(CoolListener listener, wchar_t *piFileName, wchar_t *resu
 	delete[] result;
 	mpf_clear(mpf_a);
 	mpf_clear(mpf_b);
+
+
+	char **arguments;
+	unsigned int *values;
+	GetResultValues(&arguments, &values, resultFileName, 0, 10);
+	CleanAfterGettingResultValues();
+}
+
+char* ConvertToString(mpf_ptr mpf, unsigned int addValue)
+{
+	mpf_t temp;
+	mpf_init(temp);
+	mpf_add_ui(temp, mpf, addValue);
+	mp_exp_t exp;
+	char *string = mpf_get_str(NULL, &exp, 10, 0, temp);
+	mpf_clear(temp);
+	unsigned int stringLength = strlen(string);
+	if(exp <= stringLength)
+		return string;
+	char *s = new char[1 + exp];
+	int i;
+	for(i = 0; i < exp + 1; i++)
+		s[i] = 0;
+	for(i = 0; i < stringLength; i++)
+		s[i] = string[i];
+	for(;i < exp; i++)
+		s[i] = '0';	
+	delete[] string;
+	return s;
+}
+
+unsigned int **g_values;
+char ***g_arguments;
+int g_numberOfValuesToMaintain;
+
+void GetResultValues(char ***arguments, unsigned int **values, wchar_t *fileName, unsigned __int64 offset, int numberOfValuesToMaintain)
+{
+	g_numberOfValuesToMaintain = numberOfValuesToMaintain;
+	g_values = values;
+	g_arguments = arguments;
+
+	int numberOfFiles;
+	unsigned int length;
+	unsigned __int64 totalLength;
+	ifstream in;
+	try
+	{
+		in.open(fileName);
+		in>>numberOfFiles;
+		in.close();
+	}
+	catch(...)
+	{
+		*arguments = NULL;
+		*values = NULL;		
+		*g_values = NULL;
+		*g_arguments = NULL;
+		return;
+	}
+	if(numberOfFiles < 1)			
+	{
+		*arguments = NULL;
+		*values = NULL;
+		*g_values = NULL;
+		*g_arguments = NULL;
+		return;
+	}
+
+	int filenameLength = wcslen(fileName);
+	wchar_t *dataFileName = new wchar_t[filenameLength + 6];
+	int i;
+	for(i = 0; i < filenameLength; i++)
+		dataFileName[i] = fileName[i];
+	
+	for(i = 0; i < 5; i++)
+		dataFileName[filenameLength + i] = '0';
+	dataFileName[filenameLength + i] = 0;
+	
+	swprintf(dataFileName + filenameLength, L"%.5i", numberOfFiles - 1);	
+	//*length = 5;
+	
+	FILE *file = _wfopen(dataFileName, L"r");
+	if(file == NULL)
+	{
+		delete[] dataFileName;
+		*arguments = NULL;
+		*values = NULL;
+		*g_values = NULL;
+		*g_arguments = NULL;
+		return;
+	}	
+	fscanf(file, "%d;%u", &i, &length);	
+	fclose(file);	
+	totalLength = (unsigned __int64)length + (unsigned __int64)NUMBER_OF_VALUES_PER_FILE * (unsigned __int64)(numberOfFiles - 1);
+	if (offset > totalLength)
+	{
+		delete[] dataFileName;
+		*arguments = NULL;
+		*values = NULL;
+		return;
+	}
+	//*result = new unsigned int[*length];
+	int fileLength;
+	char* stringNumber;
+	//int lengthA = 0;
+	char c;
+	//int currentIndex = 0;
+	int alredyMaintained = 0;
+	unsigned int value;
+	
+
+	*values = new unsigned int[numberOfValuesToMaintain];
+	*arguments = new char* [numberOfValuesToMaintain];
+	for(int j = 0; j < numberOfValuesToMaintain; j++)
+	{
+		(*values)[j] = 0;
+		(*arguments)[j] = 0;
+	}
+
+	i = offset / NUMBER_OF_VALUES_PER_FILE;
+	int startI = i;
+	offset -= (unsigned __int64)i * (unsigned __int64)NUMBER_OF_VALUES_PER_FILE;
+
+	mpf_t mpf;
+	
+	int lengthA;
+	//values
+	for(;; i++)
+	{
+		swprintf(dataFileName + filenameLength, L"%.5i", i);	
+			
+		file = _wfopen(dataFileName, L"r");
+		if(file == NULL)
+		{
+			delete[] dataFileName;			
+			return;
+		}
+		if(i == startI)
+		{
+			lengthA = 0;
+			while(1)
+			{
+				fread(&c, 1, 1, file);
+				if(c == ';')
+					break;
+				lengthA++;
+			}
+			fseek(file, 0, SEEK_SET);
+			stringNumber = new char[lengthA + 1];			
+			fread(stringNumber, 1, lengthA + 1, file);
+			stringNumber[lengthA] = 0;	
+			mpf_init(mpf);
+			mpf_set_prec(mpf, lengthA * BITS_PER_DIGIT + 16);
+			mpf_set_str(mpf, stringNumber, 10);
+			delete[] stringNumber;
+
+			//arguments
+			for(unsigned int j = 0; j < numberOfValuesToMaintain; j++)			
+				*((*arguments) + i) = ConvertToString(mpf, offset + j);			
+			mpf_clear(mpf);
+		}
+		else
+		{
+			while(1)
+			{				
+				fread(&c, 1, 1, file);
+				if(c == ';')
+					break;				
+			}
+		}
+
+		fscanf(file, "%d;", &fileLength);
+		for(int j = 0; j < fileLength; j++)
+		{
+			fscanf(file, "%u", &value);
+			if(j < fileLength)
+				fseek(file, 1, SEEK_CUR);
+			if(j >= offset)
+			{
+				*((*values) + alredyMaintained) = value;
+				alredyMaintained++;
+				if(alredyMaintained >= numberOfValuesToMaintain)
+					break;
+			}
+		}
+		offset = 0;
+		fclose(file);
+		if(alredyMaintained >= numberOfValuesToMaintain)
+					break;
+	}
+	delete[] dataFileName;
+	return;
+}
+
+void CleanAfterGettingResultValues(void)
+{
+	delete[] *g_values;
+	for(int i = 0; i < g_numberOfValuesToMaintain; i++)
+		delete[] *((*g_arguments) + i);
+	delete *g_arguments;
+	*g_arguments = NULL;
+	*g_values = NULL;
+	g_numberOfValuesToMaintain = 0;
 }

@@ -2,6 +2,10 @@
 #define _FILE_H_
 
 #include "gmp.h"
+
+#define NUMBER_OF_VALUES_PER_FILE 1000000
+#define NUMBER_OD_BYTES_PER_FILE 50000000
+
 class File
 {
 public:
