@@ -25,7 +25,7 @@ namespace pi_counter_ui.Dialogs {
 		private void InitializeComponent() {
 			this.splitContainer1 = new System.Windows.Forms.SplitContainer();
 			this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-			this.indexer1 = new pi_counter_ui.Controls.Indexer();
+			this.indexer = new pi_counter_ui.Controls.Indexer();
 			this.splitContainer1.Panel1.SuspendLayout();
 			this.splitContainer1.Panel2.SuspendLayout();
 			this.splitContainer1.SuspendLayout();
@@ -46,7 +46,7 @@ namespace pi_counter_ui.Dialogs {
 			// 
 			// splitContainer1.Panel2
 			// 
-			this.splitContainer1.Panel2.Controls.Add(this.indexer1);
+			this.splitContainer1.Panel2.Controls.Add(this.indexer);
 			this.splitContainer1.Size = new System.Drawing.Size(606, 457);
 			this.splitContainer1.SplitterDistance = 415;
 			this.splitContainer1.TabIndex = 0;
@@ -61,12 +61,14 @@ namespace pi_counter_ui.Dialogs {
 			this.flowLayoutPanel1.Size = new System.Drawing.Size(606, 415);
 			this.flowLayoutPanel1.TabIndex = 0;
 			// 
-			// indexer1
+			// indexer
 			// 
-			this.indexer1.Location = new System.Drawing.Point(3, 3);
-			this.indexer1.Name = "indexer1";
-			this.indexer1.Size = new System.Drawing.Size(197, 31);
-			this.indexer1.TabIndex = 0;
+			this.indexer.Location = new System.Drawing.Point(3, 3);
+			this.indexer.Name = "indexer";
+			this.indexer.PageCurrent = 0;
+			this.indexer.PagesCount = 0;
+			this.indexer.Size = new System.Drawing.Size(197, 31);
+			this.indexer.TabIndex = 0;
 			// 
 			// IndicesViewer
 			// 
@@ -90,6 +92,6 @@ namespace pi_counter_ui.Dialogs {
 
 		private System.Windows.Forms.SplitContainer splitContainer1;
 		private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
-		private pi_counter_ui.Controls.Indexer indexer1;
+		private pi_counter_ui.Controls.Indexer indexer;
 	}
 }

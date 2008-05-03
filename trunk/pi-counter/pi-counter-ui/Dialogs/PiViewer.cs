@@ -28,8 +28,8 @@ namespace pi_counter_ui.Dialogs {
 			get { return _bignum; }
 			set {
 				_bignum = value;
-				indexer1.PagesCount = (int)(_bignum.getMaxDigits() / DigitsPerPage);
-				indexer1.PageCurrent = Math.Max(Math.Min(indexer1.PageCurrent, indexer1.PagesCount), 0); // 0 <= currPage <= maxPage
+				indexer.PagesCount = (uint)(_bignum.getMaxDigits() / DigitsPerPage);
+				indexer.PageCurrent = Math.Max(Math.Min(indexer.PageCurrent, indexer.PagesCount), 0); // 0 <= currPage <= maxPage
 				updatePage();
 			}
 		}
@@ -38,10 +38,10 @@ namespace pi_counter_ui.Dialogs {
 			InitializeComponent();
 
 			DigitsPerPage = 1000;
-			indexer1.IndexUpdated += new EventHandler(indexer1_IndexUpdated);
+			indexer.IndexUpdated += new EventHandler(indexer_IndexUpdated);
 		}
 
-		void indexer1_IndexUpdated(object sender, EventArgs e) {
+		void indexer_IndexUpdated(object sender, EventArgs e) {
 			updatePage();
 		}
 
@@ -58,7 +58,7 @@ namespace pi_counter_ui.Dialogs {
 
 		public bool updatePage() {
 			int read;
-			if ((read = Bignum.getDigits(digits, (uint)(indexer1.PageCurrent * DigitsPerPage), DigitsPerPage)) == -1) {
+			if ((read = Bignum.getDigits(digits, (uint)(indexer.PageCurrent * DigitsPerPage), DigitsPerPage)) == -1) {
 				return false;
 			}
 
