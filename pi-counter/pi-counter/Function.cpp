@@ -377,7 +377,8 @@ void GetResultValues(char **arguments, unsigned int *values, wchar_t *fileName, 
 		fscanf(file, "%d;", &fileLength);
 		for(int j = 0; j < fileLength; j++)
 		{
-			fscanf(file, "%u", &value);
+			value = 0;
+			fscanf(file, "%d", &value);
 			if(j < fileLength)
 				fseek(file, 1, SEEK_CUR);
 			if(j >= offset)
