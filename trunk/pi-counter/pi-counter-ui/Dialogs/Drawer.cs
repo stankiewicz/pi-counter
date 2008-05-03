@@ -13,7 +13,11 @@ namespace pi_counter_ui.Dialogs {
 			InitializeComponent();
 
 			GraphPane gp = graph.GraphPane;
+			gp.Title.IsVisible = false;
+			gp.YAxis.Title.Text = "indeks";
+			gp.XAxis.Title.Text = "ci¹g cyfr";
 			gp.XAxis.Type = AxisType.Text;
+			gp.Legend.IsVisible = false;
 		}
 
 		private void Drawer_FormClosing(object sender, FormClosingEventArgs e) {
@@ -25,15 +29,18 @@ namespace pi_counter_ui.Dialogs {
 
 		public void update(string[] args, uint[] values) {
 			GraphPane gp = graph.GraphPane;
-			gp.XAxis.Scale.TextLabels = args;
-			
+			gp.CurveList.Clear();
+
 			PointPairList ppl = new PointPairList();
 			for (int i=0; i<args.Length; i++) {
 				ppl.Add(i, values[i]);
 			}
 			LineItem data = gp.AddCurve("test", ppl, Color.Green);
+			gp.XAxis.Scale.TextLabels = args;
+			gp.XAxis.Type = AxisType.Text;
 
 			gp.AxisChange();
+			graph.Invalidate();
 		}
 	}
 }
