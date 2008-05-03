@@ -112,7 +112,7 @@ unsigned int *Function::Calculate(CoolListener listener, unsigned __int64 *resul
 	return result;
 }
 
-void GetResultValues(char ***arguments, unsigned int **values, wchar_t *fileName, unsigned __int64 offset, int numberOfValuesToMaintain);
+void GetResultValues(char ***arguments, unsigned int **values, wchar_t *fileName, unsigned __int64 offset, unsigned int numberOfValuesToMaintain);
 void CleanAfterGettingResultValues(void);
 
 void CalculateFunction(CoolListener listener, wchar_t *piFileName, wchar_t *resultFileName, char *a, char *b, int maxTimeMs, unsigned int numberOfDigitsToCheck, unsigned __int64 *numberOfFound, unsigned int *digitsChecked, unsigned __int64 *resultLength)
@@ -174,7 +174,7 @@ void CalculateFunction(CoolListener listener, wchar_t *piFileName, wchar_t *resu
 
 	char **arguments;
 	unsigned int *values;
-	GetResultValues(&arguments, &values, resultFileName, 0, 10);
+	GetResultValues(&arguments, &values, resultFileName, 999995, 10);
 	CleanAfterGettingResultValues();
 }
 
@@ -186,6 +186,8 @@ char* ConvertToString(mpf_ptr mpf, unsigned int addValue)
 	mp_exp_t exp;
 	char *string = mpf_get_str(NULL, &exp, 10, 0, temp);
 	mpf_clear(temp);
+	if(string[0] == 0)
+		exp = 1;
 	unsigned int stringLength = strlen(string);
 	if(exp <= stringLength)
 		return string;
@@ -205,7 +207,7 @@ unsigned int **g_values;
 char ***g_arguments;
 int g_numberOfValuesToMaintain;
 
-void GetResultValues(char ***arguments, unsigned int **values, wchar_t *fileName, unsigned __int64 offset, int numberOfValuesToMaintain)
+void GetResultValues(char ***arguments, unsigned int **values, wchar_t *fileName, unsigned __int64 offset, unsigned int numberOfValuesToMaintain)
 {
 	g_numberOfValuesToMaintain = numberOfValuesToMaintain;
 	g_values = values;
@@ -227,6 +229,7 @@ void GetResultValues(char ***arguments, unsigned int **values, wchar_t *fileName
 		*values = NULL;		
 		*g_values = NULL;
 		*g_arguments = NULL;
+		g_numberOfValuesToMaintain = 0;
 		return;
 	}
 	if(numberOfFiles < 1)			
@@ -235,6 +238,7 @@ void GetResultValues(char ***arguments, unsigned int **values, wchar_t *fileName
 		*values = NULL;
 		*g_values = NULL;
 		*g_arguments = NULL;
+		g_numberOfValuesToMaintain = 0;
 		return;
 	}
 
@@ -259,6 +263,7 @@ void GetResultValues(char ***arguments, unsigned int **values, wchar_t *fileName
 		*values = NULL;
 		*g_values = NULL;
 		*g_arguments = NULL;
+		g_numberOfValuesToMaintain = 0;
 		return;
 	}	
 	fscanf(file, "%d;%u", &i, &length);	
@@ -269,6 +274,9 @@ void GetResultValues(char ***arguments, unsigned int **values, wchar_t *fileName
 		delete[] dataFileName;
 		*arguments = NULL;
 		*values = NULL;
+		*g_values = NULL;
+		*g_arguments = NULL;
+		g_numberOfValuesToMaintain = 0;
 		return;
 	}
 	//*result = new unsigned int[*length];
@@ -299,6 +307,8 @@ void GetResultValues(char ***arguments, unsigned int **values, wchar_t *fileName
 	//values
 	for(;; i++)
 	{
+		if(i >= numberOfFiles)
+			break;
 		swprintf(dataFileName + filenameLength, L"%.5i", i);	
 			
 		file = _wfopen(dataFileName, L"r");
@@ -328,7 +338,7 @@ void GetResultValues(char ***arguments, unsigned int **values, wchar_t *fileName
 
 			//arguments
 			for(unsigned int j = 0; j < numberOfValuesToMaintain; j++)			
-				*((*arguments) + i) = ConvertToString(mpf, offset + j);			
+				*((*arguments) + j) = ConvertToString(mpf, offset + j);			
 			mpf_clear(mpf);
 		}
 		else
