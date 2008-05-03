@@ -3,11 +3,10 @@
 #include "string.h"
 #include <stdio.h>
 #include <fstream>
-#include "stdio.h"
+#include <stdio.h>
 
 using namespace std;
 
-#define NUMBER_OD_BYTES_PER_FILE 50000000
 #define BITS_PER_DIGIT   3.32192809488736234787
 
 bool File::LoadBIGNUM(mpf_ptr value, char **piString, wchar_t *filename)
@@ -214,8 +213,6 @@ bool File::SaveBIGNUM(mpf_ptr value, wchar_t *filename, int numberOfDigits)
 	return true;
 }
 
-#define NUMBER_OF_VALUES_PER_FILE 1000000
-
 bool File::SaveWARFUN(unsigned int *result, unsigned int length, mpf_ptr a,wchar_t *filename)
 {
 	unsigned int numberOfFiles = (length + NUMBER_OF_VALUES_PER_FILE - 1) / NUMBER_OF_VALUES_PER_FILE;
@@ -397,5 +394,6 @@ bool File::LoadWARFUN(unsigned int **result, unsigned int *length, mpf_ptr a, wc
 
 		fclose(file);
 	}
+	delete[] dataFileName;
 	return true;
 }
