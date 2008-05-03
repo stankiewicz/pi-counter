@@ -210,7 +210,7 @@ char ***g_arguments;
 int g_numberOfValuesToMaintain;
 */
 
-void GetResultValues(char ***arguments, unsigned int **values, wchar_t *fileName, unsigned __int64 offset, unsigned int numberOfValuesToMaintain)
+void GetResultValues(char **arguments, unsigned int *values, wchar_t *fileName, unsigned __int64 offset, unsigned int numberOfValuesToMaintain)
 {
 	/*
 	g_numberOfValuesToMaintain = numberOfValuesToMaintain;
@@ -306,8 +306,8 @@ void GetResultValues(char ***arguments, unsigned int **values, wchar_t *fileName
 	//*arguments = new char* [numberOfValuesToMaintain];
 	for(int j = 0; j < numberOfValuesToMaintain; j++)
 	{
-		(*values)[j] = 0;
-		CoTaskMemFree((*arguments)[j]);		
+		values[j] = 0;
+		CoTaskMemFree(arguments[j]);		
 		//(*arguments)[j] = 0;
 	}
 
@@ -357,9 +357,9 @@ void GetResultValues(char ***arguments, unsigned int **values, wchar_t *fileName
 			{
 				arg = ConvertToString(mpf, offset + j);
 				argLen = strlen(arg);
-				*((*arguments) + j) = (char*)CoTaskMemAlloc(argLen + 1);
+				*(arguments + j) = (char*)CoTaskMemAlloc(argLen + 1);
 				for(int k = 0; k <= argLen; k++)
-					(*((*arguments) + j))[k] = arg[k];
+					(*(arguments + j))[k] = arg[k];
 					
 			}
 			mpf_clear(mpf);
@@ -382,7 +382,7 @@ void GetResultValues(char ***arguments, unsigned int **values, wchar_t *fileName
 				fseek(file, 1, SEEK_CUR);
 			if(j >= offset)
 			{
-				*((*values) + alredyMaintained) = value;
+				*(values + alredyMaintained) = value;
 				alredyMaintained++;
 				if(alredyMaintained >= numberOfValuesToMaintain)
 					break;
