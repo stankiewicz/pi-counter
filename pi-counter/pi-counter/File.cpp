@@ -268,7 +268,7 @@ bool File::SaveWARFUN(unsigned int *result, unsigned int length, mpf_ptr a,wchar
 
 			mpf_add_ui(currentValue, currentValue, NUMBER_OF_VALUES_PER_FILE);
 			out<<stringNumber;
-			for(i = 0; i < exp - strlen(stringNumber); i++)
+			for(int j = 0; j < exp - strlen(stringNumber); j++)
 				out<<'0';
 			out<<';';
 			delete[] stringNumber;
