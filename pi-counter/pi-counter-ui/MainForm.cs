@@ -14,6 +14,8 @@ namespace pi_counter_ui {
 		Modes currentMode = Modes.PiCalculation;
 		String piFilename;
 		String warfun;
+		ulong _numberOfFoundIndices;
+		uint _numberOfDigitsChecked;
 
 		bool unconditionalStop = false;
 
@@ -217,7 +219,7 @@ namespace pi_counter_ui {
 			try {
 				Console.WriteLine("Starting search");
 				unconditionalStop = false;
-				PiLibrary.CalculateFunction(new PiLibrary.CoolListener(coolListener), piFilename, warfun, panelSearch.fieldFrom.Text, panelSearch.fieldTo.Text, maxTimeMs, digitsToCheck);
+				PiLibrary.CalculateFunction(new PiLibrary.CoolListener(coolListener), piFilename, warfun, panelSearch.fieldFrom.Text, panelSearch.fieldTo.Text, maxTimeMs, digitsToCheck, ref _numberOfFoundIndices, ref _numberOfDigitsChecked);
 			} catch (DllNotFoundException nfe) {
 				MessageBox.Show("Could not found piCounter.dll\r\n" + nfe.ToString());
 			}
@@ -232,6 +234,7 @@ namespace pi_counter_ui {
 			panelCalculationStatus.ConstraintLength = panelCalculationStatus.ConstraintTime = 0;
 
 			//todo: poka¿ wynik
+			MessageBox.Show(String.Format("Found: {0}, Checked: {1}", _numberOfFoundIndices, _numberOfDigitsChecked));
 		}
 
 		private void loadToolStripMenuItem_Click(object sender, EventArgs e) {

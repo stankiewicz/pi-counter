@@ -10,9 +10,9 @@ namespace pi_counter_ui.Controls {
 	public partial class Indexer : UserControl {
 		public event EventHandler IndexUpdated;
 
-		private int _pageCurrent;
+		private uint _pageCurrent;
 
-		public int PageCurrent {
+		public uint PageCurrent {
 			get { return _pageCurrent; }
 			set {
 				_pageCurrent = Math.Min(Math.Max(value, 0), PagesCount); 
@@ -20,9 +20,9 @@ namespace pi_counter_ui.Controls {
 			}
 		}
 
-		private int _pagesCount;
+		private uint _pagesCount;
 
-		public int PagesCount {
+		public uint PagesCount {
 			get { return _pagesCount; }
 			set {
 				_pagesCount = value;
@@ -52,7 +52,7 @@ namespace pi_counter_ui.Controls {
 		}
 
 		private void fieldPage_ValueChanged(object sender, EventArgs e) {
-			PageCurrent = (int)this.fieldPage.Value;
+			PageCurrent = (uint)this.fieldPage.Value;
 			fireIndexUpdated();
 		}
 	}

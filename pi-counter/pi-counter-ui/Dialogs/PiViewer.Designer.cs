@@ -27,7 +27,7 @@ namespace pi_counter_ui.Dialogs {
 			this.panelStatus = new System.Windows.Forms.Panel();
 			this.labelPositionValue = new System.Windows.Forms.Label();
 			this.labelPosition = new System.Windows.Forms.Label();
-			this.indexer1 = new pi_counter_ui.Controls.Indexer();
+			this.indexer = new pi_counter_ui.Controls.Indexer();
 			this.menuStrip1 = new System.Windows.Forms.MenuStrip();
 			this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.decimalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -52,7 +52,7 @@ namespace pi_counter_ui.Dialogs {
 			// 
 			this.panelStatus.Controls.Add(this.labelPositionValue);
 			this.panelStatus.Controls.Add(this.labelPosition);
-			this.panelStatus.Controls.Add(this.indexer1);
+			this.panelStatus.Controls.Add(this.indexer);
 			this.panelStatus.Dock = System.Windows.Forms.DockStyle.Bottom;
 			this.panelStatus.Location = new System.Drawing.Point(0, 430);
 			this.panelStatus.Name = "panelStatus";
@@ -79,10 +79,10 @@ namespace pi_counter_ui.Dialogs {
 			// 
 			// indexer1
 			// 
-			this.indexer1.Location = new System.Drawing.Point(3, 3);
-			this.indexer1.Name = "indexer1";
-			this.indexer1.Size = new System.Drawing.Size(197, 31);
-			this.indexer1.TabIndex = 0;
+			this.indexer.Location = new System.Drawing.Point(3, 3);
+			this.indexer.Name = "indexer1";
+			this.indexer.Size = new System.Drawing.Size(197, 31);
+			this.indexer.TabIndex = 0;
 			// 
 			// menuStrip1
 			// 
@@ -146,7 +146,7 @@ namespace pi_counter_ui.Dialogs {
 
 		private System.Windows.Forms.TextBox textBoxPiView;
 		private System.Windows.Forms.Panel panelStatus;
-		private pi_counter_ui.Controls.Indexer indexer1;
+		private pi_counter_ui.Controls.Indexer indexer;
 		private System.Windows.Forms.Label labelPositionValue;
 		private System.Windows.Forms.Label labelPosition;
 		private System.Windows.Forms.MenuStrip menuStrip1;
