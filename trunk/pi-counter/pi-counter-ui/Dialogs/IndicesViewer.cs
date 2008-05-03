@@ -69,7 +69,7 @@ namespace pi_counter_ui.Dialogs {
 			flowLayoutPanel1.Controls.Clear();
 			for (uint i = 0; i < values.Length; i++) {
 				Label l = new Label();
-				l.Text = i.ToString() + " : " + values[i];
+				l.Text = args[i] + " : " + values[i];
 				//l.Parent = this.splitContainer1.Panel1;
 				//flowLayoutPanel1.Controls.Add(l);
 				l.Parent = flowLayoutPanel1;
@@ -77,7 +77,7 @@ namespace pi_counter_ui.Dialogs {
 			flowLayoutPanel1.ResumeLayout();
 
 			getDrawer().update(args, values);
-            PiLibrary.CleanAfterGettingResultValues();
+            //PiLibrary.CleanAfterGettingResultValues();
 			return true;
 		}
 
