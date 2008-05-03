@@ -11,6 +11,9 @@ namespace pi_counter_ui.Dialogs {
 	public partial class IndicesViewer : Form {
 		String _warFun;
 		ulong _searchedIndices;
+		string[] args = null;
+		uint[] values = null;
+
 
 		private uint _resultsPerPage;
 
@@ -18,6 +21,8 @@ namespace pi_counter_ui.Dialogs {
 			get { return _resultsPerPage; }
 			set {
 				_resultsPerPage = value;
+				args = new string[_resultsPerPage];
+				values = new uint[_resultsPerPage];
 				setPageCount();
 			}
 		}
@@ -58,9 +63,7 @@ namespace pi_counter_ui.Dialogs {
 		}
 
 		public bool updatePage() {
-			string[] args;
-			uint[] values;
-			PiLibrary.GetResultValues(out args, out values, _warFun, indexer.PageCurrent * ResultsPerPage, ResultsPerPage);
+			PiLibrary.GetResultValues(args, values, _warFun, indexer.PageCurrent * ResultsPerPage, ResultsPerPage);
 
 			flowLayoutPanel1.SuspendLayout();
 			flowLayoutPanel1.Controls.Clear();

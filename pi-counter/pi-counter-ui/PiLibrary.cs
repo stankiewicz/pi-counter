@@ -19,7 +19,7 @@ namespace pi_counter_ui {
 		public static extern void CalculateFunction(CoolListener listener, [MarshalAs(UnmanagedType.LPWStr)] String piFileName, [MarshalAs(UnmanagedType.LPWStr)] String resultFileName, [MarshalAs(UnmanagedType.LPStr)] String a, [MarshalAs(UnmanagedType.LPStr)] String b, Int32 maxTimeMs, UInt32 numberOfDigitsToCheck, ref UInt64 numberOfFound, ref UInt32 digitsChecked, ref UInt64 resultLength);
 
 		[DllImport(libPath, CharSet = CharSet.Auto, CallingConvention = CallingConvention.Cdecl)]
-		public static extern void GetResultValues(out string[] arguments, out UInt32[] values, string filename, ulong startIndex, uint count);
+		public static extern void GetResultValues([In][Out][MarshalAsAttribute(UnmanagedType.LPArray, ArraySubType = UnmanagedType.LPStr)] string[] arguments, [In][Out][MarshalAsAttribute(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U4)] UInt32[] values, [MarshalAs(UnmanagedType.LPWStr)]string filename, ulong startIndex, uint count);
 
 		[DllImport(libPath, CharSet = CharSet.Auto, CallingConvention = CallingConvention.Cdecl)]
 		public static extern void CleanAfterGettingResultValues();        
