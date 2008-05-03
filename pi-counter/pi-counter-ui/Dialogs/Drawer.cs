@@ -36,6 +36,7 @@ namespace pi_counter_ui.Dialogs {
 				ppl.Add(i, values[i]);
 			}
 			LineItem data = gp.AddCurve("test", ppl, Color.Green);
+			data.Line.IsVisible = false;
 			gp.XAxis.Scale.TextLabels = args;
 			gp.XAxis.Type = AxisType.Text;
 
