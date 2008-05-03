@@ -90,7 +90,7 @@ namespace pi_counter_ui.Classes {
 		/// <param name="startIndex"></param>
 		/// <param name="digitsCount"></param>
 		/// <returns>digits left</returns>
-		public int getDigits(byte[] destArray, uint startIndex, int digitsCount) {
+		public int getDigits(byte[] destArray, uint startIndex, uint digitsCount) {
 			if (!opened) {
 				Debug.WriteLine("Bignum not opened");
 				return -1;
@@ -112,7 +112,7 @@ namespace pi_counter_ui.Classes {
 				offset -= dataFilesLength[fileIndex];
 				fileIndex++;
 			}
-			int digitsLeft = digitsCount;
+			int digitsLeft = (int)digitsCount;
 			int arrayOffset = 0;
 			while (digitsLeft > 0 && fileIndex < dataFiles.Length) {
 				FileStream fs = File.OpenRead(dataFiles[fileIndex]);
@@ -123,7 +123,7 @@ namespace pi_counter_ui.Classes {
 				digitsLeft -= bytesRead;
 				fileIndex++; //we either read all digits and finish 'while' or there are digits left, and we need to read next file
 			}
-			return digitsCount - digitsLeft; //digits read
+			return (int)(digitsCount - digitsLeft); //digits read
 		}
 	}
 }
