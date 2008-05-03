@@ -15,7 +15,7 @@ unsigned int ToInt(mpf_ptr value)
 	return value->_mp_d[0];
 }
 #define BITS_PER_DIGIT   3.32192809488736234787
-unsigned int *Function::Calculate(CoolListener listener, unsigned int *resultLength, char *pi, int checkNumberOfDigits, mpf_ptr a, mpf_ptr b, int lengthA, int lengthB, unsigned __int64 *numberOfFound, unsigned int *digitsChecked, int maxTimeMs, unsigned int firstIndex)
+unsigned int *Function::Calculate(CoolListener listener, unsigned __int64 *resultLength, char *pi, int checkNumberOfDigits, mpf_ptr a, mpf_ptr b, int lengthA, int lengthB, unsigned __int64 *numberOfFound, unsigned int *digitsChecked, int maxTimeMs, unsigned int firstIndex)
 {
 	int startTime = GetTickCount();
 	mpf_t temp, temp2;
@@ -55,7 +55,8 @@ unsigned int *Function::Calculate(CoolListener listener, unsigned int *resultLen
 	for(unsigned int k = 0; k < *resultLength; k++)
 		result[k] = 0;
 
-	for(unsigned int j = 0; j < checkNumberOfDigits - lengthB + 1; j++)
+	unsigned int j;
+	for(j = 0; j < checkNumberOfDigits - lengthB + 1; j++)
 	{
 		for(unsigned int i = lengthA; i <= lengthB; i++)
 		{
@@ -86,7 +87,7 @@ unsigned int *Function::Calculate(CoolListener listener, unsigned int *resultLen
 			break;
 		if((*numberOfFound) >= (*resultLength))
 			break;
-		if(currentTime >= lastTime + 1000)
+		if(currentTime >= lastTime + 500)
 		{
 			lastTime = currentTime;
 			float fTimePassed = 100.0f * ((float)(currentTime - startTime)) / ((float)(maxTimeMs));
@@ -97,14 +98,20 @@ unsigned int *Function::Calculate(CoolListener listener, unsigned int *resultLen
 	}
 	mpf_clear(temp);
 	mpf_clear(temp2);
+	
+	currentTime = GetTickCount();
+	float fTimePassed = 100.0f * ((float)(currentTime - startTime)) / ((float)(maxTimeMs));
+	float fPlacesChecked = 100.0f * ((float)j / (float)(checkNumberOfDigits - lengthB));
+	listener((int) fTimePassed, (int)fPlacesChecked);
+
 	return result;
 }
 
-void CalculateFunction(CoolListener listener, wchar_t *piFileName, wchar_t *resultFileName, char *a, char *b, int maxTimeMs, unsigned int numberOfDigitsToCheck, unsigned __int64 *numberOfFound, unsigned int *digitsChecked)
+void CalculateFunction(CoolListener listener, wchar_t *piFileName, wchar_t *resultFileName, char *a, char *b, int maxTimeMs, unsigned int numberOfDigitsToCheck, unsigned __int64 *numberOfFound, unsigned int *digitsChecked, unsigned __int64 *resultLength)
 {
 	Function function;
 	File file;
-	unsigned int length;
+	//unsigned int length;
 	//mp_exp_t exp;
 	//mpf_t pi;
 	//mpf_init(pi);
@@ -143,7 +150,7 @@ void CalculateFunction(CoolListener listener, wchar_t *piFileName, wchar_t *resu
 		numberOfDigitsToCheck = piLength;
 	else if(numberOfDigitsToCheck > piLength)
 		numberOfDigitsToCheck = piLength;
-	unsigned int *result = function.Calculate(listener, &length, pi, numberOfDigitsToCheck, mpf_a, mpf_b, aLen, bLen, numberOfFound, digitsChecked, maxTimeMs);
+	unsigned int *result = function.Calculate(listener, resultLength, pi, numberOfDigitsToCheck, mpf_a, mpf_b, aLen, bLen, numberOfFound, digitsChecked, maxTimeMs);
 	/*if(digitsChecked == 10000)
 		printf("Number Of Digits - OK\n");
 	else
@@ -151,7 +158,7 @@ void CalculateFunction(CoolListener listener, wchar_t *piFileName, wchar_t *resu
 	//printf("Found:%d\n", numberOfFound);
 	delete[] pi;
 	if(resultFileName)
-		file.SaveWARFUN(result, length, mpf_a, resultFileName);
+		file.SaveWARFUN(result, *resultLength, mpf_a, resultFileName);
 	delete[] result;
 	mpf_clear(mpf_a);
 	mpf_clear(mpf_b);
