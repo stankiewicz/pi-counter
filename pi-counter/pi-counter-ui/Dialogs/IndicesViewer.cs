@@ -47,6 +47,7 @@ namespace pi_counter_ui.Dialogs {
 
 		private void IndicesViewer_Load(object sender, EventArgs e) {
 			getDrawer().Show();
+			updatePage();
 		}
 
 		private void IndicesViewer_FormClosing(object sender, FormClosingEventArgs e) {
