@@ -16,6 +16,6 @@ namespace pi_counter_ui {
 		public static extern void generatePi([MarshalAs(UnmanagedType.LPWStr)] String fileName, Int32 digits, Int32 maxTimeMs, CoolListener listener);
 
 		[DllImport(libPath, CharSet = CharSet.Auto, CallingConvention=CallingConvention.Cdecl)]
-		public static extern void CalculateFunction(CoolListener listener, [MarshalAs(UnmanagedType.LPWStr)] String piFileName, [MarshalAs(UnmanagedType.LPWStr)] String resultFileName, [MarshalAs(UnmanagedType.LPStr)] String a, [MarshalAs(UnmanagedType.LPStr)] String b, Int32 maxTimeMs, UInt32 numberOfDigitsToCheck);
+		public static extern void CalculateFunction(CoolListener listener, [MarshalAs(UnmanagedType.LPWStr)] String piFileName, [MarshalAs(UnmanagedType.LPWStr)] String resultFileName, [MarshalAs(UnmanagedType.LPStr)] String a, [MarshalAs(UnmanagedType.LPStr)] String b, Int32 maxTimeMs, UInt32 numberOfDigitsToCheck, ref UInt64 numberOfFound, ref UInt32 digitsChecked);
     }
 }
