@@ -59,7 +59,7 @@ namespace pi_counter_ui.Dialogs {
 		public bool updatePage() {
 			string[] args;
 			uint[] values;
-			FunReader.getValues(out args, out values, _warFun, indexer.PageCurrent * ResultsPerPage, ResultsPerPage);
+			FunReader.GetResultValues(out args, out values, _warFun, indexer.PageCurrent * ResultsPerPage, ResultsPerPage);
 
 			flowLayoutPanel1.SuspendLayout();
 			flowLayoutPanel1.Controls.Clear();
@@ -73,7 +73,7 @@ namespace pi_counter_ui.Dialogs {
 			flowLayoutPanel1.ResumeLayout();
 
 			getDrawer().update(args, values);
-
+            FunReader.CleanAfterGettingResultValues();
 			return true;
 		}
 

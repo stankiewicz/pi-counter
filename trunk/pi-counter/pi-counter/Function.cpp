@@ -172,10 +172,10 @@ void CalculateFunction(CoolListener listener, wchar_t *piFileName, wchar_t *resu
 	mpf_clear(mpf_b);
 
 
-	char **arguments;
+	/*char **arguments;
 	unsigned int *values;
 	GetResultValues(&arguments, &values, resultFileName, 999995, 10);
-	CleanAfterGettingResultValues();
+	CleanAfterGettingResultValues();*/
 }
 
 char* ConvertToString(mpf_ptr mpf, unsigned int addValue)
