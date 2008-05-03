@@ -47,8 +47,8 @@ namespace pi_counter_ui.Dialogs {
 			// splitContainer1.Panel2
 			// 
 			this.splitContainer1.Panel2.Controls.Add(this.indexer);
-			this.splitContainer1.Size = new System.Drawing.Size(606, 457);
-			this.splitContainer1.SplitterDistance = 415;
+			this.splitContainer1.Size = new System.Drawing.Size(663, 500);
+			this.splitContainer1.SplitterDistance = 458;
 			this.splitContainer1.TabIndex = 0;
 			// 
 			// flowLayoutPanel1
@@ -58,15 +58,15 @@ namespace pi_counter_ui.Dialogs {
 			this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
 			this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
 			this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-			this.flowLayoutPanel1.Size = new System.Drawing.Size(606, 415);
+			this.flowLayoutPanel1.Size = new System.Drawing.Size(663, 458);
 			this.flowLayoutPanel1.TabIndex = 0;
 			// 
 			// indexer
 			// 
 			this.indexer.Location = new System.Drawing.Point(3, 3);
 			this.indexer.Name = "indexer";
-			this.indexer.PageCurrent = 0;
-			this.indexer.PagesCount = 0;
+			this.indexer.PageCurrent = ((ulong)(0ul));
+			this.indexer.PagesCount = ((ulong)(0ul));
 			this.indexer.Size = new System.Drawing.Size(197, 31);
 			this.indexer.TabIndex = 0;
 			// 
@@ -74,7 +74,7 @@ namespace pi_counter_ui.Dialogs {
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(606, 457);
+			this.ClientSize = new System.Drawing.Size(663, 500);
 			this.Controls.Add(this.splitContainer1);
 			this.DoubleBuffered = true;
 			this.Name = "IndicesViewer";

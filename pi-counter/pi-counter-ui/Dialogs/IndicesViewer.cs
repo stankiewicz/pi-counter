@@ -25,11 +25,9 @@ namespace pi_counter_ui.Dialogs {
 		public IndicesViewer() {
 			InitializeComponent();
 
-			ResultsPerPage = 200;
+			ResultsPerPage = 100;
 			indexer.IndexUpdated += new EventHandler(indexer_IndexUpdated);
 		}
-
-
 
 		public void init(String warfunFile, ulong searchedIndices) {
 			_warFun = warfunFile;
@@ -47,7 +45,9 @@ namespace pi_counter_ui.Dialogs {
 			updatePage();
 		}
 
-		private void IndicesViewer_Load(object sender, EventArgs e) { }
+		private void IndicesViewer_Load(object sender, EventArgs e) {
+			getDrawer().Show();
+		}
 
 		private void IndicesViewer_FormClosing(object sender, FormClosingEventArgs e) {
 			if (e.CloseReason == CloseReason.UserClosing) {
@@ -57,7 +57,9 @@ namespace pi_counter_ui.Dialogs {
 		}
 
 		public bool updatePage() {
-			string[] values = FunReader.getValues(_warFun, indexer.PageCurrent * ResultsPerPage, ResultsPerPage);
+			string[] args;
+			uint[] values;
+			FunReader.getValues(out args, out values, _warFun, indexer.PageCurrent * ResultsPerPage, ResultsPerPage);
 
 			flowLayoutPanel1.SuspendLayout();
 			flowLayoutPanel1.Controls.Clear();
@@ -65,11 +67,22 @@ namespace pi_counter_ui.Dialogs {
 				Label l = new Label();
 				l.Text = i.ToString() + " : " + values[i];
 				//l.Parent = this.splitContainer1.Panel1;
-				flowLayoutPanel1.Controls.Add(l);
+				//flowLayoutPanel1.Controls.Add(l);
+				l.Parent = flowLayoutPanel1;
 			}
 			flowLayoutPanel1.ResumeLayout();
 
+			getDrawer().update(args, values);
+
 			return true;
+		}
+
+		Drawer _drawer = null;
+		Drawer getDrawer() {
+			if (_drawer == null) {
+				_drawer = new Drawer();
+			}
+			return _drawer;
 		}
 	}
 }
