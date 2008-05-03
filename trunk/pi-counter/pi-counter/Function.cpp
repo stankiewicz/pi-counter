@@ -113,7 +113,7 @@ unsigned int *Function::Calculate(CoolListener listener, unsigned __int64 *resul
 	return result;
 }
 
-void GetResultValues(char ***arguments, unsigned int **values, wchar_t *fileName, unsigned __int64 offset, unsigned int numberOfValuesToMaintain);
+void GetResultValues(char **arguments, unsigned int *values, wchar_t *fileName, unsigned __int64 offset, unsigned int numberOfValuesToMaintain);
 void CleanAfterGettingResultValues(void);
 
 void CalculateFunction(CoolListener listener, wchar_t *piFileName, wchar_t *resultFileName, char *a, char *b, int maxTimeMs, unsigned int numberOfDigitsToCheck, unsigned __int64 *numberOfFound, unsigned int *digitsChecked, unsigned __int64 *resultLength)
