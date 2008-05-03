@@ -6,6 +6,7 @@
 
 #include <fstream>
 #include <stdio.h>
+#include <Objbase.h>
 
 using namespace std;
 
@@ -203,15 +204,19 @@ char* ConvertToString(mpf_ptr mpf, unsigned int addValue)
 	return s;
 }
 
+/*
 unsigned int **g_values;
 char ***g_arguments;
 int g_numberOfValuesToMaintain;
+*/
 
 void GetResultValues(char ***arguments, unsigned int **values, wchar_t *fileName, unsigned __int64 offset, unsigned int numberOfValuesToMaintain)
 {
+	/*
 	g_numberOfValuesToMaintain = numberOfValuesToMaintain;
 	g_values = values;
 	g_arguments = arguments;
+	*/
 
 	int numberOfFiles;
 	unsigned int length;
@@ -225,21 +230,25 @@ void GetResultValues(char ***arguments, unsigned int **values, wchar_t *fileName
 	}
 	catch(...)
 	{
+		/*
 		*arguments = NULL;
 		*values = NULL;		
 		*g_values = NULL;
 		*g_arguments = NULL;
 		g_numberOfValuesToMaintain = 0;
+		*/
 		return;
 	}
 	if(numberOfFiles < 1)			
 	{
+		/*
 		*arguments = NULL;
 		*values = NULL;
 		*g_values = NULL;
 		*g_arguments = NULL;
 		g_numberOfValuesToMaintain = 0;
 		return;
+		*/
 	}
 
 	int filenameLength = wcslen(fileName);
@@ -259,11 +268,13 @@ void GetResultValues(char ***arguments, unsigned int **values, wchar_t *fileName
 	if(file == NULL)
 	{
 		delete[] dataFileName;
+		/*
 		*arguments = NULL;
 		*values = NULL;
 		*g_values = NULL;
 		*g_arguments = NULL;
 		g_numberOfValuesToMaintain = 0;
+		*/
 		return;
 	}	
 	fscanf(file, "%d;%u", &i, &length);	
@@ -272,11 +283,13 @@ void GetResultValues(char ***arguments, unsigned int **values, wchar_t *fileName
 	if (offset > totalLength)
 	{
 		delete[] dataFileName;
+		/*
 		*arguments = NULL;
 		*values = NULL;
 		*g_values = NULL;
 		*g_arguments = NULL;
 		g_numberOfValuesToMaintain = 0;
+		*/
 		return;
 	}
 	//*result = new unsigned int[*length];
@@ -289,12 +302,13 @@ void GetResultValues(char ***arguments, unsigned int **values, wchar_t *fileName
 	unsigned int value;
 	
 
-	*values = new unsigned int[numberOfValuesToMaintain];
-	*arguments = new char* [numberOfValuesToMaintain];
+	//*values = new unsigned int[numberOfValuesToMaintain];
+	//*arguments = new char* [numberOfValuesToMaintain];
 	for(int j = 0; j < numberOfValuesToMaintain; j++)
 	{
 		(*values)[j] = 0;
-		(*arguments)[j] = 0;
+		CoTaskMemFree((*arguments)[j]);		
+		//(*arguments)[j] = 0;
 	}
 
 	i = offset / NUMBER_OF_VALUES_PER_FILE;
@@ -337,8 +351,17 @@ void GetResultValues(char ***arguments, unsigned int **values, wchar_t *fileName
 			delete[] stringNumber;
 
 			//arguments
+			char *arg;
+			int argLen;
 			for(unsigned int j = 0; j < numberOfValuesToMaintain; j++)			
-				*((*arguments) + j) = ConvertToString(mpf, offset + j);			
+			{
+				arg = ConvertToString(mpf, offset + j);
+				argLen = strlen(arg);
+				*((*arguments) + j) = (char*)CoTaskMemAlloc(argLen + 1);
+				for(int k = 0; k <= argLen; k++)
+					(*((*arguments) + j))[k] = arg[k];
+					
+			}
 			mpf_clear(mpf);
 		}
 		else
@@ -376,11 +399,11 @@ void GetResultValues(char ***arguments, unsigned int **values, wchar_t *fileName
 
 void CleanAfterGettingResultValues(void)
 {
-	delete[] *g_values;
-	for(int i = 0; i < g_numberOfValuesToMaintain; i++)
-		delete[] *((*g_arguments) + i);
-	delete *g_arguments;
-	*g_arguments = NULL;
-	*g_values = NULL;
-	g_numberOfValuesToMaintain = 0;
+	//delete[] *g_values;
+	//for(int i = 0; i < g_numberOfValuesToMaintain; i++)
+	//	delete[] *((*g_arguments) + i);
+	//delete *g_arguments;
+	//*g_arguments = NULL;
+	//*g_values = NULL;
+	//g_numberOfValuesToMaintain = 0;
 }
