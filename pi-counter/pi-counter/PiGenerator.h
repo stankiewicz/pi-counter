@@ -3,12 +3,20 @@
 #include "gmp.h"
 
 using namespace std;
-
+#define CALCFILE1 "tmp1"
+#define CALCFILE2 "tmp2"
+#define CALCFILE1OUT "out1"
+#define CALCFILE2OUT "out2"
 //return value indicates whether to stop calculation
 typedef bool (__stdcall *CoolListener) (int timePercentComplete, int lengthPercentComplete);
 typedef void (__stdcall *Listener) ();
 typedef bool (__stdcall *BoolListener) ();
-
+extern "C" __declspec(dllexport) int add();
+extern "C" __declspec(dllexport) int sub();
+extern "C" __declspec(dllexport) int mul();
+extern "C" __declspec(dllexport) int divDouble();
+extern "C" __declspec(dllexport) int equ();
+extern "C" __declspec(dllexport) int divInt();
 extern "C" __declspec(dllexport) void generatePi(wchar_t *fileName, int digits, int maxTimeMs, CoolListener listener);
 extern "C" __declspec(dllexport) void CalculateFunction(CoolListener listener, wchar_t *piFileName, wchar_t *resultFileName, char *a, char *b, int maxTimeMs, unsigned int numberOfDigitsToCheck, unsigned __int64 *numberOfFound, unsigned int *digitsChecked, unsigned __int64 *resultLength);
 extern "C" __declspec(dllexport) void GetResultValues(char **arguments, unsigned int *values, wchar_t *fileName, unsigned __int64 offset, unsigned int numberOfValuesToMaintain);
