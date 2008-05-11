@@ -33,30 +33,33 @@ namespace pi_counter_ui.Controls {
 			// 
 			// buttonPrev
 			// 
+			this.buttonPrev.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
 			this.buttonPrev.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.buttonPrev.Location = new System.Drawing.Point(3, 3);
+			this.buttonPrev.Location = new System.Drawing.Point(0, 0);
+			this.buttonPrev.Margin = new System.Windows.Forms.Padding(0, 0, 0, 0);
 			this.buttonPrev.Name = "buttonPrev";
 			this.buttonPrev.Size = new System.Drawing.Size(25, 23);
 			this.buttonPrev.TabIndex = 0;
 			this.buttonPrev.Text = "<";
-			this.buttonPrev.UseVisualStyleBackColor = true;
+			this.buttonPrev.UseVisualStyleBackColor = false;
 			this.buttonPrev.Click += new System.EventHandler(this.buttonPrev_Click);
 			// 
 			// buttonNext
 			// 
 			this.buttonNext.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.buttonNext.Location = new System.Drawing.Point(167, 3);
+			this.buttonNext.Location = new System.Drawing.Point(161, 0);
+			this.buttonNext.Margin = new System.Windows.Forms.Padding(0, 0, 0, 0);
 			this.buttonNext.Name = "buttonNext";
 			this.buttonNext.Size = new System.Drawing.Size(25, 23);
 			this.buttonNext.TabIndex = 1;
 			this.buttonNext.Text = ">";
-			this.buttonNext.UseVisualStyleBackColor = true;
+			this.buttonNext.UseVisualStyleBackColor = false;
 			this.buttonNext.Click += new System.EventHandler(this.buttonNext_Click);
 			// 
 			// labelOf
 			// 
 			this.labelOf.AutoSize = true;
-			this.labelOf.Location = new System.Drawing.Point(106, 8);
+			this.labelOf.Location = new System.Drawing.Point(100, 5);
 			this.labelOf.Name = "labelOf";
 			this.labelOf.Size = new System.Drawing.Size(12, 13);
 			this.labelOf.TabIndex = 3;
@@ -66,7 +69,7 @@ namespace pi_counter_ui.Controls {
 			// fieldMaxPage
 			// 
 			this.fieldMaxPage.AutoSize = true;
-			this.fieldMaxPage.Location = new System.Drawing.Point(124, 8);
+			this.fieldMaxPage.Location = new System.Drawing.Point(118, 5);
 			this.fieldMaxPage.Name = "fieldMaxPage";
 			this.fieldMaxPage.Size = new System.Drawing.Size(37, 13);
 			this.fieldMaxPage.TabIndex = 4;
@@ -74,7 +77,7 @@ namespace pi_counter_ui.Controls {
 			// 
 			// fieldPage
 			// 
-			this.fieldPage.Location = new System.Drawing.Point(34, 6);
+			this.fieldPage.Location = new System.Drawing.Point(28, 3);
 			this.fieldPage.Name = "fieldPage";
 			this.fieldPage.Size = new System.Drawing.Size(66, 20);
 			this.fieldPage.TabIndex = 5;
@@ -84,13 +87,15 @@ namespace pi_counter_ui.Controls {
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.AutoSize = true;
+			this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
 			this.Controls.Add(this.fieldPage);
 			this.Controls.Add(this.buttonNext);
 			this.Controls.Add(this.fieldMaxPage);
 			this.Controls.Add(this.labelOf);
 			this.Controls.Add(this.buttonPrev);
 			this.Name = "Indexer";
-			this.Size = new System.Drawing.Size(197, 31);
+			this.Size = new System.Drawing.Size(186, 26);
 			((System.ComponentModel.ISupportInitialize)(this.fieldPage)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();

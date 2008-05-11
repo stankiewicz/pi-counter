@@ -120,6 +120,7 @@ namespace pi_counter_ui {
 			this.calculatorToolStripMenuItem.Name = "calculatorToolStripMenuItem";
 			this.calculatorToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
 			this.calculatorToolStripMenuItem.Text = "Calculator";
+			this.calculatorToolStripMenuItem.Click += new System.EventHandler(this.calculatorToolStripMenuItem_Click);
 			// 
 			// toolStripSeparator2
 			// 
