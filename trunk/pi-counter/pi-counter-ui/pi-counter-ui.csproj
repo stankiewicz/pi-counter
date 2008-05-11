@@ -60,6 +60,12 @@
     <Compile Include="Controls\Indexer.Designer.cs">
       <DependentUpon>Indexer.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\PagedText.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\PagedText.Designer.cs">
+      <DependentUpon>PagedText.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Search.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -71,6 +77,12 @@
     </Compile>
     <Compile Include="Dialogs\About.Designer.cs">
       <DependentUpon>About.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\Calculator.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\Calculator.Designer.cs">
+      <DependentUpon>Calculator.cs</DependentUpon>
     </Compile>
     <Compile Include="Dialogs\Drawer.cs">
       <SubType>Form</SubType>
@@ -111,6 +123,10 @@
       <SubType>Designer</SubType>
       <DependentUpon>Indexer.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controls\PagedText.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>PagedText.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\Search.resx">
       <SubType>Designer</SubType>
       <DependentUpon>Search.cs</DependentUpon>
@@ -118,6 +134,10 @@
     <EmbeddedResource Include="Dialogs\About.resx">
       <SubType>Designer</SubType>
       <DependentUpon>About.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\Calculator.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>Calculator.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\Drawer.resx">
       <SubType>Designer</SubType>

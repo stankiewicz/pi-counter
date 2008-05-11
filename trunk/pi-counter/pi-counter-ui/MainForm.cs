@@ -41,29 +41,37 @@ namespace pi_counter_ui {
 		}
 
 		#region forms
-		About about = null;
-		PiViewer piViewer = null;
-		IndicesViewer indicesViewer = null;
+		About _about = null;
+		PiViewer _piViewer = null;
+		IndicesViewer _indicesViewer = null;
+		Calculator _calc = null;
 
 		About getAbout() {
-			if (about == null) {
-				about = new About();
+			if (_about == null) {
+				_about = new About();
 			}
-			return about;
+			return _about;
 		}
 
 		PiViewer getPiViewer() {
-			if (piViewer == null) {
-				piViewer = new PiViewer();
+			if (_piViewer == null) {
+				_piViewer = new PiViewer();
 			}
-			return piViewer;
+			return _piViewer;
 		}
 
 		IndicesViewer getIndicesViewer() {
-			if (indicesViewer == null) {
-				indicesViewer = new IndicesViewer();
+			if (_indicesViewer == null) {
+				_indicesViewer = new IndicesViewer();
 			}
-			return indicesViewer;
+			return _indicesViewer;
+		}
+
+		Calculator getCalculator() {
+			if (_calc == null) {
+				_calc = new Calculator();
+			}
+			return _calc;
 		}
 		#endregion
 
@@ -256,6 +264,11 @@ namespace pi_counter_ui {
 			PiViewer pV = getPiViewer();
 			pV.Bignum = b;
 			pV.ShowDialog();
+		}
+
+		private void calculatorToolStripMenuItem_Click(object sender, EventArgs e) {
+			Calculator calc = getCalculator();
+			calc.ShowDialog();
 		}
 	}
 }
