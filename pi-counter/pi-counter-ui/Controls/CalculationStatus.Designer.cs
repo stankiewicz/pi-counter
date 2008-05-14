@@ -77,6 +77,7 @@ namespace pi_counter_ui.Controls {
 			this.buttonResult.TabIndex = 10;
 			this.buttonResult.Text = "Result";
 			this.buttonResult.UseVisualStyleBackColor = true;
+			this.buttonResult.Visible = false;
 			// 
 			// buttonStart
 			// 
