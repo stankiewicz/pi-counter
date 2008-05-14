@@ -459,13 +459,14 @@ int divDouble(){
 
 
 	mpf_div(wynik,left,right);
+	mpf_clear(left);
+	mpf_clear(right);
 	FILE * f = fopen(CALCFILE1OUT,"w");
 	if(f==0) {
 		mpf_clear(wynik);
 		return -1;
 	}
-	mpf_clear(left);
-	mpf_clear(right);
+	
 	//mpf_out_str(f,10,0,wynik);
 	gmp_fprintf(f,"%Ff",wynik);
 	fflush(f);
@@ -481,20 +482,20 @@ int equ() {
 	readF(left,CALCFILE1);
 	readF(right,CALCFILE2);
 
-	
-
 	int wynik = mpf_cmp(left, right);
+	mpf_clear(left);
+	mpf_clear(right);
+
 	FILE * f = fopen(CALCFILE1OUT,"w");
 	if(f==0) {
 		return -1;
 	}
-	mpf_clear(left);
-	mpf_clear(right);
 	fprintf(f,"%d",wynik);
 	fflush(f);
 	fclose(f);
 	return 0;
 }
+
 int divInt() {
 	setPrecision(); // ustaw domyœln¹ precyzjê
 	mpz_t left;
@@ -531,5 +532,67 @@ int divInt() {
 
 	mpz_clear(quotient);
 	mpz_clear(remainder);
+	return 0;
+}
+
+int fancy(unsigned long n) {
+	//2^2^n+1
+	setPrecision(); // ustaw domyœln¹ precyzjê
+
+	mpz_t two;
+	mpz_init_set_ui(two, 2);
+	
+	mpz_t res;
+	mpz_init(res);
+	mpz_pow_ui(res, two, n);
+	if (!mpz_fits_ulong_p(res)) {
+		mpz_clear(two);
+		mpz_clear(res);
+		return -2;
+	}
+	n = mpz_get_ui(res);
+	mpz_pow_ui(two, res, n);
+	mpz_add_ui(res, two, 1);
+
+	mpz_clear(two);
+
+	FILE * f = fopen(CALCFILE1OUT,"w");
+	if(f==0) {
+		mpz_clear(res);
+		return -1;
+	}
+	
+	mpz_out_str(f, 10, res);
+	fflush(f);
+	fclose(f);
+
+	mpz_clear(res);
+	return 0;
+}
+
+int mersenne(unsigned long n) {
+	//2^n-1
+	setPrecision(); // ustaw domyœln¹ precyzjê
+	mpz_t two;
+	mpz_init_set_ui(two, 2);
+	
+	mpz_t res;
+	mpz_init(res);
+	mpz_pow_ui(res, two, n);
+	mpz_clear(two);
+
+	mpz_sub_ui(res, res, 1);
+	
+	FILE * f = fopen(CALCFILE1OUT,"w");
+	if(f==0) {
+		mpz_clear(res);
+		return -1;
+	}	
+	
+	mpz_out_str(f, 10, res);
+	fflush(f);
+	fclose(f);
+
+	mpz_clear(res);
 	return 0;
 }
