@@ -384,8 +384,8 @@ int add() {
 		mpf_clear(wynik);
 		return -1;
 	}	
-	
-	mpf_out_str(f, 10, 0, wynik);
+	gmp_fprintf(f,"%Ff",wynik);
+	//mpf_out_str(f, 10, 0, wynik);
 	fflush(f);
 	fclose(f);
 
@@ -411,11 +411,11 @@ int sub() {
 		mpf_clear(wynik);
 		return -1;
 	}	
-	
-	mpf_out_str(f,10,0,wynik);
+	gmp_fprintf(f,"%Ff",wynik);
+	//mpf_out_str(f,10,0,wynik);
 	fflush(f);
 	fclose(f);
-
+	
 	mpf_clear(wynik);
 	return 0;
 
@@ -440,7 +440,8 @@ int mul() {
 		return -1;
 	}
 	
-	mpf_out_str(f,10,0,wynik);
+	//mpf_out_str(f,10,0,wynik);
+	gmp_fprintf(f,"%Ff",wynik);
 	fflush(f);
 	fclose(f);
 	mpf_clear(wynik);
@@ -455,8 +456,7 @@ int divDouble(){
 	readF(left,CALCFILE1);
 	readF(right,CALCFILE2);
 
-	mpf_clear(left);
-	mpf_clear(right);
+
 
 	mpf_div(wynik,left,right);
 	FILE * f = fopen(CALCFILE1OUT,"w");
@@ -464,8 +464,10 @@ int divDouble(){
 		mpf_clear(wynik);
 		return -1;
 	}
-	
-	mpf_out_str(f,10,0,wynik);
+	mpf_clear(left);
+	mpf_clear(right);
+	//mpf_out_str(f,10,0,wynik);
+	gmp_fprintf(f,"%Ff",wynik);
 	fflush(f);
 	fclose(f);
 
@@ -479,15 +481,15 @@ int equ() {
 	readF(left,CALCFILE1);
 	readF(right,CALCFILE2);
 
-	mpf_clear(left);
-	mpf_clear(right);
+	
 
 	int wynik = mpf_cmp(left, right);
 	FILE * f = fopen(CALCFILE1OUT,"w");
 	if(f==0) {
 		return -1;
 	}
-
+	mpf_clear(left);
+	mpf_clear(right);
 	fprintf(f,"%d",wynik);
 	fflush(f);
 	fclose(f);

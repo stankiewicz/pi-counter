@@ -69,6 +69,7 @@ namespace pi_counter_ui.Dialogs {
 					res = PiLibrary.sub();
 				} else if (s == "*") {
 					saveHelper("arg2", arg2.Buffer);
+                    res = PiLibrary.mul();
 				} else if (s == "/") {
 					saveHelper("arg2", arg2.Buffer);
 					res = PiLibrary.divDouble();
