@@ -3,10 +3,10 @@
 #include "gmp.h"
 
 using namespace std;
-#define CALCFILE1 "tmp1"
-#define CALCFILE2 "tmp2"
-#define CALCFILE1OUT "out1"
-#define CALCFILE2OUT "out2"
+#define CALCFILE1 "arg1"
+#define CALCFILE2 "arg2"
+#define CALCFILE1OUT "res1"
+#define CALCFILE2OUT "res2"
 //return value indicates whether to stop calculation
 typedef bool (__stdcall *CoolListener) (int timePercentComplete, int lengthPercentComplete);
 typedef void (__stdcall *Listener) ();

@@ -23,9 +23,20 @@ namespace pi_counter_ui.Controls {
 		/// the contents of this method with the code editor.
 		/// </summary>
 		private void InitializeComponent() {
-			this.indexer = new pi_counter_ui.Controls.Indexer();
 			this.fieldText = new System.Windows.Forms.TextBox();
+			this.indexer = new pi_counter_ui.Controls.Indexer();
 			this.SuspendLayout();
+			// 
+			// fieldText
+			// 
+			this.fieldText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
+			this.fieldText.Location = new System.Drawing.Point(0, 0);
+			this.fieldText.MaxLength = 2000000000;
+			this.fieldText.Name = "fieldText";
+			this.fieldText.Size = new System.Drawing.Size(330, 20);
+			this.fieldText.TabIndex = 1;
+			this.fieldText.Validating += new System.ComponentModel.CancelEventHandler(this.textBox1_Validating);
 			// 
 			// indexer
 			// 
@@ -38,16 +49,6 @@ namespace pi_counter_ui.Controls {
 			this.indexer.PagesCount = ((ulong)(0ul));
 			this.indexer.Size = new System.Drawing.Size(186, 26);
 			this.indexer.TabIndex = 0;
-			// 
-			// textBox1
-			// 
-			this.fieldText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-						| System.Windows.Forms.AnchorStyles.Right)));
-			this.fieldText.Location = new System.Drawing.Point(0, 0);
-			this.fieldText.Name = "textBox1";
-			this.fieldText.Size = new System.Drawing.Size(330, 20);
-			this.fieldText.TabIndex = 1;
-			this.fieldText.Validating += new System.ComponentModel.CancelEventHandler(this.textBox1_Validating);
 			// 
 			// PagedText
 			// 

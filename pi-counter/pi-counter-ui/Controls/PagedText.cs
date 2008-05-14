@@ -54,6 +54,10 @@ namespace pi_counter_ui.Controls {
 			_buffer.Remove(_beg, _len); //usuniecie starego tekstu
 			_buffer.Insert(_beg, text); //wstawienie nowego
 			_len = text.Length; //uaktualnienie zakresu wyswietlanego tekstu
+
+			updateAll();
+
+			Console.Out.WriteLine("validating");
 		}
 
 		bool isValid(string text) {

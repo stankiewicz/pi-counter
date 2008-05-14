@@ -15,7 +15,8 @@ namespace pi_counter_ui.Controls {
 		public ulong PageCurrent {
 			get { return _pageCurrent; }
 			set {
-				_pageCurrent = Math.Min(Math.Max(value, 0), PagesCount); 
+				//_pageCurrent = Math.Min(Math.Max(value, 0), PagesCount); 
+				_pageCurrent = value % (PagesCount + 1);
 				fieldPage.Text = _pageCurrent.ToString();
 			}
 		}

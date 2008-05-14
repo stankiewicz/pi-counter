@@ -451,6 +451,9 @@ int equ(){
 	mpf_t right;
 	readF(left,CALCFILE1);
 	readF(right,CALCFILE2);
+	mpf_out_str(stdout,10,0,left);
+	printf("\n");
+	mpf_out_str(stdout,10,0,right);
 	unsigned long prec =mpf_get_prec(left);
 	if(mpf_get_prec(right)<prec)
 		prec = mpf_get_prec(right);
