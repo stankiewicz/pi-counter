@@ -36,8 +36,8 @@ namespace pi_counter_ui {
         [DllImport(libPath, CharSet = CharSet.Auto, CallingConvention = CallingConvention.Cdecl)]
         public static extern int divInt();
 		[DllImport(libPath, CharSet = CharSet.Auto, CallingConvention = CallingConvention.Cdecl)]
-		public static extern int fancy1();
+		public static extern int fancy(uint n);
 		[DllImport(libPath, CharSet = CharSet.Auto, CallingConvention = CallingConvention.Cdecl)]
-		public static extern int fancy2();
+		public static extern int mersenne(uint n);
 	}
 }

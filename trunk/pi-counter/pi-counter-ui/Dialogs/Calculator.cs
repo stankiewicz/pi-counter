@@ -59,33 +59,47 @@ namespace pi_counter_ui.Dialogs {
 			int res = 0;
 
 			try {
-				saveHelper("arg1", arg1.Buffer);
-
 				if (s == "+") {
+					saveHelper("arg1", arg1.Buffer);
 					saveHelper("arg2", arg2.Buffer);
 					res = PiLibrary.add();
 				} else if (s == "-") {
+					saveHelper("arg1", arg1.Buffer);
 					saveHelper("arg2", arg2.Buffer);
 					res = PiLibrary.sub();
 				} else if (s == "*") {
+					saveHelper("arg1", arg1.Buffer);
 					saveHelper("arg2", arg2.Buffer);
                     res = PiLibrary.mul();
 				} else if (s == "/") {
+					saveHelper("arg1", arg1.Buffer);
 					saveHelper("arg2", arg2.Buffer);
 					res = PiLibrary.divDouble();
 				} else if (s == "/ (ca³kowite)") {
+					saveHelper("arg1", arg1.Buffer);
 					saveHelper("arg2", arg2.Buffer);
 					res = PiLibrary.divInt();
 					StringBuilder sb = new StringBuilder();
 					readHelper("res2", sb);
 					res2.Buffer = sb;
 				} else if (s == "=") {
+					saveHelper("arg1", arg1.Buffer);
 					saveHelper("arg2", arg2.Buffer);
 					res = PiLibrary.equ();
 				} else if (s == "2^2^n+1") {
-					res = PiLibrary.fancy1();
+					uint n;
+					if (!uint.TryParse(arg1.Buffer.ToString(), out n)) {
+						MessageBox.Show("To big n!");
+						return;
+					}
+					res = PiLibrary.fancy(n);
 				} else if (s == "2^n-1") {
-					res = PiLibrary.fancy2();
+					uint n;
+					if (!uint.TryParse(arg1.Buffer.ToString(), out n)) {
+						MessageBox.Show("To big n!");
+						return;
+					}
+					res = PiLibrary.mersenne(n);
 				} else {
 					MessageBox.Show("Critical Error!");
 					return;
