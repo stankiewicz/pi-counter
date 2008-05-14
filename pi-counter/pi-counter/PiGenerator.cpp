@@ -344,7 +344,7 @@ void generatePi(wchar_t *fileName, int d, int maxTimeMs, CoolListener listener) 
 
 	clearAll();
 }
-int readF(mpf_t mp, char *fileName){
+int readF(mpf_t mp, char *fileName) {
 	FILE * f = fopen(fileName,"r");
 	if(f==0){
 		return -1;
@@ -354,7 +354,8 @@ int readF(mpf_t mp, char *fileName){
 	fclose(f);
 	return 0;
 }
-int readI(mpz_t mp, char *fileName){
+
+int readI(mpz_t mp, char *fileName) {
 	FILE * f = fopen(fileName,"r");
 	if(f==0){
 		return -1;
@@ -364,7 +365,8 @@ int readI(mpz_t mp, char *fileName){
 	fclose(f);
 	return 0;
 }
-int add(){
+
+int add() {
 	setPrecision(); // ustaw domyœln¹ precyzjê
 	mpf_t left;
 	mpf_t right;
@@ -374,17 +376,24 @@ int add(){
 	readF(right,CALCFILE2);
 
 	mpf_add(wynik,left,right);
-	FILE * f = fopen(CALCFILE1OUT,"w");
-	if(f==0) return -1;
-	
 	mpf_clear(left);
 	mpf_clear(right);
-	mpf_out_str(f,10,0,wynik);
+
+	FILE * f = fopen(CALCFILE1OUT,"w");
+	if(f==0) {
+		mpf_clear(wynik);
+		return -1;
+	}	
+	
+	mpf_out_str(f, 10, 0, wynik);
 	fflush(f);
 	fclose(f);
+
+	mpf_clear(wynik);
 	return 0;
 }
-int sub(){
+
+int sub() {
 	setPrecision(); // ustaw domyœln¹ precyzjê
 	mpf_t left;
 	mpf_t right;
@@ -394,18 +403,24 @@ int sub(){
 	readF(right,CALCFILE2);
 
 	mpf_sub(wynik,left,right);
-	FILE * f = fopen(CALCFILE1OUT,"w");
-	if(f==0) return -1;
-	
 	mpf_clear(left);
 	mpf_clear(right);
+
+	FILE * f = fopen(CALCFILE1OUT,"w");
+	if(f==0) {
+		mpf_clear(wynik);
+		return -1;
+	}	
+	
 	mpf_out_str(f,10,0,wynik);
 	fflush(f);
 	fclose(f);
+
+	mpf_clear(wynik);
 	return 0;
 
 }
-int mul(){
+int mul() {
 	setPrecision(); // ustaw domyœln¹ precyzjê
 	mpf_t left;
 	mpf_t right;
@@ -415,14 +430,20 @@ int mul(){
 	readF(right,CALCFILE2);
 
 	mpf_mul(wynik,left,right);
-	FILE * f = fopen(CALCFILE1OUT,"w");
-	if(f==0) return -1;
-	
+
 	mpf_clear(left);
 	mpf_clear(right);
+
+	FILE * f = fopen(CALCFILE1OUT,"w");
+	if(f==0) {
+		mpf_clear(wynik);
+		return -1;
+	}
+	
 	mpf_out_str(f,10,0,wynik);
 	fflush(f);
 	fclose(f);
+	mpf_clear(wynik);
 	return 0;
 }
 int divDouble(){
@@ -434,41 +455,45 @@ int divDouble(){
 	readF(left,CALCFILE1);
 	readF(right,CALCFILE2);
 
-	mpf_div(wynik,left,right);
-	FILE * f = fopen(CALCFILE1OUT,"w");
-	if(f==0) return -1;
-	
 	mpf_clear(left);
 	mpf_clear(right);
+
+	mpf_div(wynik,left,right);
+	FILE * f = fopen(CALCFILE1OUT,"w");
+	if(f==0) {
+		mpf_clear(wynik);
+		return -1;
+	}
+	
 	mpf_out_str(f,10,0,wynik);
 	fflush(f);
 	fclose(f);
+
+	mpf_clear(wynik);
 	return 0;
 }
-int equ(){
+int equ() {
 	setPrecision(); // ustaw domyœln¹ precyzjê
 	mpf_t left;
 	mpf_t right;
 	readF(left,CALCFILE1);
 	readF(right,CALCFILE2);
-	mpf_out_str(stdout,10,0,left);
-	printf("\n");
-	mpf_out_str(stdout,10,0,right);
-	unsigned long prec =mpf_get_prec(left);
-	if(mpf_get_prec(right)<prec)
-		prec = mpf_get_prec(right);
-	int wynik = mpf_eq(left,right,prec);
-	FILE * f = fopen(CALCFILE1OUT,"w");
-	if(f==0) return -1;
-	
+
 	mpf_clear(left);
 	mpf_clear(right);
+
+	int wynik = mpf_cmp(left, right);
+	FILE * f = fopen(CALCFILE1OUT,"w");
+	if(f==0) {
+		return -1;
+	}
+
 	fprintf(f,"%d",wynik);
 	fflush(f);
 	fclose(f);
 	return 0;
 }
-int divInt(){
+int divInt() {
 	setPrecision(); // ustaw domyœln¹ precyzjê
 	mpz_t left;
 	mpz_t right;
@@ -480,13 +505,20 @@ int divInt(){
 	readI(right,CALCFILE2);
 
 	mpz_divmod(quotient,remainder,left,right);
-	FILE * f1 = fopen(CALCFILE1OUT,"w");
-	if(f1==0) return -1;
-	FILE * f2 = fopen(CALCFILE2OUT,"w");
-	if(f2==0) return -1;
-	
 	mpz_clear(left);
 	mpz_clear(right);
+	FILE * f1 = fopen(CALCFILE1OUT,"w");
+	if(f1==0) {
+		mpz_clear(quotient);
+		mpz_clear(remainder);
+		return -1;
+	}
+	FILE * f2 = fopen(CALCFILE2OUT,"w");
+	if(f2==0) {
+		mpz_clear(quotient);
+		mpz_clear(remainder);
+		return -1;
+	}
 
 	mpz_out_str(f1,0,quotient);
 	mpz_out_str(f2,0,remainder);
@@ -494,5 +526,8 @@ int divInt(){
 	fflush(f2);
 	fclose(f1);
 	fclose(f2);
+
+	mpz_clear(quotient);
+	mpz_clear(remainder);
 	return 0;
 }

@@ -57,41 +57,42 @@ namespace pi_counter_ui.Dialogs {
 		private void btnCalculate_Click(object sender, EventArgs e) {
 			string s = fieldOp.Text;
 			int res = 0;
+
 			try {
+				saveHelper("arg1", arg1.Buffer);
+
 				if (s == "+") {
-					saveHelper("arg1", arg1.Buffer);
 					saveHelper("arg2", arg2.Buffer);
 					res = PiLibrary.add();
 				} else if (s == "-") {
-					saveHelper("arg1", arg1.Buffer);
 					saveHelper("arg2", arg2.Buffer);
 					res = PiLibrary.sub();
+				} else if (s == "*") {
+					saveHelper("arg2", arg2.Buffer);
 				} else if (s == "/") {
-					saveHelper("arg1", arg1.Buffer);
 					saveHelper("arg2", arg2.Buffer);
 					res = PiLibrary.divDouble();
 				} else if (s == "/ (ca³kowite)") {
-					saveHelper("arg1", arg1.Buffer);
 					saveHelper("arg2", arg2.Buffer);
 					res = PiLibrary.divInt();
 					StringBuilder sb = new StringBuilder();
 					readHelper("res2", sb);
 					res2.Buffer = sb;
 				} else if (s == "=") {
-					saveHelper("arg1", arg1.Buffer);
 					saveHelper("arg2", arg2.Buffer);
 					res = PiLibrary.equ();
 				} else if (s == "2^2^n+1") {
-					saveHelper("arg1", arg1.Buffer);
 					res = PiLibrary.fancy1();
-				} else { //(s == "2^n-1")
-					saveHelper("arg1", arg1.Buffer);
+				} else if (s == "2^n-1") {
 					res = PiLibrary.fancy2();
+				} else {
+					MessageBox.Show("Critical Error!");
+					return;
 				}
 				
-				StringBuilder sb = new StringBuilder();
-				readHelper("res1", sb);
-				res1.Buffer = sb;
+				StringBuilder sbRes = new StringBuilder();
+				readHelper("res1", sbRes);
+				res1.Buffer = sbRes;
 
 				if (res != 0) {
 					MessageBox.Show("Error!");
@@ -115,10 +116,6 @@ namespace pi_counter_ui.Dialogs {
 				pts[(int)c].Buffer = sb;
 			} catch (Exception exc) {
 				MessageBox.Show("Ooops... Error: " + exc.Message);
-			} finally {
-			    if (sr != null) {
-			        sr.Close();
-			    }
 			}
 		}
 
@@ -128,15 +125,10 @@ namespace pi_counter_ui.Dialogs {
 			}
 			Button btn = sender as Button;
 			StringBuilder sb = pts[(int)btn.Tag].Buffer;
-			StreamWriter sw = null;
 			try {
 				saveHelper(saveFileDialog.FileName, sb);
 			} catch (Exception exc) {
 				MessageBox.Show("Error: " + exc.Message);
-			} finally {
-				if (sw != null) {
-					sw.Close();
-				}
 			}
 		}
 	}
