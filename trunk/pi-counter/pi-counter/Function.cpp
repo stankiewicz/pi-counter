@@ -167,7 +167,7 @@ void CalculateFunction(CoolListener listener, wchar_t *piFileName, wchar_t *resu
 	//printf("Found:%d\n", numberOfFound);
 	delete[] pi;
 	if(resultFileName)
-		file.SaveWARFUN(result, *resultLength, mpf_a, resultFileName);
+		file.SaveWARFUN(result, *resultLength, mpf_a, resultFileName, *digitsChecked);
 	delete[] result;
 	mpf_clear(mpf_a);
 	mpf_clear(mpf_b);
