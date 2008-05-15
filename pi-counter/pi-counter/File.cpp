@@ -213,14 +213,14 @@ bool File::SaveBIGNUM(mpf_ptr value, wchar_t *filename, int numberOfDigits)
 	return true;
 }
 
-bool File::SaveWARFUN(unsigned int *result, unsigned int length, mpf_ptr a,wchar_t *filename)
+bool File::SaveWARFUN(unsigned int *result, unsigned int length, mpf_ptr a,wchar_t *filename, unsigned int piLength)
 {
 	unsigned int numberOfFiles = (length + NUMBER_OF_VALUES_PER_FILE - 1) / NUMBER_OF_VALUES_PER_FILE;
 	ofstream out;
 	try
 	{
 		out.open(filename);
-		out<<numberOfFiles;		
+		out<<numberOfFiles << ' ' << piLength;		
 		out.close();
 	}
 	catch(...)
