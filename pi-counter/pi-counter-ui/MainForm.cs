@@ -77,8 +77,20 @@ namespace pi_counter_ui {
 
 		#region menu handlers
 		private void viewToolStripMenuItem_Click(object sender, EventArgs e) {
-			PiViewer p = getPiViewer();
-			p.ShowDialog();
+			if (openFileDialog.ShowDialog() != DialogResult.OK) {
+				return;
+			}
+
+			string filepath = openFileDialog.FileName;
+			Bignum b = new Bignum(filepath);
+			if (!b.Open()) {
+				MessageBox.Show("Load failed :(");
+				return;
+			}
+
+			PiViewer pV = getPiViewer();
+			pV.Bignum = b;
+			pV.ShowDialog();
 		}
 
 		private void exitToolStripMenuItem_Click(object sender, EventArgs e) {
@@ -118,8 +130,11 @@ namespace pi_counter_ui {
 							return;
 						}
 						_piFilename = saveFileDialog.FileName;
+
 						panelCalculationStatus.buttonStart.Text = "Stop";
-						panelConstraints.Enabled = false;						
+						panelConstraints.Enabled = false;
+						calculateToolStripMenuItem.Enabled = searchToolStripMenuItem.Enabled = false;
+
 						threadCalculation.RunWorkerAsync();
 					} else {
 						Console.WriteLine("Stopping");
@@ -137,8 +152,11 @@ namespace pi_counter_ui {
 						}
 						_piFilename = openFileDialog.FileName;
 						_warfun = saveFileDialogSearch.FileName;
+
 						panelCalculationStatus.buttonStart.Text = "Stop";
 						panelConstraints.Enabled = false;
+						calculateToolStripMenuItem.Enabled = searchToolStripMenuItem.Enabled = false;
+
 						threadSearch.RunWorkerAsync();
 						Console.WriteLine("Finished");
 					} else {
@@ -199,9 +217,11 @@ namespace pi_counter_ui {
 			panelCalculationStatus.buttonStart.Text = "Start";
 			Console.WriteLine("Finished");
 			MessageBox.Show("Calculation finished");
+
 			panelConstraints.Enabled = true;
 			panelCalculationStatus.Enabled = true;
 			panelCalculationStatus.ConstraintLength = panelCalculationStatus.ConstraintTime = 0;
+			calculateToolStripMenuItem.Enabled = searchToolStripMenuItem.Enabled = true;
 
 			//open pi viewer
 			Bignum b = new Bignum(_piFilename);
@@ -241,29 +261,13 @@ namespace pi_counter_ui {
 			panelConstraints.Enabled = true;
 			panelCalculationStatus.Enabled = true;
 			panelCalculationStatus.ConstraintLength = panelCalculationStatus.ConstraintTime = 0;
+			calculateToolStripMenuItem.Enabled = searchToolStripMenuItem.Enabled = true;
 
 			//todo: poka¿ wynik
 			MessageBox.Show(String.Format("Found: {0}, Checked: {1}", _numberOfFoundIndices, _numberOfDigitsChecked));
 			IndicesViewer iv = getIndicesViewer();
 			iv.init(_warfun, _numberOfSearchedIndices);
 			iv.ShowDialog();
-		}
-
-		private void loadToolStripMenuItem_Click(object sender, EventArgs e) {
-			if (openFileDialog.ShowDialog() != DialogResult.OK) {
-				return;
-			}
-
-			string filepath = openFileDialog.FileName;
-			Bignum b = new Bignum(filepath);
-			if (!b.Open()) {
-				MessageBox.Show("Load failed :(");
-				return;
-			}
-
-			PiViewer pV = getPiViewer();
-			pV.Bignum = b;
-			pV.ShowDialog();
 		}
 
 		private void calculatorToolStripMenuItem_Click(object sender, EventArgs e) {

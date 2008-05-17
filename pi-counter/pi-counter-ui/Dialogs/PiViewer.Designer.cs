@@ -28,12 +28,13 @@ namespace pi_counter_ui.Dialogs {
 			this.labelPositionValue = new System.Windows.Forms.Label();
 			this.labelPosition = new System.Windows.Forms.Label();
 			this.indexer = new pi_counter_ui.Controls.Indexer();
-			this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-			this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.decimalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.hexToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+			this.fieldDecimal = new System.Windows.Forms.RadioButton();
+			this.fieldHexadecimal = new System.Windows.Forms.RadioButton();
 			this.panelStatus.SuspendLayout();
-			this.menuStrip1.SuspendLayout();
+			this.groupBox1.SuspendLayout();
+			this.flowLayoutPanel1.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// textBoxPiView
@@ -41,11 +42,11 @@ namespace pi_counter_ui.Dialogs {
 			this.textBoxPiView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
 						| System.Windows.Forms.AnchorStyles.Left)
 						| System.Windows.Forms.AnchorStyles.Right)));
-			this.textBoxPiView.Location = new System.Drawing.Point(12, 27);
+			this.textBoxPiView.Location = new System.Drawing.Point(6, 48);
 			this.textBoxPiView.Multiline = true;
 			this.textBoxPiView.Name = "textBoxPiView";
 			this.textBoxPiView.ReadOnly = true;
-			this.textBoxPiView.Size = new System.Drawing.Size(377, 400);
+			this.textBoxPiView.Size = new System.Drawing.Size(392, 376);
 			this.textBoxPiView.TabIndex = 0;
 			// 
 			// panelStatus
@@ -77,66 +78,78 @@ namespace pi_counter_ui.Dialogs {
 			this.labelPosition.TabIndex = 1;
 			this.labelPosition.Text = "Digit position:";
 			// 
-			// indexer1
+			// indexer
 			// 
+			this.indexer.AutoSize = true;
+			this.indexer.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
 			this.indexer.Location = new System.Drawing.Point(3, 3);
-			this.indexer.Name = "indexer1";
-			this.indexer.Size = new System.Drawing.Size(197, 31);
+			this.indexer.Name = "indexer";
+			this.indexer.PageCurrent = ((ulong)(0ul));
+			this.indexer.PagesCount = ((ulong)(0ul));
+			this.indexer.Size = new System.Drawing.Size(186, 26);
 			this.indexer.TabIndex = 0;
 			// 
-			// menuStrip1
+			// groupBox1
 			// 
-			this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.viewToolStripMenuItem});
-			this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-			this.menuStrip1.Name = "menuStrip1";
-			this.menuStrip1.Size = new System.Drawing.Size(401, 24);
-			this.menuStrip1.TabIndex = 2;
-			this.menuStrip1.Text = "menuStrip1";
+			this.groupBox1.Controls.Add(this.flowLayoutPanel1);
+			this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
+			this.groupBox1.Location = new System.Drawing.Point(0, 0);
+			this.groupBox1.Name = "groupBox1";
+			this.groupBox1.Size = new System.Drawing.Size(401, 42);
+			this.groupBox1.TabIndex = 3;
+			this.groupBox1.TabStop = false;
+			this.groupBox1.Text = "View style";
 			// 
-			// viewToolStripMenuItem
+			// flowLayoutPanel1
 			// 
-			this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.decimalToolStripMenuItem,
-            this.hexToolStripMenuItem});
-			this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
-			this.viewToolStripMenuItem.Size = new System.Drawing.Size(41, 20);
-			this.viewToolStripMenuItem.Text = "View";
+			this.flowLayoutPanel1.Controls.Add(this.fieldDecimal);
+			this.flowLayoutPanel1.Controls.Add(this.fieldHexadecimal);
+			this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 16);
+			this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+			this.flowLayoutPanel1.Size = new System.Drawing.Size(395, 23);
+			this.flowLayoutPanel1.TabIndex = 0;
 			// 
-			// decimalToolStripMenuItem
+			// fieldDecimal
 			// 
-			this.decimalToolStripMenuItem.Checked = true;
-			this.decimalToolStripMenuItem.CheckOnClick = true;
-			this.decimalToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-			this.decimalToolStripMenuItem.Name = "decimalToolStripMenuItem";
-			this.decimalToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
-			this.decimalToolStripMenuItem.Text = "Decimal";
+			this.fieldDecimal.AutoSize = true;
+			this.fieldDecimal.Location = new System.Drawing.Point(3, 3);
+			this.fieldDecimal.Name = "fieldDecimal";
+			this.fieldDecimal.Size = new System.Drawing.Size(63, 17);
+			this.fieldDecimal.TabIndex = 0;
+			this.fieldDecimal.TabStop = true;
+			this.fieldDecimal.Text = "Decimal";
+			this.fieldDecimal.UseVisualStyleBackColor = true;
+			this.fieldDecimal.CheckedChanged += new System.EventHandler(this.viewStyleChanged);
 			// 
-			// hexToolStripMenuItem
+			// fieldHexadecimal
 			// 
-			this.hexToolStripMenuItem.CheckOnClick = true;
-			this.hexToolStripMenuItem.Name = "hexToolStripMenuItem";
-			this.hexToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
-			this.hexToolStripMenuItem.Text = "Hexadecimal";
-			this.hexToolStripMenuItem.Click += new System.EventHandler(this.hexToolStripMenuItem_Click);
+			this.fieldHexadecimal.AutoSize = true;
+			this.fieldHexadecimal.Location = new System.Drawing.Point(72, 3);
+			this.fieldHexadecimal.Name = "fieldHexadecimal";
+			this.fieldHexadecimal.Size = new System.Drawing.Size(86, 17);
+			this.fieldHexadecimal.TabIndex = 1;
+			this.fieldHexadecimal.TabStop = true;
+			this.fieldHexadecimal.Text = "Hexadecimal";
+			this.fieldHexadecimal.UseVisualStyleBackColor = true;
+			this.fieldHexadecimal.CheckedChanged += new System.EventHandler(this.viewStyleChanged);
 			// 
 			// PiViewer
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(401, 468);
+			this.Controls.Add(this.groupBox1);
 			this.Controls.Add(this.panelStatus);
 			this.Controls.Add(this.textBoxPiView);
-			this.Controls.Add(this.menuStrip1);
-			this.MainMenuStrip = this.menuStrip1;
 			this.Name = "PiViewer";
 			this.Text = "PiViewer";
-			this.Load += new System.EventHandler(this.PiViewer_Load);
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.PiViewer_FormClosing);
 			this.panelStatus.ResumeLayout(false);
 			this.panelStatus.PerformLayout();
-			this.menuStrip1.ResumeLayout(false);
-			this.menuStrip1.PerformLayout();
+			this.groupBox1.ResumeLayout(false);
+			this.flowLayoutPanel1.ResumeLayout(false);
+			this.flowLayoutPanel1.PerformLayout();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -149,9 +162,9 @@ namespace pi_counter_ui.Dialogs {
 		private pi_counter_ui.Controls.Indexer indexer;
 		private System.Windows.Forms.Label labelPositionValue;
 		private System.Windows.Forms.Label labelPosition;
-		private System.Windows.Forms.MenuStrip menuStrip1;
-		private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem hexToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem decimalToolStripMenuItem;
+		private System.Windows.Forms.GroupBox groupBox1;
+		private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+		private System.Windows.Forms.RadioButton fieldDecimal;
+		private System.Windows.Forms.RadioButton fieldHexadecimal;
 	}
 }

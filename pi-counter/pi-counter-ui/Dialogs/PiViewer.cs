@@ -10,7 +10,24 @@ using pi_counter_ui.Classes;
 
 namespace pi_counter_ui.Dialogs {
 	public partial class PiViewer : Form {
-		byte[] digits;
+		byte[] _digits;
+
+		public enum ViewStyle { Decimal, Hexadecimal };
+
+		private ViewStyle _view;
+
+		public ViewStyle View {
+			get { return _view; }
+			set {
+				_view = value;
+				if (_view == ViewStyle.Decimal) {
+					fieldDecimal.Checked = true;
+				} else {
+					fieldHexadecimal.Checked = true;
+				}
+				updatePage();
+			}
+		}
 
 		private uint _digitsPerPage;
 
@@ -18,7 +35,7 @@ namespace pi_counter_ui.Dialogs {
 			get { return _digitsPerPage; }
 			set {
 				_digitsPerPage = value;
-				digits = new byte[_digitsPerPage];
+				_digits = new byte[_digitsPerPage];
 			}
 		}
 		
@@ -39,14 +56,15 @@ namespace pi_counter_ui.Dialogs {
 
 			DigitsPerPage = 1000;
 			indexer.IndexUpdated += new EventHandler(indexer_IndexUpdated);
+
+			fieldDecimal.Tag = ViewStyle.Decimal;
+			fieldHexadecimal.Tag = ViewStyle.Hexadecimal;
+
+			View = ViewStyle.Decimal;
 		}
 
 		void indexer_IndexUpdated(object sender, EventArgs e) {
 			updatePage();
-		}
-
-		private void hexToolStripMenuItem_Click(object sender, EventArgs e) {
-			MessageBox.Show("Not implemented yet!");
 		}
 
 		private void PiViewer_FormClosing(object sender, FormClosingEventArgs e) {
@@ -57,15 +75,24 @@ namespace pi_counter_ui.Dialogs {
 		}
 
 		public bool updatePage() {
-			int read;
-			if ((read = Bignum.getDigits(digits, (uint)(indexer.PageCurrent * DigitsPerPage), DigitsPerPage)) == -1) {
+			if (Bignum == null) {
 				return false;
 			}
 
+			int read;
+			if ((read = Bignum.getDigits(_digits, (uint)(indexer.PageCurrent * DigitsPerPage), DigitsPerPage)) == -1) {
+				return false;
+			}
+
+			textBoxPiView.Text = (View == ViewStyle.Decimal) ? getDecimalView(_digits, read) : getHexadecimalView(_digits, read);
+			return true;
+		}
+
+		string getDecimalView(byte[] digits, int bytesRead) {
 			StringBuilder sb = new StringBuilder();
 
 			int three = 2, six = 5 /*, thirty = 29 */;
-			for (int i = 0; i < read; i++, three--, six-- /*, thirty-- */) {
+			for (int i = 0; i < bytesRead; i++, three--, six-- /*, thirty-- */) {
 				sb.Append((char)digits[i]);
 				if (three == 0) {
 					sb.Append(" ");
@@ -80,12 +107,30 @@ namespace pi_counter_ui.Dialogs {
 				//    thirty = 30;
 				//}
 			}
-			textBoxPiView.Text = sb.ToString();
-			return true;
+			return sb.ToString();
 		}
 
-		private void PiViewer_Load(object sender, EventArgs e) {
+		string getHexadecimalView(byte[] digits, int bytesRead) {
+			return "sorry, no hex today :)";
+		}
 
+		private void viewStyleChanged(object sender, EventArgs e) {
+			RadioButton rb = sender as RadioButton;
+			if (rb.Checked == false) {
+				return;
+			}
+
+			ViewStyle vw = (ViewStyle)rb.Tag;
+			switch (vw) {
+				case ViewStyle.Decimal:
+					break;
+				case ViewStyle.Hexadecimal:
+					MessageBox.Show("Sorry... not implemented yet...");
+					View = ViewStyle.Decimal;
+					break;
+				default:
+					break;
+			}
 		}
 	}
 }
