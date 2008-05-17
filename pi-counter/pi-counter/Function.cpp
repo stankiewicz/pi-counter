@@ -183,6 +183,8 @@ char* ConvertToString(mpf_ptr mpf, unsigned int addValue)
 {
 	mpf_t temp;
 	mpf_init(temp);
+
+	mpf_set_prec(temp, mpf_get_prec(mpf) + 5);
 	mpf_add_ui(temp, mpf, addValue);
 	mp_exp_t exp;
 	char *string = mpf_get_str(NULL, &exp, 10, 0, temp);
@@ -377,6 +379,29 @@ void GetResultValues(char **arguments, unsigned int *values, wchar_t *fileName, 
 		fscanf(file, "%d;", &fileLength);
 		for(int j = 0; j < fileLength; j++)
 		{
+			if(j >= offset)
+			{
+				value = 0;
+				fscanf(file, "%d", &value);
+				if(j < fileLength)
+					fseek(file, 1, SEEK_CUR);
+				*(values + alredyMaintained) = value;
+				alredyMaintained++;
+				if(alredyMaintained >= numberOfValuesToMaintain)
+					break;
+			}
+			else
+			{
+				while(1)
+				{
+					fread(&c, 1, 1, file);
+					if(c == ',')
+						break;
+				}
+			}
+			
+			
+			/******
 			value = 0;
 			fscanf(file, "%d", &value);
 			if(j < fileLength)
@@ -388,6 +413,7 @@ void GetResultValues(char **arguments, unsigned int *values, wchar_t *fileName, 
 				if(alredyMaintained >= numberOfValuesToMaintain)
 					break;
 			}
+			//******/
 		}
 		offset = 0;
 		fclose(file);
