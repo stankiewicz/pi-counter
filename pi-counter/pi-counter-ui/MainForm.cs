@@ -88,8 +88,15 @@ namespace pi_counter_ui {
 				return;
 			}
 
+			Bignum bHex = new Bignum(filepath + ".hex");
+			if (!bHex.Open()) {
+				MessageBox.Show("Load failed :(");
+				return;
+			}
+
 			PiViewer pV = getPiViewer();
 			pV.Bignum = b;
+			pV.BignumHex = bHex;
 			pV.ShowDialog();
 		}
 
@@ -230,8 +237,15 @@ namespace pi_counter_ui {
 				return;
 			}
 
+			Bignum bHex = new Bignum(_piFilename + ".hex");
+			if (!bHex.Open()) {
+				MessageBox.Show("Load failed :(");
+				return;
+			}
+
 			PiViewer pV = getPiViewer();
 			pV.Bignum = b;
+			pV.BignumHex = bHex;
 			pV.ShowDialog();
 		}
 

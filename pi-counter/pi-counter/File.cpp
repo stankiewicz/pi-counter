@@ -124,10 +124,10 @@ bool File::LoadBIGNUM(mpf_ptr value, char **piString, wchar_t *filename)
 	return true;
 }
 
-bool File::SaveBIGNUM(mpf_ptr value, wchar_t *filename, int numberOfDigits)
+bool File::SaveBIGNUM(mpf_ptr value, int base, wchar_t *filename, int numberOfDigits)
 {	
 	mp_exp_t exp;
-	char *stringNumber = mpf_get_str(NULL, &exp, 10, numberOfDigits, value);	
+	char *stringNumber = mpf_get_str(NULL, &exp, base, numberOfDigits, value);	
 	char *string = stringNumber;
 	size_t digits = strlen(stringNumber);
 	int numberOfFiles = digits + 1;

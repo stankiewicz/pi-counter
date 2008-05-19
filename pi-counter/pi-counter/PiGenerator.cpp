@@ -339,8 +339,12 @@ void generatePi(wchar_t *fileName, int d, int maxTimeMs, CoolListener listener) 
 	- poprawiæ zapisywanie gdy res == false (zatrzymano obliczenia)
 	- sparametryzowaæ nazwê pliku
 	*/
-	if(fileName)
-		file.SaveBIGNUM(a2, fileName);
+	if(fileName) {
+		file.SaveBIGNUM(a2, 10, fileName);
+		wstring str(fileName);
+		str.append(L".hex");
+		file.SaveBIGNUM(a2, 16, (wchar_t *)str.c_str());
+	}
 
 	clearAll();
 }
