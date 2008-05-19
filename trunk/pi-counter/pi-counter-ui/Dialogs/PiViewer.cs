@@ -45,10 +45,32 @@ namespace pi_counter_ui.Dialogs {
 			get { return _bignum; }
 			set {
 				_bignum = value;
-				indexer.PagesCount = (uint)(_bignum.getMaxDigits() / DigitsPerPage);
-				indexer.PageCurrent = Math.Max(Math.Min(indexer.PageCurrent, indexer.PagesCount), 0); // 0 <= currPage <= maxPage
-				updatePage();
+				updateForDecimal();
 			}
+		}
+
+		private void updateForDecimal() {
+			if (_bignum == null) return;
+			indexer.PagesCount = (uint)(_bignum.getMaxDigits() / DigitsPerPage);
+			indexer.PageCurrent = Math.Max(Math.Min(indexer.PageCurrent, indexer.PagesCount), 0); // 0 <= currPage <= maxPage
+			updatePage();
+		}
+
+		private Bignum _bignumHex;
+
+		public Bignum BignumHex {
+			get { return _bignumHex; }
+			set {
+				_bignumHex = value;
+				updateForHex();
+			}
+		}
+
+		private void updateForHex() {
+			if (_bignumHex == null) return;
+			indexer.PagesCount = (uint)(_bignumHex.getMaxDigits() / DigitsPerPage);
+			indexer.PageCurrent = Math.Max(Math.Min(indexer.PageCurrent, indexer.PagesCount), 0); // 0 <= currPage <= maxPage
+			updatePage();
 		}
 
 		public PiViewer() {
@@ -75,25 +97,25 @@ namespace pi_counter_ui.Dialogs {
 		}
 
 		public bool updatePage() {
+			textBoxPiView.Text = (View == ViewStyle.Decimal) ? getDecimalView() : getHexadecimalView();
+			return true;
+		}
+
+		string getDecimalView() {
 			if (Bignum == null) {
-				return false;
+				return null;
 			}
 
 			int read;
 			if ((read = Bignum.getDigits(_digits, (uint)(indexer.PageCurrent * DigitsPerPage), DigitsPerPage)) == -1) {
-				return false;
+				return null;
 			}
 
-			textBoxPiView.Text = (View == ViewStyle.Decimal) ? getDecimalView(_digits, read) : getHexadecimalView(_digits, read);
-			return true;
-		}
-
-		string getDecimalView(byte[] digits, int bytesRead) {
 			StringBuilder sb = new StringBuilder();
 
 			int three = 2, six = 5 /*, thirty = 29 */;
-			for (int i = 0; i < bytesRead; i++, three--, six-- /*, thirty-- */) {
-				sb.Append((char)digits[i]);
+			for (int i = 0; i < read; i++, three--, six-- /*, thirty-- */) {
+				sb.Append((char)_digits[i]);
 				if (three == 0) {
 					sb.Append(" ");
 					three = 3;
@@ -110,8 +132,32 @@ namespace pi_counter_ui.Dialogs {
 			return sb.ToString();
 		}
 
-		string getHexadecimalView(byte[] digits, int bytesRead) {
-			return "sorry, no hex today :)";
+		string getHexadecimalView() {
+			if (BignumHex == null) {
+				return null;
+			}
+
+			int read;
+			if ((read = BignumHex.getDigits(_digits, (uint)(indexer.PageCurrent * DigitsPerPage), DigitsPerPage)) == -1) {
+				return null;
+			}
+
+			StringBuilder sb = new StringBuilder();
+
+			int four = 3, eight = 7;
+			for (int i = 0; i < read; i++, four--, eight--) {
+				sb.Append((char)_digits[i]);
+				if (four == 0) {
+					sb.Append(" ");
+					four = 4;
+				}
+				if (eight == 0) {
+					sb.Append("  ");
+					eight = 8;
+				}
+				//if (thirty==0) {
+			}
+			return sb.ToString();
 		}
 
 		private void viewStyleChanged(object sender, EventArgs e) {
@@ -121,16 +167,18 @@ namespace pi_counter_ui.Dialogs {
 			}
 
 			ViewStyle vw = (ViewStyle)rb.Tag;
-			switch (vw) {
-				case ViewStyle.Decimal:
-					break;
-				case ViewStyle.Hexadecimal:
-					MessageBox.Show("Sorry... not implemented yet...");
-					View = ViewStyle.Decimal;
-					break;
-				default:
-					break;
-			}
+			View = vw;
+
+			//switch (vw) {
+			//    case ViewStyle.Decimal:
+			//        updateForDecimal();
+			//        break;
+			//    case ViewStyle.Hexadecimal:
+			//        updateForHex();
+			//        break;
+			//    default:
+			//        break;
+			//}
 		}
 	}
 }

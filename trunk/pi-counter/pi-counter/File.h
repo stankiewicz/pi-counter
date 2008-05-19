@@ -9,7 +9,7 @@
 class File
 {
 public:
-	bool SaveBIGNUM(mpf_ptr value, wchar_t *filename, int numberOfDigits = 0);
+	bool SaveBIGNUM(mpf_ptr value, int base, wchar_t *filename, int numberOfDigits = 0);
 	bool LoadBIGNUM(mpf_ptr value, char **piString, wchar_t *    filename);
 	bool SaveWARFUN(unsigned int *result, unsigned int length, mpf_ptr a,wchar_t *filename, unsigned int piLength);
 	bool LoadWARFUN(unsigned int **result, unsigned int *length, mpf_ptr a, wchar_t *filename);
