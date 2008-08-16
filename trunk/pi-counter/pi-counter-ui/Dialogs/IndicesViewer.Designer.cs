@@ -65,8 +65,8 @@ namespace pi_counter_ui.Dialogs {
 			// 
 			this.indexer.Location = new System.Drawing.Point(3, 3);
 			this.indexer.Name = "indexer";
-			this.indexer.PageCurrent = ((ulong)(0ul));
-			this.indexer.PagesCount = ((ulong)(0ul));
+			this.indexer.PageCurrent = ((ulong)(1ul));
+			this.indexer.PagesCount = ((ulong)(1ul));
 			this.indexer.Size = new System.Drawing.Size(197, 31);
 			this.indexer.TabIndex = 0;
 			// 

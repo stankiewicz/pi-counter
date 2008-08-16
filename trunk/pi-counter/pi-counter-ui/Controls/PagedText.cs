@@ -66,7 +66,7 @@ namespace pi_counter_ui.Controls {
 		}
 
 		void updateAll() {
-			indexer.PagesCount = (ulong)(_buffer.Length / CharsPerPage);
+			indexer.PagesCount = (ulong)(_buffer.Length / CharsPerPage) + 1;
 
 			updateText();
 		}

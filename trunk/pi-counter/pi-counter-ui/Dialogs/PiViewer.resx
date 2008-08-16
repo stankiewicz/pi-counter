@@ -117,4 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="textBoxPiView.Text" xml:space="preserve">
+    <value>1234 1234  1234 1234  1234 1234  1234 1234  1234 1234  1234 1234  1234 1234  1234 1234  1234 1234  1234 1234  1234 1234  1234 1234  1234 1234  1234 1234  1234 1234
+123 123  123 123  123 123  123 123  123 123  123 123  123 123  123 123  123 123  123 123  123 123  123 123  123 123  123 123  123 123  123 123  123 123  123 123  123 123</value>
+  </data>
 </root>

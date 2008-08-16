@@ -23,32 +23,34 @@ namespace pi_counter_ui {
 		/// the contents of this method with the code editor.
 		/// </summary>
 		private void InitializeComponent() {
-			this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
+			this.openBignum = new System.Windows.Forms.OpenFileDialog();
 			this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
 			this.threadCalculation = new System.ComponentModel.BackgroundWorker();
 			this.menuStrip = new System.Windows.Forms.MenuStrip();
 			this.piToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.calculateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.searchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.viewNumberIndicesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.calculatorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
 			this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
 			this.labelInfo = new System.Windows.Forms.Label();
+			this.threadSearch = new System.ComponentModel.BackgroundWorker();
+			this.saveFileDialogSearch = new System.Windows.Forms.SaveFileDialog();
+			this.openWarfun = new System.Windows.Forms.OpenFileDialog();
 			this.panelSearch = new pi_counter_ui.Controls.Search();
 			this.panelConstraints = new pi_counter_ui.Controls.Constraints();
 			this.panelCalculationStatus = new pi_counter_ui.Controls.CalculationStatus();
-			this.threadSearch = new System.ComponentModel.BackgroundWorker();
-			this.saveFileDialogSearch = new System.Windows.Forms.SaveFileDialog();
 			this.menuStrip.SuspendLayout();
 			this.flowLayoutPanel1.SuspendLayout();
 			this.SuspendLayout();
 			// 
-			// openFileDialog
+			// openBignum
 			// 
-			this.openFileDialog.Filter = "Pi-Counter files|*.bignum";
+			this.openBignum.Filter = "Pi-Counter files|*.bignum";
 			// 
 			// saveFileDialog
 			// 
@@ -69,16 +71,17 @@ namespace pi_counter_ui {
             this.aboutToolStripMenuItem});
 			this.menuStrip.Location = new System.Drawing.Point(0, 0);
 			this.menuStrip.Name = "menuStrip";
-			this.menuStrip.Size = new System.Drawing.Size(409, 24);
+			this.menuStrip.Size = new System.Drawing.Size(418, 24);
 			this.menuStrip.TabIndex = 0;
 			this.menuStrip.Text = "menuStrip1";
 			// 
 			// piToolStripMenuItem
 			// 
 			this.piToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.viewToolStripMenuItem,
             this.calculateToolStripMenuItem,
+            this.viewToolStripMenuItem,
             this.searchToolStripMenuItem,
+            this.viewNumberIndicesToolStripMenuItem,
             this.calculatorToolStripMenuItem,
             this.toolStripSeparator1,
             this.exitToolStripMenuItem});
@@ -86,48 +89,56 @@ namespace pi_counter_ui {
 			this.piToolStripMenuItem.Size = new System.Drawing.Size(27, 20);
 			this.piToolStripMenuItem.Text = "Pi";
 			// 
-			// viewToolStripMenuItem
-			// 
-			this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
-			this.viewToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V)));
-			this.viewToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
-			this.viewToolStripMenuItem.Text = "View";
-			this.viewToolStripMenuItem.Click += new System.EventHandler(this.viewToolStripMenuItem_Click);
-			// 
 			// calculateToolStripMenuItem
 			// 
 			this.calculateToolStripMenuItem.Name = "calculateToolStripMenuItem";
 			this.calculateToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
-			this.calculateToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
-			this.calculateToolStripMenuItem.Text = "Calculate";
+			this.calculateToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
+			this.calculateToolStripMenuItem.Text = "Calculate Pi";
 			this.calculateToolStripMenuItem.Click += new System.EventHandler(this.calculateToolStripMenuItem_Click);
+			// 
+			// viewToolStripMenuItem
+			// 
+			this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
+			this.viewToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V)));
+			this.viewToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
+			this.viewToolStripMenuItem.Text = "View Bignum";
+			this.viewToolStripMenuItem.Click += new System.EventHandler(this.viewToolStripMenuItem_Click);
 			// 
 			// searchToolStripMenuItem
 			// 
 			this.searchToolStripMenuItem.Name = "searchToolStripMenuItem";
 			this.searchToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-			this.searchToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
-			this.searchToolStripMenuItem.Text = "Search";
+			this.searchToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
+			this.searchToolStripMenuItem.Text = "Search Numbers";
 			this.searchToolStripMenuItem.Click += new System.EventHandler(this.searchToolStripMenuItem_Click_1);
+			// 
+			// viewNumberIndicesToolStripMenuItem
+			// 
+			this.viewNumberIndicesToolStripMenuItem.Name = "viewNumberIndicesToolStripMenuItem";
+			this.viewNumberIndicesToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.I)));
+			this.viewNumberIndicesToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
+			this.viewNumberIndicesToolStripMenuItem.Text = "View Number Indices";
+			this.viewNumberIndicesToolStripMenuItem.Click += new System.EventHandler(this.viewNumberIndicesToolStripMenuItem_Click);
 			// 
 			// calculatorToolStripMenuItem
 			// 
 			this.calculatorToolStripMenuItem.Name = "calculatorToolStripMenuItem";
 			this.calculatorToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.L)));
-			this.calculatorToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
+			this.calculatorToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
 			this.calculatorToolStripMenuItem.Text = "Calculator";
 			this.calculatorToolStripMenuItem.Click += new System.EventHandler(this.calculatorToolStripMenuItem_Click);
 			// 
 			// toolStripSeparator1
 			// 
 			this.toolStripSeparator1.Name = "toolStripSeparator1";
-			this.toolStripSeparator1.Size = new System.Drawing.Size(154, 6);
+			this.toolStripSeparator1.Size = new System.Drawing.Size(206, 6);
 			// 
 			// exitToolStripMenuItem
 			// 
 			this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
 			this.exitToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
-			this.exitToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
+			this.exitToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
 			this.exitToolStripMenuItem.Text = "Exit";
 			this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
 			// 
@@ -149,7 +160,7 @@ namespace pi_counter_ui {
 			this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
 			this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 24);
 			this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-			this.flowLayoutPanel1.Size = new System.Drawing.Size(409, 334);
+			this.flowLayoutPanel1.Size = new System.Drawing.Size(418, 334);
 			this.flowLayoutPanel1.TabIndex = 1;
 			// 
 			// labelInfo
@@ -160,6 +171,20 @@ namespace pi_counter_ui {
 			this.labelInfo.Size = new System.Drawing.Size(70, 13);
 			this.labelInfo.TabIndex = 4;
 			this.labelInfo.Text = "[info info info]";
+			// 
+			// threadSearch
+			// 
+			this.threadSearch.DoWork += new System.ComponentModel.DoWorkEventHandler(this.threadSearch_DoWork);
+			this.threadSearch.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.threadSearch_RunWorkerCompleted);
+			// 
+			// saveFileDialogSearch
+			// 
+			this.saveFileDialogSearch.DefaultExt = "*.warfun";
+			this.saveFileDialogSearch.Filter = "Wartoœci funkcji (*.warfun) | *.warfun";
+			// 
+			// openWarfun
+			// 
+			this.openWarfun.Filter = "Warfun files|*.warfun";
 			// 
 			// panelSearch
 			// 
@@ -201,21 +226,11 @@ namespace pi_counter_ui {
 			this.panelCalculationStatus.Size = new System.Drawing.Size(403, 117);
 			this.panelCalculationStatus.TabIndex = 2;
 			// 
-			// threadSearch
-			// 
-			this.threadSearch.DoWork += new System.ComponentModel.DoWorkEventHandler(this.threadSearch_DoWork);
-			this.threadSearch.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.threadSearch_RunWorkerCompleted);
-			// 
-			// saveFileDialogSearch
-			// 
-			this.saveFileDialogSearch.DefaultExt = "*.warfun";
-			this.saveFileDialogSearch.Filter = "Wartoœci funkcji (*.warfun) | *.warfun";
-			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(409, 358);
+			this.ClientSize = new System.Drawing.Size(418, 358);
 			this.Controls.Add(this.flowLayoutPanel1);
 			this.Controls.Add(this.menuStrip);
 			this.MainMenuStrip = this.menuStrip;
@@ -233,7 +248,7 @@ namespace pi_counter_ui {
 
 		#endregion
 
-		private System.Windows.Forms.OpenFileDialog openFileDialog;
+		private System.Windows.Forms.OpenFileDialog openBignum;
 		private System.Windows.Forms.SaveFileDialog saveFileDialog;
 		private System.ComponentModel.BackgroundWorker threadCalculation;
 		private System.Windows.Forms.MenuStrip menuStrip;
@@ -252,6 +267,8 @@ namespace pi_counter_ui {
 		private System.ComponentModel.BackgroundWorker threadSearch;
 		private System.Windows.Forms.ToolStripMenuItem calculatorToolStripMenuItem;
 		private System.Windows.Forms.SaveFileDialog saveFileDialogSearch;
+		private System.Windows.Forms.ToolStripMenuItem viewNumberIndicesToolStripMenuItem;
+		private System.Windows.Forms.OpenFileDialog openWarfun;
 	}
 }
 

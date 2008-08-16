@@ -17,6 +17,8 @@ namespace pi_counter_ui.Classes {
 		ulong _digitsAfterDot;
 		string[] dataFiles;
 		long[] dataFilesLength;
+		bool _hasSign = false;
+		bool _hasDot = false;
 		bool opened = false;
 
 		public Bignum(string filepath) {
@@ -58,6 +60,12 @@ namespace pi_counter_ui.Classes {
 				try {
 					fs = File.OpenRead(dataFile);
 					dataFilesLength[i] = fs.Length;
+					if (i == 0) { //check for sign
+						int c = fs.ReadByte();
+						if (c == '+' || c == '-') {
+							_hasSign = true;
+						}
+					}
 				} catch {
 					return false;
 				} finally {
@@ -124,6 +132,22 @@ namespace pi_counter_ui.Classes {
 				fileIndex++; //we either read all digits and finish 'while' or there are digits left, and we need to read next file
 			}
 			return (int)(digitsCount - digitsLeft); //digits read
+		}
+
+		public bool hasSign {
+			get {
+				return _hasSign;
+			}
+		}
+
+		public bool hasDot {
+			get {
+				return (_digitsAfterDot == 0);
+			}
+		}
+
+		public ulong getDotPosition() {
+			return _digitsBeforeDot;
 		}
 	}
 }

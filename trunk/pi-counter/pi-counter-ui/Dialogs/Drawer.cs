@@ -27,12 +27,12 @@ namespace pi_counter_ui.Dialogs {
 			}
 		}
 
-		public void update(string[] args, uint[] values) {
+		public void update(string[] args, uint[] values, uint count) {
 			GraphPane gp = graph.GraphPane;
 			gp.CurveList.Clear();
 
 			PointPairList ppl = new PointPairList();
-			for (int i=0; i<args.Length; i++) {
+			for (int i=0; i< count; i++) {
 				ppl.Add(i, values[i]);
 			}
 			LineItem data = gp.AddCurve("test", ppl, Color.Green);

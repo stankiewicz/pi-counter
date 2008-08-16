@@ -15,20 +15,24 @@ namespace pi_counter_ui.Controls {
 		public ulong PageCurrent {
 			get { return _pageCurrent; }
 			set {
-				//_pageCurrent = Math.Min(Math.Max(value, 0), PagesCount); 
-				_pageCurrent = value % (PagesCount + 1);
+				_pageCurrent = Math.Min(Math.Max(value, 1), PagesCount); 
 				fieldPage.Text = _pageCurrent.ToString();
 			}
 		}
 
 		private ulong _pagesCount;
-
 		public ulong PagesCount {
 			get { return _pagesCount; }
 			set {
+				if (value < 1) {
+					throw new ArgumentOutOfRangeException("Pages count should be greater than 0", (String)null);
+				}
+
 				_pagesCount = value;
 				this.fieldMaxPage.Text = _pagesCount.ToString();
 				this.fieldPage.Maximum = _pagesCount;
+
+				PageCurrent = PageCurrent;
 			}
 		}
 
