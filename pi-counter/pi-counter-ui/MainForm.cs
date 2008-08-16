@@ -77,11 +77,11 @@ namespace pi_counter_ui {
 
 		#region menu handlers
 		private void viewToolStripMenuItem_Click(object sender, EventArgs e) {
-			if (openFileDialog.ShowDialog() != DialogResult.OK) {
+			if (openBignum.ShowDialog() != DialogResult.OK) {
 				return;
 			}
 
-			string filepath = openFileDialog.FileName;
+			string filepath = openBignum.FileName;
 			Bignum b = new Bignum(filepath);
 			if (!b.Open()) {
 				MessageBox.Show("Load failed :(");
@@ -119,10 +119,12 @@ namespace pi_counter_ui {
 				case Modes.PiCalculation:
 					this.labelInfo.Text = "Pi calculation mode.\r\nYou can specify constraints.";
 					this.panelSearch.Visible = false;
+					this.panelCalculationStatus.FoundVisibility = false;
 					break;
 				case Modes.PiSearch:
 					this.labelInfo.Text = "Pi search mode.\r\nYou can specify constraints and searched numbers' range.";
 					this.panelSearch.Visible = true;
+					this.panelCalculationStatus.FoundVisibility = true;
 					break;
 				default:
 					break;
@@ -151,13 +153,13 @@ namespace pi_counter_ui {
 					break;
 				case Modes.PiSearch:
 					if (!threadSearch.IsBusy) {
-						if (openFileDialog.ShowDialog() != DialogResult.OK) {
+						if (openBignum.ShowDialog() != DialogResult.OK) {
 							return;
 						}
 						if (saveFileDialogSearch.ShowDialog() != DialogResult.OK) {
 							return;
 						}
-						_piFilename = openFileDialog.FileName;
+						_piFilename = openBignum.FileName;
 						_warfun = saveFileDialogSearch.FileName;
 
 						panelCalculationStatus.buttonStart.Text = "Stop";
@@ -287,6 +289,15 @@ namespace pi_counter_ui {
 		private void calculatorToolStripMenuItem_Click(object sender, EventArgs e) {
 			Calculator calc = getCalculator();
 			calc.ShowDialog();
+		}
+
+		private void viewNumberIndicesToolStripMenuItem_Click(object sender, EventArgs e) {
+			if (openWarfun.ShowDialog() != DialogResult.OK) {
+				return;
+			}
+			IndicesViewer iv = getIndicesViewer();
+			iv.init(openWarfun.FileName);
+			iv.ShowDialog();
 		}
 	}
 }

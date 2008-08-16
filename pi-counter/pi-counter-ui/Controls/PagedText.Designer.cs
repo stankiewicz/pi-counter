@@ -29,35 +29,37 @@ namespace pi_counter_ui.Controls {
 			// 
 			// fieldText
 			// 
-			this.fieldText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-						| System.Windows.Forms.AnchorStyles.Right)));
-			this.fieldText.Location = new System.Drawing.Point(0, 0);
+			this.fieldText.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+			this.fieldText.Location = new System.Drawing.Point(3, 5);
 			this.fieldText.MaxLength = 2000000000;
 			this.fieldText.Name = "fieldText";
-			this.fieldText.Size = new System.Drawing.Size(330, 20);
+			this.fieldText.Size = new System.Drawing.Size(279, 20);
 			this.fieldText.TabIndex = 1;
+			this.fieldText.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
 			this.fieldText.Validating += new System.ComponentModel.CancelEventHandler(this.textBox1_Validating);
 			// 
 			// indexer
 			// 
-			this.indexer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.indexer.Anchor = System.Windows.Forms.AnchorStyles.Right;
 			this.indexer.AutoSize = true;
 			this.indexer.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-			this.indexer.Location = new System.Drawing.Point(336, 0);
+			this.indexer.Location = new System.Drawing.Point(288, 1);
 			this.indexer.Name = "indexer";
 			this.indexer.PageCurrent = ((ulong)(0ul));
-			this.indexer.PagesCount = ((ulong)(0ul));
-			this.indexer.Size = new System.Drawing.Size(186, 26);
-			this.indexer.TabIndex = 0;
+			this.indexer.PagesCount = ((ulong)(1ul));
+			this.indexer.Size = new System.Drawing.Size(161, 29);
+			this.indexer.TabIndex = 1;
 			// 
 			// PagedText
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.Controls.Add(this.indexer);
+			this.AutoSize = true;
+			this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
 			this.Controls.Add(this.fieldText);
+			this.Controls.Add(this.indexer);
 			this.Name = "PagedText";
-			this.Size = new System.Drawing.Size(522, 24);
+			this.Size = new System.Drawing.Size(452, 33);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 

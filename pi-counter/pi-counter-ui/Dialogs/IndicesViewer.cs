@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using pi_counter_ui.Classes;
+using System.IO;
 
 namespace pi_counter_ui.Dialogs {
 	public partial class IndicesViewer : Form {
@@ -42,8 +43,9 @@ namespace pi_counter_ui.Dialogs {
 		}
 
 		private void setPageCount() {
-			indexer.PagesCount = _searchedIndices / ResultsPerPage;
-			indexer.PageCurrent = Math.Max(Math.Min(indexer.PageCurrent, indexer.PagesCount), 0);
+			ulong pagecount = (_searchedIndices / ResultsPerPage) + ((_searchedIndices % ResultsPerPage > 0) ? 1ul : 0ul);
+			indexer.PagesCount = Math.Max(1, pagecount);
+			indexer.PageCurrent = Math.Max(Math.Min(indexer.PageCurrent, indexer.PagesCount), 1);
 		}
 
 		void indexer_IndexUpdated(object sender, EventArgs e) {
@@ -63,11 +65,16 @@ namespace pi_counter_ui.Dialogs {
 		}
 
 		public bool updatePage() {
-			PiLibrary.GetResultValues(args, values, _warFun, indexer.PageCurrent * ResultsPerPage, ResultsPerPage);
-
+			ulong start = (indexer.PageCurrent-1) * ResultsPerPage;
+			ulong left = _searchedIndices - start;
+			uint count = (uint)Math.Min(left, ResultsPerPage);
+			PiLibrary.GetResultValues(args, values, _warFun, start, count);
+			//PiLibrary.GetResultValues(args, values, _warFun, start, ResultsPerPage);
+			
 			flowLayoutPanel1.SuspendLayout();
 			flowLayoutPanel1.Controls.Clear();
-			for (uint i = 0; i < values.Length; i++) {
+			for (uint i = 0; i < count; i++) {
+			//for (uint i = 0; i < ResultsPerPage; i++) {
 				Label l = new Label();
 				l.Text = args[i] + " : " + values[i];
 				//l.Parent = this.splitContainer1.Panel1;
@@ -76,7 +83,8 @@ namespace pi_counter_ui.Dialogs {
 			}
 			flowLayoutPanel1.ResumeLayout();
 
-			getDrawer().update(args, values);
+			getDrawer().update(args, values, count);
+			//getDrawer().update(args, values, ResultsPerPage);
             //PiLibrary.CleanAfterGettingResultValues();
 			return true;
 		}
@@ -87,6 +95,21 @@ namespace pi_counter_ui.Dialogs {
 				_drawer = new Drawer();
 			}
 			return _drawer;
+		}
+
+		internal void init(string p) {
+			_warFun = p;
+			
+			using (StreamReader sr = new StreamReader(_warFun + "00000")) { //always a first file
+				String s = sr.ReadToEnd();
+				String[] sa = s.Split(';');
+				//ulong a = ulong.Parse(sa[0]);
+				ulong b = ulong.Parse(sa[1]);
+				//_searchedIndices = a + b - 1;
+				_searchedIndices = b;
+			}
+
+			setPageCount();
 		}
 	}
 }

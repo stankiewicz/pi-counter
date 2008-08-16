@@ -50,9 +50,10 @@ namespace pi_counter_ui.Dialogs {
 		}
 
 		private void updateForDecimal() {
-			if (_bignum == null) return;
-			indexer.PagesCount = (uint)(_bignum.getMaxDigits() / DigitsPerPage);
-			indexer.PageCurrent = Math.Max(Math.Min(indexer.PageCurrent, indexer.PagesCount), 0); // 0 <= currPage <= maxPage
+			if (_bignum == null) {
+				return;
+			}
+			indexer.PagesCount = (uint)(_bignum.getMaxDigits() / DigitsPerPage) + 1;
 			updatePage();
 		}
 
@@ -67,9 +68,10 @@ namespace pi_counter_ui.Dialogs {
 		}
 
 		private void updateForHex() {
-			if (_bignumHex == null) return;
-			indexer.PagesCount = (uint)(_bignumHex.getMaxDigits() / DigitsPerPage);
-			indexer.PageCurrent = Math.Max(Math.Min(indexer.PageCurrent, indexer.PagesCount), 0); // 0 <= currPage <= maxPage
+			if (_bignumHex == null) {
+				return;
+			}
+			indexer.PagesCount = (uint)(_bignumHex.getMaxDigits() / DigitsPerPage) + 1;
 			updatePage();
 		}
 
@@ -107,27 +109,35 @@ namespace pi_counter_ui.Dialogs {
 			}
 
 			int read;
-			if ((read = Bignum.getDigits(_digits, (uint)(indexer.PageCurrent * DigitsPerPage), DigitsPerPage)) == -1) {
+			if ((read = Bignum.getDigits(_digits, (uint)((indexer.PageCurrent - 1) * DigitsPerPage), DigitsPerPage)) == -1) {
 				return null;
 			}
-
 			StringBuilder sb = new StringBuilder();
 
-			int three = 2, six = 5 /*, thirty = 29 */;
-			for (int i = 0; i < read; i++, three--, six-- /*, thirty-- */) {
+			const int maxCharsInLine = 12 * 3;
+			int charsInLine = 0;
+			for (int i = 0; i < read; i++) {
+				if (_digits[i] == '+') { //nie pokazujemy +
+					continue;
+				} else if (_digits[i] == '-') {
+					sb.AppendLine("-");
+					charsInLine = 0;
+					continue;
+				} else if (_digits[i] == '.') {
+					sb.AppendLine().AppendLine(".");
+					charsInLine = 0;
+					continue;
+				}
 				sb.Append((char)_digits[i]);
-				if (three == 0) {
-					sb.Append(" ");
-					three = 3;
-				}
-				if (six == 0) {
+				charsInLine++;
+				if (charsInLine == maxCharsInLine) {
+					sb.AppendLine();
+					charsInLine = 0;
+				} else if (charsInLine % 6 == 0) {
 					sb.Append("  ");
-					six = 6;
+				} else if (charsInLine % 3 == 0) {
+					sb.Append(" ");
 				}
-				//if (thirty==0) {
-				//    sb.Append("   ");
-				//    thirty = 30;
-				//}
 			}
 			return sb.ToString();
 		}
@@ -138,25 +148,39 @@ namespace pi_counter_ui.Dialogs {
 			}
 
 			int read;
-			if ((read = BignumHex.getDigits(_digits, (uint)(indexer.PageCurrent * DigitsPerPage), DigitsPerPage)) == -1) {
+			if ((read = BignumHex.getDigits(_digits, (uint)((indexer.PageCurrent - 1) * DigitsPerPage), DigitsPerPage)) == -1) {
 				return null;
 			}
-
 			StringBuilder sb = new StringBuilder();
 
-			int four = 3, eight = 7;
-			for (int i = 0; i < read; i++, four--, eight--) {
+			const int maxCharsInLine = 10 * 4;
+			int charsInLine = 0;
+			for (int i = 0; i < read; i++) {
+				if (_digits[i] == '+') { //nie pokazujemy +
+					continue;
+				} else if (_digits[i] == '-') {
+					sb.AppendLine("-");
+					charsInLine = 0;
+					continue;
+				} else if (_digits[i] == '.') {
+					sb.AppendLine().AppendLine(".");
+					charsInLine = 0;
+					continue;
+				}
 				sb.Append((char)_digits[i]);
-				if (four == 0) {
-					sb.Append(" ");
-					four = 4;
-				}
-				if (eight == 0) {
+				charsInLine++;
+				if (charsInLine == maxCharsInLine) {
+					sb.AppendLine();
+					charsInLine = 0;
+				} else if (charsInLine % 8 == 0) {
 					sb.Append("  ");
-					eight = 8;
+				} else if (charsInLine % 4 == 0) {
+					sb.Append(" ");
 				}
-				//if (thirty==0) {
 			}
+
+
+
 			return sb.ToString();
 		}
 
@@ -168,17 +192,51 @@ namespace pi_counter_ui.Dialogs {
 
 			ViewStyle vw = (ViewStyle)rb.Tag;
 			View = vw;
-
-			//switch (vw) {
-			//    case ViewStyle.Decimal:
-			//        updateForDecimal();
-			//        break;
-			//    case ViewStyle.Hexadecimal:
-			//        updateForHex();
-			//        break;
-			//    default:
-			//        break;
-			//}
 		}
+
+		private void textBoxPiView_MouseMove(object sender, MouseEventArgs e) {
+			String text = textBoxPiView.Text;
+			Bignum b = null;
+			if (this._view == ViewStyle.Decimal) {
+				b = Bignum;
+			} else {
+				b = BignumHex;
+			}
+
+			ulong charIndex = (ulong)textBoxPiView.GetCharIndexFromPosition(e.Location);
+			int t = (int)charIndex;
+			for (int i = 0; i <= t; i++) {
+				char c = text[(int)i];
+				if (Char.IsWhiteSpace(c)) {
+					charIndex--;
+				}
+			}
+
+			//ale nadal nie wiadomo czy jest to indeks z uwzglêdnieniem +,- lub .
+
+			//jeœli to jest pierwsza strona to mo¿na sprawdziæ
+			if (this.indexer.PageCurrent == 1) {
+				if ((text[0] == '+' || text[0] == '-') && charIndex > 0) {
+					charIndex--;
+				}
+				if (b.getDotPosition() < charIndex) {
+					charIndex--;
+				}
+			} else {
+				charIndex += (this.indexer.PageCurrent - 1) * DigitsPerPage;
+
+				if (b.hasSign) {
+					charIndex--;
+				}
+
+				if (b.getDotPosition() < charIndex) {
+					charIndex--;
+				}
+			}
+
+			charIndex++; //bo liczymy od 1
+			this.labelPositionValue.Text = charIndex.ToString();
+		}
+
 	}
 }
