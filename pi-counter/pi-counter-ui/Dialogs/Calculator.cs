@@ -7,11 +7,17 @@ using System.Text;
 using System.Windows.Forms;
 using System.IO;
 using pi_counter_ui.Controls;
+using pi_counter_ui.Classes;
 
 namespace pi_counter_ui.Dialogs {
 	public partial class Calculator : Form {
 		enum C : int { arg1 = 0, arg2, res1, res2 };
 		PagedText[] pts;
+
+		enum Operators { add, sub, mul, div, divInt, eq, fancy, mersenne };
+
+		String[] operators = {
+			"+", "-", "*", "/", "/ (ca³kowite)", "=", "2^2^n+1", "2^n-1" };
 
 		public Calculator() {
 			InitializeComponent();
@@ -22,16 +28,15 @@ namespace pi_counter_ui.Dialogs {
 			pts[(int)C.res1] = res1;
 			pts[(int)C.res2] = res2;
 
-			arg1.CharsPerPage = arg2.CharsPerPage = res1.CharsPerPage = res2.CharsPerPage = 90; //a czemu nie? :P
-			fieldOp.ValueMember = "+";
+			arg1.CharsPerPage = arg2.CharsPerPage = res1.CharsPerPage = res2.CharsPerPage = 70;
 
-			btnSaveArg1.Tag =  btnLoadArg1.Tag = C.arg1;
+			fieldOp.Items.AddRange(operators);
+			fieldOp.SelectedIndex = 0;
+
+			btnSaveArg1.Tag = btnLoadArg1.Tag = C.arg1;
 			btnSaveArg2.Tag = btnLoadArg2.Tag = C.arg2;
 			btnSaveRes1.Tag = C.res1;
 			btnSaveRes2.Tag = C.res2;
-		}
-
-		private void Calculator_Load(object sender, EventArgs e) {
 		}
 
 		void saveHelper(string file, StringBuilder sb) {
@@ -40,6 +45,23 @@ namespace pi_counter_ui.Dialogs {
 					sw.Write(sb[i]);
 				}
 			}
+		}
+
+		void readHelperBignum(string file, StringBuilder sb) {
+			uint mb = 1048576;
+			byte[] buffer = new byte[mb]; //1MB
+
+			Bignum b = new Bignum(file);
+			b.Open();
+			int start = 0;
+			int read = 0;
+			do {
+				read = b.getDigits(buffer, (uint)start, mb);
+				for (int i = 0; i < read; i++) {
+					sb.Append((char)buffer[i]);
+				}
+				start += read;
+			} while (read > 0);
 		}
 
 		void readHelper(string file, StringBuilder sb) {
@@ -51,12 +73,14 @@ namespace pi_counter_ui.Dialogs {
 					int count = sr.ReadBlock(buffer, 0, mb);
 					sb.Append(buffer, 0, count);
 				}
-			}
+			}			
 		}
 
 		private void btnCalculate_Click(object sender, EventArgs e) {
 			string s = fieldOp.Text;
 			int res = 0;
+
+			res2.Buffer = new StringBuilder();
 
 			try {
 				if (s == "+") {
@@ -117,6 +141,11 @@ namespace pi_counter_ui.Dialogs {
 			}
 		}
 
+		/// <summary>
+		/// Wczytywanie plików bignum
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void btnLoad_Click(object sender, EventArgs e) {
 			Button btn = sender as Button;
 			C c = (C)btn.Tag;
@@ -127,13 +156,18 @@ namespace pi_counter_ui.Dialogs {
 
 			StringBuilder sb = new StringBuilder();
 			try {
-				readHelper(openFileDialog.FileName, sb);
+				readHelperBignum(openFileDialog.FileName, sb);
 				pts[(int)c].Buffer = sb;
 			} catch (Exception exc) {
-				MessageBox.Show("Ooops... Error: " + exc.Message);
+				MessageBox.Show("Unexpected error occured: " + exc.Message);
 			}
 		}
 
+		/// <summary>
+		/// Zapisywanie jako zwyk³y plik
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void btnSave_Click(object sender, EventArgs e) {
 			if (saveFileDialog.ShowDialog() != DialogResult.OK) {
 				return;
@@ -144,6 +178,54 @@ namespace pi_counter_ui.Dialogs {
 				saveHelper(saveFileDialog.FileName, sb);
 			} catch (Exception exc) {
 				MessageBox.Show("Error: " + exc.Message);
+			}
+		}
+
+		private void fieldOp_SelectedIndexChanged(object sender, EventArgs e) {
+			Operators selected = (Operators)fieldOp.SelectedIndex;
+			switch (selected) {
+				case Operators.add:
+					panelArg2.Visible = true;
+					panelRes2.Visible = false;
+					fieldOpInfo.Text = "Please insert arguments into rows above. The result will be shown below.";
+					break;
+				case Operators.sub:
+					panelArg2.Visible = true;
+					panelRes2.Visible = false;
+					fieldOpInfo.Text = "Please insert arguments into rows above. The result will be shown below.";
+					break;
+				case Operators.mul:
+					panelArg2.Visible = true;
+					panelRes2.Visible = false;
+					fieldOpInfo.Text = "Please insert arguments into rows above. The result will be shown below.";
+					break;
+				case Operators.div:
+					panelArg2.Visible = true;
+					panelRes2.Visible = false;
+					fieldOpInfo.Text = "Please insert arguments into rows above. The result will be shown below.";
+					break;
+				case Operators.divInt:
+					panelArg2.Visible = true;
+					panelRes2.Visible = true;
+					fieldOpInfo.Text = "Please insert arguments into rows above. Quotient will be in the first row, remainder - in the second, below.";
+					break;
+				case Operators.eq:
+					panelArg2.Visible = true;
+					panelRes2.Visible = false;
+					fieldOpInfo.Text = "Please insert arguments into rows above. The resul will be shown below: 1 for equal, otherwise 0.";
+					break;
+				case Operators.fancy:
+					panelArg2.Visible = false;
+					panelRes2.Visible = false;
+					fieldOpInfo.Text = "Please insert argument into row above. The resul will be shown below.";
+					break;
+				case Operators.mersenne:
+					panelArg2.Visible = false;
+					panelRes2.Visible = false;
+					fieldOpInfo.Text = "Please insert argument into row above. The resul will be shown below.";
+					break;
+				default:
+					break;
 			}
 		}
 	}

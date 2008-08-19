@@ -25,6 +25,7 @@ namespace pi_counter_ui.Dialogs {
 		private void InitializeComponent() {
 			this.splitContainer1 = new System.Windows.Forms.SplitContainer();
 			this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+			this.label1 = new System.Windows.Forms.Label();
 			this.indexer = new pi_counter_ui.Controls.Indexer();
 			this.splitContainer1.Panel1.SuspendLayout();
 			this.splitContainer1.Panel2.SuspendLayout();
@@ -46,6 +47,7 @@ namespace pi_counter_ui.Dialogs {
 			// 
 			// splitContainer1.Panel2
 			// 
+			this.splitContainer1.Panel2.Controls.Add(this.label1);
 			this.splitContainer1.Panel2.Controls.Add(this.indexer);
 			this.splitContainer1.Size = new System.Drawing.Size(663, 500);
 			this.splitContainer1.SplitterDistance = 458;
@@ -61,13 +63,25 @@ namespace pi_counter_ui.Dialogs {
 			this.flowLayoutPanel1.Size = new System.Drawing.Size(663, 458);
 			this.flowLayoutPanel1.TabIndex = 0;
 			// 
+			// label1
+			// 
+			this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.label1.AutoSize = true;
+			this.label1.Location = new System.Drawing.Point(473, 11);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(182, 13);
+			this.label1.TabIndex = 1;
+			this.label1.Text = "Format: [searched string] : [first index]";
+			// 
 			// indexer
 			// 
+			this.indexer.AutoSize = true;
+			this.indexer.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
 			this.indexer.Location = new System.Drawing.Point(3, 3);
 			this.indexer.Name = "indexer";
 			this.indexer.PageCurrent = ((ulong)(1ul));
 			this.indexer.PagesCount = ((ulong)(1ul));
-			this.indexer.Size = new System.Drawing.Size(197, 31);
+			this.indexer.Size = new System.Drawing.Size(161, 29);
 			this.indexer.TabIndex = 0;
 			// 
 			// IndicesViewer
@@ -80,9 +94,11 @@ namespace pi_counter_ui.Dialogs {
 			this.Name = "IndicesViewer";
 			this.Text = "IndicesViewer";
 			this.Load += new System.EventHandler(this.IndicesViewer_Load);
+			this.VisibleChanged += new System.EventHandler(this.IndicesViewer_VisibleChanged);
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.IndicesViewer_FormClosing);
 			this.splitContainer1.Panel1.ResumeLayout(false);
 			this.splitContainer1.Panel2.ResumeLayout(false);
+			this.splitContainer1.Panel2.PerformLayout();
 			this.splitContainer1.ResumeLayout(false);
 			this.ResumeLayout(false);
 
@@ -93,5 +109,6 @@ namespace pi_counter_ui.Dialogs {
 		private System.Windows.Forms.SplitContainer splitContainer1;
 		private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
 		private pi_counter_ui.Controls.Indexer indexer;
+		private System.Windows.Forms.Label label1;
 	}
 }

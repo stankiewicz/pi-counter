@@ -5,7 +5,7 @@
     <ProductVersion>8.0.50727</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{940D1FA6-CF11-4EEB-8C0A-E1B02EC27207}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>pi_counter_ui</RootNamespace>
     <AssemblyName>pi-counter-ui</AssemblyName>
@@ -97,6 +97,12 @@
     <Compile Include="Dialogs\IndicesViewer.Designer.cs">
       <DependentUpon>IndicesViewer.cs</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\Options.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\Options.Designer.cs">
+      <DependentUpon>Options.cs</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\PiViewer.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -147,6 +153,10 @@
     <EmbeddedResource Include="Dialogs\IndicesViewer.resx">
       <SubType>Designer</SubType>
       <DependentUpon>IndicesViewer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\Options.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>Options.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\PiViewer.resx">
       <SubType>Designer</SubType>

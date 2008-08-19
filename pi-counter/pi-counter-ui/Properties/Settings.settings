@@ -5,5 +5,11 @@
     <Setting Name="piCounterPath" Type="System.String" Scope="User">
       <Value Profile="(Default)">pi-counter.dll</Value>
     </Setting>
+    <Setting Name="IndicesViewer_ResultsPerPage" Type="System.UInt32" Scope="User">
+      <Value Profile="(Default)">100</Value>
+    </Setting>
+    <Setting Name="PiViewer_DigitsPerPage" Type="System.UInt32" Scope="User">
+      <Value Profile="(Default)">500</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

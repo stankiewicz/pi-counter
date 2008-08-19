@@ -555,8 +555,8 @@ int fancy(unsigned long n) {
 		return -2;
 	}
 	n = mpz_get_ui(res);
-	mpz_pow_ui(two, res, n);
-	mpz_add_ui(res, two, 1);
+	mpz_pow_ui(res, two, n);
+	mpz_add_ui(res, res, 1);
 
 	mpz_clear(two);
 

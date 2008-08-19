@@ -12,7 +12,7 @@ namespace pi_counter_ui.Controls {
 		StringBuilder _buffer = new StringBuilder();
 		int _beg = 0, _len = 0;
 
-		private int _charsPerPage = 10;
+		private int _charsPerPage = 80;
 
 		[Browsable(true)]
 		public int CharsPerPage {
@@ -66,13 +66,13 @@ namespace pi_counter_ui.Controls {
 		}
 
 		void updateAll() {
-			indexer.PagesCount = (ulong)(_buffer.Length / CharsPerPage) + 1;
+			indexer.PagesCount = (ulong)Math.Max(Math.Ceiling((double)_buffer.Length / (double)CharsPerPage), 1);
 
 			updateText();
 		}
 
 		private void updateText() {
-			_beg = Math.Max(0, Math.Min((int)indexer.PageCurrent * CharsPerPage, _buffer.Length - 1));
+			_beg = Math.Max(0, Math.Min(((int)indexer.PageCurrent - 1) * CharsPerPage, _buffer.Length - 1));
 			_len = Math.Max(0, Math.Min(CharsPerPage, _buffer.Length - _beg));
 
 			fieldText.Text = _buffer.ToString(_beg, _len);
