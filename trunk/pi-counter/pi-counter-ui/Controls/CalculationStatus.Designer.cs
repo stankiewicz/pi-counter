@@ -23,6 +23,7 @@ namespace pi_counter_ui.Controls {
 		/// the contents of this method with the code editor.
 		/// </summary>
 		private void InitializeComponent() {
+			this.components = new System.ComponentModel.Container();
 			this.labelFound = new System.Windows.Forms.Label();
 			this.groupBoxCalculations = new System.Windows.Forms.GroupBox();
 			this.buttonResult = new System.Windows.Forms.Button();
@@ -38,6 +39,7 @@ namespace pi_counter_ui.Controls {
 			this.panelTimeConstraint = new System.Windows.Forms.Panel();
 			this.labelConstraintTime = new System.Windows.Forms.Label();
 			this.progressBarTime = new System.Windows.Forms.ProgressBar();
+			this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
 			this.groupBoxCalculations.SuspendLayout();
 			this.panelFound.SuspendLayout();
 			this.flowLayoutPanel1.SuspendLayout();
@@ -68,6 +70,7 @@ namespace pi_counter_ui.Controls {
 			this.groupBoxCalculations.TabIndex = 2;
 			this.groupBoxCalculations.TabStop = false;
 			this.groupBoxCalculations.Text = "Calculations";
+			this.toolTip1.SetToolTip(this.groupBoxCalculations, "This area indicates status of current operation");
 			// 
 			// buttonResult
 			// 
@@ -221,6 +224,7 @@ namespace pi_counter_ui.Controls {
 		public System.Windows.Forms.Button buttonStart;
 		private System.Windows.Forms.ProgressBar progressBarTime;
 		private System.Windows.Forms.ProgressBar progressBarLength;
+		private System.Windows.Forms.ToolTip toolTip1;
 
 
 	}

@@ -38,12 +38,13 @@ namespace pi_counter_ui {
 			this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
 			this.labelInfo = new System.Windows.Forms.Label();
-			this.threadSearch = new System.ComponentModel.BackgroundWorker();
-			this.saveFileDialogSearch = new System.Windows.Forms.SaveFileDialog();
-			this.openWarfun = new System.Windows.Forms.OpenFileDialog();
 			this.panelSearch = new pi_counter_ui.Controls.Search();
 			this.panelConstraints = new pi_counter_ui.Controls.Constraints();
 			this.panelCalculationStatus = new pi_counter_ui.Controls.CalculationStatus();
+			this.threadSearch = new System.ComponentModel.BackgroundWorker();
+			this.saveFileDialogSearch = new System.Windows.Forms.SaveFileDialog();
+			this.openWarfun = new System.Windows.Forms.OpenFileDialog();
+			this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuStrip.SuspendLayout();
 			this.flowLayoutPanel1.SuspendLayout();
 			this.SuspendLayout();
@@ -68,7 +69,8 @@ namespace pi_counter_ui {
 			// 
 			this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.piToolStripMenuItem,
-            this.aboutToolStripMenuItem});
+            this.aboutToolStripMenuItem,
+            this.optionsToolStripMenuItem});
 			this.menuStrip.Location = new System.Drawing.Point(0, 0);
 			this.menuStrip.Name = "menuStrip";
 			this.menuStrip.Size = new System.Drawing.Size(418, 24);
@@ -172,20 +174,6 @@ namespace pi_counter_ui {
 			this.labelInfo.TabIndex = 4;
 			this.labelInfo.Text = "[info info info]";
 			// 
-			// threadSearch
-			// 
-			this.threadSearch.DoWork += new System.ComponentModel.DoWorkEventHandler(this.threadSearch_DoWork);
-			this.threadSearch.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.threadSearch_RunWorkerCompleted);
-			// 
-			// saveFileDialogSearch
-			// 
-			this.saveFileDialogSearch.DefaultExt = "*.warfun";
-			this.saveFileDialogSearch.Filter = "Wartoœci funkcji (*.warfun) | *.warfun";
-			// 
-			// openWarfun
-			// 
-			this.openWarfun.Filter = "Warfun files|*.warfun";
-			// 
 			// panelSearch
 			// 
 			this.panelSearch.Location = new System.Drawing.Point(3, 16);
@@ -225,6 +213,27 @@ namespace pi_counter_ui {
 			this.panelCalculationStatus.Name = "panelCalculationStatus";
 			this.panelCalculationStatus.Size = new System.Drawing.Size(403, 117);
 			this.panelCalculationStatus.TabIndex = 2;
+			// 
+			// threadSearch
+			// 
+			this.threadSearch.DoWork += new System.ComponentModel.DoWorkEventHandler(this.threadSearch_DoWork);
+			this.threadSearch.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.threadSearch_RunWorkerCompleted);
+			// 
+			// saveFileDialogSearch
+			// 
+			this.saveFileDialogSearch.DefaultExt = "*.warfun";
+			this.saveFileDialogSearch.Filter = "Wartoœci funkcji (*.warfun) | *.warfun";
+			// 
+			// openWarfun
+			// 
+			this.openWarfun.Filter = "Warfun files|*.warfun";
+			// 
+			// optionsToolStripMenuItem
+			// 
+			this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
+			this.optionsToolStripMenuItem.Size = new System.Drawing.Size(56, 20);
+			this.optionsToolStripMenuItem.Text = "Options";
+			this.optionsToolStripMenuItem.Click += new System.EventHandler(this.optionsToolStripMenuItem_Click);
 			// 
 			// MainForm
 			// 
@@ -269,6 +278,7 @@ namespace pi_counter_ui {
 		private System.Windows.Forms.SaveFileDialog saveFileDialogSearch;
 		private System.Windows.Forms.ToolStripMenuItem viewNumberIndicesToolStripMenuItem;
 		private System.Windows.Forms.OpenFileDialog openWarfun;
+		private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
 	}
 }
 

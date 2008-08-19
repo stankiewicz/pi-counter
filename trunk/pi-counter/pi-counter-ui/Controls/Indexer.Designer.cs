@@ -23,12 +23,14 @@ namespace pi_counter_ui.Controls {
 		/// the contents of this method with the code editor.
 		/// </summary>
 		private void InitializeComponent() {
+			this.components = new System.ComponentModel.Container();
 			this.buttonPrev = new System.Windows.Forms.Button();
 			this.buttonNext = new System.Windows.Forms.Button();
 			this.labelOf = new System.Windows.Forms.Label();
 			this.fieldMaxPage = new System.Windows.Forms.Label();
 			this.fieldPage = new System.Windows.Forms.NumericUpDown();
 			this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+			this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
 			((System.ComponentModel.ISupportInitialize)(this.fieldPage)).BeginInit();
 			this.flowLayoutPanel1.SuspendLayout();
 			this.SuspendLayout();
@@ -43,6 +45,7 @@ namespace pi_counter_ui.Controls {
 			this.buttonPrev.Size = new System.Drawing.Size(23, 23);
 			this.buttonPrev.TabIndex = 0;
 			this.buttonPrev.Text = "<";
+			this.toolTip1.SetToolTip(this.buttonPrev, "Show previous page");
 			this.buttonPrev.Click += new System.EventHandler(this.buttonPrev_Click);
 			// 
 			// buttonNext
@@ -55,6 +58,7 @@ namespace pi_counter_ui.Controls {
 			this.buttonNext.Size = new System.Drawing.Size(23, 23);
 			this.buttonNext.TabIndex = 1;
 			this.buttonNext.Text = ">";
+			this.toolTip1.SetToolTip(this.buttonNext, "Show next page");
 			this.buttonNext.Click += new System.EventHandler(this.buttonNext_Click);
 			// 
 			// labelOf
@@ -77,6 +81,7 @@ namespace pi_counter_ui.Controls {
 			this.fieldMaxPage.TabIndex = 4;
 			this.fieldMaxPage.Text = "6000";
 			this.fieldMaxPage.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			this.toolTip1.SetToolTip(this.fieldMaxPage, "Number of pages");
 			// 
 			// fieldPage
 			// 
@@ -85,6 +90,7 @@ namespace pi_counter_ui.Controls {
 			this.fieldPage.Name = "fieldPage";
 			this.fieldPage.Size = new System.Drawing.Size(60, 20);
 			this.fieldPage.TabIndex = 5;
+			this.toolTip1.SetToolTip(this.fieldPage, "Current page");
 			this.fieldPage.ValueChanged += new System.EventHandler(this.fieldPage_ValueChanged);
 			// 
 			// flowLayoutPanel1
@@ -127,5 +133,6 @@ namespace pi_counter_ui.Controls {
 		private System.Windows.Forms.Button buttonNext;
 		private System.Windows.Forms.NumericUpDown fieldPage;
 		private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+		private System.Windows.Forms.ToolTip toolTip1;
 	}
 }

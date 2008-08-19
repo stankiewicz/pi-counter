@@ -30,6 +30,7 @@ namespace pi_counter_ui.Controls {
 			this.labelTo = new System.Windows.Forms.Label();
 			this.labelFrom = new System.Windows.Forms.Label();
 			this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+			this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
 			this.groupBoxSearch.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
 			this.SuspendLayout();
@@ -47,6 +48,7 @@ namespace pi_counter_ui.Controls {
 			this.groupBoxSearch.TabIndex = 1;
 			this.groupBoxSearch.TabStop = false;
 			this.groupBoxSearch.Text = "Search range";
+			this.toolTip1.SetToolTip(this.groupBoxSearch, "Specify range for the search function.");
 			// 
 			// fieldTo
 			// 
@@ -110,5 +112,6 @@ namespace pi_counter_ui.Controls {
 		private System.Windows.Forms.ErrorProvider errorProvider1;
 		public System.Windows.Forms.TextBox fieldTo;
 		public System.Windows.Forms.TextBox fieldFrom;
+		private System.Windows.Forms.ToolTip toolTip1;
 	}
 }

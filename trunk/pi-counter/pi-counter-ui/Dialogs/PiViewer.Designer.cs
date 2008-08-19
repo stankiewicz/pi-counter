@@ -23,17 +23,21 @@ namespace pi_counter_ui.Dialogs {
 		/// the contents of this method with the code editor.
 		/// </summary>
 		private void InitializeComponent() {
+			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PiViewer));
 			this.textBoxPiView = new System.Windows.Forms.TextBox();
 			this.panelStatus = new System.Windows.Forms.Panel();
+			this.panel1 = new System.Windows.Forms.Panel();
 			this.labelPositionValue = new System.Windows.Forms.Label();
 			this.labelPosition = new System.Windows.Forms.Label();
+			this.indexer = new pi_counter_ui.Controls.Indexer();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
 			this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
 			this.fieldDecimal = new System.Windows.Forms.RadioButton();
 			this.fieldHexadecimal = new System.Windows.Forms.RadioButton();
-			this.indexer = new pi_counter_ui.Controls.Indexer();
+			this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
 			this.panelStatus.SuspendLayout();
+			this.panel1.SuspendLayout();
 			this.groupBox1.SuspendLayout();
 			this.flowLayoutPanel1.SuspendLayout();
 			this.SuspendLayout();
@@ -57,8 +61,7 @@ namespace pi_counter_ui.Dialogs {
 			// 
 			// panelStatus
 			// 
-			this.panelStatus.Controls.Add(this.labelPositionValue);
-			this.panelStatus.Controls.Add(this.labelPosition);
+			this.panelStatus.Controls.Add(this.panel1);
 			this.panelStatus.Controls.Add(this.indexer);
 			this.panelStatus.Dock = System.Windows.Forms.DockStyle.Bottom;
 			this.panelStatus.Location = new System.Drawing.Point(0, 430);
@@ -66,23 +69,49 @@ namespace pi_counter_ui.Dialogs {
 			this.panelStatus.Size = new System.Drawing.Size(410, 38);
 			this.panelStatus.TabIndex = 1;
 			// 
+			// panel1
+			// 
+			this.panel1.Controls.Add(this.labelPositionValue);
+			this.panel1.Controls.Add(this.labelPosition);
+			this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.panel1.Location = new System.Drawing.Point(215, 0);
+			this.panel1.Name = "panel1";
+			this.panel1.Size = new System.Drawing.Size(195, 38);
+			this.panel1.TabIndex = 3;
+			// 
 			// labelPositionValue
 			// 
-			this.labelPositionValue.AutoSize = true;
-			this.labelPositionValue.Location = new System.Drawing.Point(282, 3);
+			this.labelPositionValue.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.labelPositionValue.Location = new System.Drawing.Point(75, 0);
 			this.labelPositionValue.Name = "labelPositionValue";
-			this.labelPositionValue.Size = new System.Drawing.Size(13, 13);
+			this.labelPositionValue.Size = new System.Drawing.Size(120, 38);
 			this.labelPositionValue.TabIndex = 2;
 			this.labelPositionValue.Text = "0";
+			this.labelPositionValue.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			this.toolTip1.SetToolTip(this.labelPositionValue, "Use a mouse pointer to choose a\r\ndigit which position is to be shown.");
 			// 
 			// labelPosition
 			// 
-			this.labelPosition.AutoSize = true;
-			this.labelPosition.Location = new System.Drawing.Point(206, 3);
+			this.labelPosition.Dock = System.Windows.Forms.DockStyle.Left;
+			this.labelPosition.Location = new System.Drawing.Point(0, 0);
 			this.labelPosition.Name = "labelPosition";
-			this.labelPosition.Size = new System.Drawing.Size(70, 13);
+			this.labelPosition.Size = new System.Drawing.Size(75, 38);
 			this.labelPosition.TabIndex = 1;
 			this.labelPosition.Text = "Digit position:";
+			this.labelPosition.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			this.toolTip1.SetToolTip(this.labelPosition, "Use a mouse pointer to choose a\r\ndigit which position is to be shown.");
+			// 
+			// indexer
+			// 
+			this.indexer.AutoSize = true;
+			this.indexer.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+			this.indexer.Dock = System.Windows.Forms.DockStyle.Left;
+			this.indexer.Location = new System.Drawing.Point(0, 0);
+			this.indexer.Name = "indexer";
+			this.indexer.PageCurrent = ((ulong)(1ul));
+			this.indexer.PagesCount = ((ulong)(1586876856ul));
+			this.indexer.Size = new System.Drawing.Size(215, 38);
+			this.indexer.TabIndex = 0;
 			// 
 			// groupBox1
 			// 
@@ -104,6 +133,7 @@ namespace pi_counter_ui.Dialogs {
 			this.flowLayoutPanel1.Name = "flowLayoutPanel1";
 			this.flowLayoutPanel1.Size = new System.Drawing.Size(404, 23);
 			this.flowLayoutPanel1.TabIndex = 0;
+			this.toolTip1.SetToolTip(this.flowLayoutPanel1, "Use this to change view style");
 			// 
 			// fieldDecimal
 			// 
@@ -129,17 +159,6 @@ namespace pi_counter_ui.Dialogs {
 			this.fieldHexadecimal.UseVisualStyleBackColor = true;
 			this.fieldHexadecimal.CheckedChanged += new System.EventHandler(this.viewStyleChanged);
 			// 
-			// indexer
-			// 
-			this.indexer.AutoSize = true;
-			this.indexer.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-			this.indexer.Location = new System.Drawing.Point(3, 3);
-			this.indexer.Name = "indexer";
-			this.indexer.PageCurrent = ((ulong)(1ul));
-			this.indexer.PagesCount = ((ulong)(1ul));
-			this.indexer.Size = new System.Drawing.Size(161, 29);
-			this.indexer.TabIndex = 0;
-			// 
 			// PiViewer
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -154,6 +173,7 @@ namespace pi_counter_ui.Dialogs {
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.PiViewer_FormClosing);
 			this.panelStatus.ResumeLayout(false);
 			this.panelStatus.PerformLayout();
+			this.panel1.ResumeLayout(false);
 			this.groupBox1.ResumeLayout(false);
 			this.flowLayoutPanel1.ResumeLayout(false);
 			this.flowLayoutPanel1.PerformLayout();
@@ -173,5 +193,7 @@ namespace pi_counter_ui.Dialogs {
 		private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
 		private System.Windows.Forms.RadioButton fieldDecimal;
 		private System.Windows.Forms.RadioButton fieldHexadecimal;
+		private System.Windows.Forms.Panel panel1;
+		private System.Windows.Forms.ToolTip toolTip1;
 	}
 }

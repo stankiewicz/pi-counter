@@ -14,7 +14,9 @@ namespace pi_counter_ui.Dialogs {
 		ulong _searchedIndices;
 		string[] args = null;
 		uint[] values = null;
+		Label[] labels = null;
 
+		Font f = new Font(new Label().Font.FontFamily, 12f);
 
 		private uint _resultsPerPage;
 
@@ -24,6 +26,18 @@ namespace pi_counter_ui.Dialogs {
 				_resultsPerPage = value;
 				args = new string[_resultsPerPage];
 				values = new uint[_resultsPerPage];
+
+				flowLayoutPanel1.SuspendLayout();
+				flowLayoutPanel1.Controls.Clear();
+				labels = new Label[_resultsPerPage];
+				for (int i = (int)(_resultsPerPage - 1); i >= 0; i--) {
+					Label l = new Label();
+					l.Font = f;
+					l.AutoSize = true;
+					labels[i] = l;
+				}
+				flowLayoutPanel1.Controls.AddRange(labels);
+				flowLayoutPanel1.ResumeLayout();
 				setPageCount();
 			}
 		}
@@ -72,14 +86,12 @@ namespace pi_counter_ui.Dialogs {
 			//PiLibrary.GetResultValues(args, values, _warFun, start, ResultsPerPage);
 			
 			flowLayoutPanel1.SuspendLayout();
-			flowLayoutPanel1.Controls.Clear();
 			for (uint i = 0; i < count; i++) {
-			//for (uint i = 0; i < ResultsPerPage; i++) {
-				Label l = new Label();
-				l.Text = args[i] + " : " + values[i];
-				//l.Parent = this.splitContainer1.Panel1;
-				//flowLayoutPanel1.Controls.Add(l);
-				l.Parent = flowLayoutPanel1;
+				Label l = labels[i];
+				l.Text = "       " + args[i] + " : " + values[i];
+			}
+			for (uint i = count; i < labels.Length; i++) {
+				labels[i].Text = null;
 			}
 			flowLayoutPanel1.ResumeLayout();
 
@@ -110,6 +122,10 @@ namespace pi_counter_ui.Dialogs {
 			}
 
 			setPageCount();
+		}
+
+		private void IndicesViewer_VisibleChanged(object sender, EventArgs e) {
+			getDrawer().Visible = this.Visible;
 		}
 	}
 }

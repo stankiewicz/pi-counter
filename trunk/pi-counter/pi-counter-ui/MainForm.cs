@@ -7,6 +7,7 @@ using System.Text;
 using System.Windows.Forms;
 using pi_counter_ui.Dialogs;
 using pi_counter_ui.Classes;
+using pi_counter_ui.Properties;
 
 namespace pi_counter_ui {
 	public partial class MainForm : Form {
@@ -32,7 +33,7 @@ namespace pi_counter_ui {
 
 		void buttonResult_Click(object sender, EventArgs e) {
 			IndicesViewer i = getIndicesViewer();
-			i.Show();
+			i.Visible = true;
 		}		
 
 		private void aboutToolStripMenuItem_Click(object sender, EventArgs e) {
@@ -288,7 +289,7 @@ namespace pi_counter_ui {
 
 		private void calculatorToolStripMenuItem_Click(object sender, EventArgs e) {
 			Calculator calc = getCalculator();
-			calc.ShowDialog();
+			calc.Visible = true;
 		}
 
 		private void viewNumberIndicesToolStripMenuItem_Click(object sender, EventArgs e) {
@@ -297,7 +298,22 @@ namespace pi_counter_ui {
 			}
 			IndicesViewer iv = getIndicesViewer();
 			iv.init(openWarfun.FileName);
-			iv.ShowDialog();
+			iv.Visible = true;
+		}
+
+		Options _options = null;
+		Options getOptions() {
+			if (_options == null) {
+				_options = new Options();
+			}
+			return _options;
+		}
+
+		private void optionsToolStripMenuItem_Click(object sender, EventArgs e) {
+			if (getOptions().ShowDialog() == DialogResult.OK) {
+				getPiViewer().DigitsPerPage = Settings.Default.PiViewer_DigitsPerPage;
+				getIndicesViewer().ResultsPerPage = Settings.Default.IndicesViewer_ResultsPerPage;
+			}
 		}
 	}
 }
