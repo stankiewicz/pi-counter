@@ -150,6 +150,7 @@ namespace pi_counter_ui {
 						Console.WriteLine("Stopping");
 						MessageBox.Show("The calculation will stop as soon as possible (without loosing calculation results)");
 						_unconditionalStop = true;
+						threadCalculation.CancelAsync();
 					}
 					break;
 				case Modes.PiSearch:
