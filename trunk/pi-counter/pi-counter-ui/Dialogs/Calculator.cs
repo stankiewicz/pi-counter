@@ -1,3 +1,5 @@
+//TODO: dodaæ synchroniczne przewijanie. Trzeba bêdzie zmieniæ sposób wybierania ci¹gu znaków do wyœwietlenia, np. pocz¹tek i iloœæ znaków. Do tego trzeba bêdzie przepisaæ kontrolkê "PagedText".
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -28,15 +30,36 @@ namespace pi_counter_ui.Dialogs {
 			pts[(int)C.res1] = res1;
 			pts[(int)C.res2] = res2;
 
-			arg1.CharsPerPage = arg2.CharsPerPage = res1.CharsPerPage = res2.CharsPerPage = 70;
+			arg1.CharsToShow = arg2.CharsToShow = res1.CharsToShow = res2.CharsToShow = 70;
 
 			fieldOp.Items.AddRange(operators);
 			fieldOp.SelectedIndex = 0;
 
-			btnSaveArg1.Tag = btnLoadArg1.Tag = C.arg1;
-			btnSaveArg2.Tag = btnLoadArg2.Tag = C.arg2;
-			btnSaveRes1.Tag = C.res1;
-			btnSaveRes2.Tag = C.res2;
+			arg1.Tag = btnSaveArg1.Tag = btnLoadArg1.Tag = C.arg1;
+			arg2.Tag = btnSaveArg2.Tag = btnLoadArg2.Tag = C.arg2;
+			res1.Tag = btnSaveRes1.Tag = C.res1;
+			res2.Tag = btnSaveRes2.Tag = C.res2;
+
+			arg1.displayRangeChanged += new EventHandler(displayRangeChanged);
+			arg2.displayRangeChanged += new EventHandler(displayRangeChanged);
+			res1.displayRangeChanged += new EventHandler(displayRangeChanged);
+			res2.displayRangeChanged += new EventHandler(displayRangeChanged);
+		}
+
+		void displayRangeChanged(object sender, EventArgs e) {
+			PagedText source = (PagedText)sender;
+			int indexRelativeToDot = source.DotPosition - source.IndexToShow;
+			foreach (PagedText pt in pts) {
+				if (pt == source) {
+					continue;
+				}
+				pt.IndexToShow = pt.DotPosition - indexRelativeToDot;
+				pt.CharsToShow = source.CharsToShow;
+			}
+		}
+
+		void align() {
+			displayRangeChanged(arg1, null);
 		}
 
 		void saveHelper(string file, StringBuilder sb) {
@@ -136,6 +159,8 @@ namespace pi_counter_ui.Dialogs {
 				if (res != 0) {
 					MessageBox.Show("Error!");
 				}
+
+				align();
 			} catch (Exception exc) {
 				MessageBox.Show("Ooops... Error: " + exc.Message);
 			}
@@ -226,6 +251,13 @@ namespace pi_counter_ui.Dialogs {
 					break;
 				default:
 					break;
+			}
+		}
+
+		private void Calculator_FormClosing(object sender, FormClosingEventArgs e) {
+			if (e.CloseReason == CloseReason.UserClosing) {
+				this.Visible = false;
+				e.Cancel = true;
 			}
 		}
 	}

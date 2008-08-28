@@ -7,6 +7,7 @@ using System.Text;
 using System.Windows.Forms;
 using pi_counter_ui.Classes;
 using System.IO;
+using pi_counter_ui.Properties;
 
 namespace pi_counter_ui.Dialogs {
 	public partial class IndicesViewer : Form {
@@ -45,7 +46,7 @@ namespace pi_counter_ui.Dialogs {
 		public IndicesViewer() {
 			InitializeComponent();
 
-			ResultsPerPage = 100;
+			ResultsPerPage = Settings.Default.IndicesViewer_ResultsPerPage;
 			indexer.IndexUpdated += new EventHandler(indexer_IndexUpdated);
 		}
 

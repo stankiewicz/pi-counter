@@ -36,23 +36,23 @@ namespace pi_counter_ui.Dialogs {
 			this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
 			this.btnCalculate = new System.Windows.Forms.Button();
 			this.panelArg1 = new System.Windows.Forms.FlowLayoutPanel();
+			this.arg1 = new pi_counter_ui.Controls.PagedText();
 			this.panelArg2 = new System.Windows.Forms.FlowLayoutPanel();
+			this.arg2 = new pi_counter_ui.Controls.PagedText();
 			this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-			this.panelRes2 = new System.Windows.Forms.FlowLayoutPanel();
-			this.panelRes1 = new System.Windows.Forms.FlowLayoutPanel();
 			this.panelOp = new System.Windows.Forms.FlowLayoutPanel();
 			this.fieldOpInfo = new System.Windows.Forms.Label();
-			this.arg1 = new pi_counter_ui.Controls.PagedText();
-			this.arg2 = new pi_counter_ui.Controls.PagedText();
+			this.panelRes2 = new System.Windows.Forms.FlowLayoutPanel();
 			this.res2 = new pi_counter_ui.Controls.PagedText();
+			this.panelRes1 = new System.Windows.Forms.FlowLayoutPanel();
 			this.res1 = new pi_counter_ui.Controls.PagedText();
 			this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
 			this.panelArg1.SuspendLayout();
 			this.panelArg2.SuspendLayout();
 			this.flowLayoutPanel1.SuspendLayout();
+			this.panelOp.SuspendLayout();
 			this.panelRes2.SuspendLayout();
 			this.panelRes1.SuspendLayout();
-			this.panelOp.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// fieldOp
@@ -69,11 +69,11 @@ namespace pi_counter_ui.Dialogs {
 			// 
 			// btnLoadArg1
 			// 
-			this.btnLoadArg1.Dock = System.Windows.Forms.DockStyle.Left;
-			this.btnLoadArg1.Location = new System.Drawing.Point(711, 3);
+			this.btnLoadArg1.Dock = System.Windows.Forms.DockStyle.Right;
+			this.btnLoadArg1.Location = new System.Drawing.Point(806, 3);
 			this.btnLoadArg1.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
 			this.btnLoadArg1.Name = "btnLoadArg1";
-			this.btnLoadArg1.Size = new System.Drawing.Size(25, 33);
+			this.btnLoadArg1.Size = new System.Drawing.Size(15, 35);
 			this.btnLoadArg1.TabIndex = 11;
 			this.btnLoadArg1.Tag = "0";
 			this.btnLoadArg1.Text = "L";
@@ -83,11 +83,11 @@ namespace pi_counter_ui.Dialogs {
 			// 
 			// btnSaveArg1
 			// 
-			this.btnSaveArg1.Dock = System.Windows.Forms.DockStyle.Left;
-			this.btnSaveArg1.Location = new System.Drawing.Point(740, 3);
+			this.btnSaveArg1.Dock = System.Windows.Forms.DockStyle.Right;
+			this.btnSaveArg1.Location = new System.Drawing.Point(825, 3);
 			this.btnSaveArg1.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
 			this.btnSaveArg1.Name = "btnSaveArg1";
-			this.btnSaveArg1.Size = new System.Drawing.Size(25, 33);
+			this.btnSaveArg1.Size = new System.Drawing.Size(15, 35);
 			this.btnSaveArg1.TabIndex = 12;
 			this.btnSaveArg1.Tag = "0";
 			this.btnSaveArg1.Text = "S";
@@ -98,10 +98,10 @@ namespace pi_counter_ui.Dialogs {
 			// btnLoadArg2
 			// 
 			this.btnLoadArg2.Dock = System.Windows.Forms.DockStyle.Left;
-			this.btnLoadArg2.Location = new System.Drawing.Point(711, 3);
+			this.btnLoadArg2.Location = new System.Drawing.Point(806, 3);
 			this.btnLoadArg2.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
 			this.btnLoadArg2.Name = "btnLoadArg2";
-			this.btnLoadArg2.Size = new System.Drawing.Size(25, 33);
+			this.btnLoadArg2.Size = new System.Drawing.Size(15, 35);
 			this.btnLoadArg2.TabIndex = 13;
 			this.btnLoadArg2.Tag = "1";
 			this.btnLoadArg2.Text = "L";
@@ -112,10 +112,10 @@ namespace pi_counter_ui.Dialogs {
 			// btnSaveArg2
 			// 
 			this.btnSaveArg2.Dock = System.Windows.Forms.DockStyle.Left;
-			this.btnSaveArg2.Location = new System.Drawing.Point(740, 3);
+			this.btnSaveArg2.Location = new System.Drawing.Point(825, 3);
 			this.btnSaveArg2.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
 			this.btnSaveArg2.Name = "btnSaveArg2";
-			this.btnSaveArg2.Size = new System.Drawing.Size(25, 33);
+			this.btnSaveArg2.Size = new System.Drawing.Size(15, 35);
 			this.btnSaveArg2.TabIndex = 14;
 			this.btnSaveArg2.Tag = "1";
 			this.btnSaveArg2.Text = "S";
@@ -126,10 +126,10 @@ namespace pi_counter_ui.Dialogs {
 			// btnSaveRes1
 			// 
 			this.btnSaveRes1.Dock = System.Windows.Forms.DockStyle.Left;
-			this.btnSaveRes1.Location = new System.Drawing.Point(711, 3);
+			this.btnSaveRes1.Location = new System.Drawing.Point(806, 3);
 			this.btnSaveRes1.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
 			this.btnSaveRes1.Name = "btnSaveRes1";
-			this.btnSaveRes1.Size = new System.Drawing.Size(25, 33);
+			this.btnSaveRes1.Size = new System.Drawing.Size(15, 35);
 			this.btnSaveRes1.TabIndex = 16;
 			this.btnSaveRes1.Tag = "2";
 			this.btnSaveRes1.Text = "S";
@@ -140,10 +140,10 @@ namespace pi_counter_ui.Dialogs {
 			// btnSaveRes2
 			// 
 			this.btnSaveRes2.Dock = System.Windows.Forms.DockStyle.Left;
-			this.btnSaveRes2.Location = new System.Drawing.Point(711, 3);
+			this.btnSaveRes2.Location = new System.Drawing.Point(806, 3);
 			this.btnSaveRes2.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
 			this.btnSaveRes2.Name = "btnSaveRes2";
-			this.btnSaveRes2.Size = new System.Drawing.Size(25, 33);
+			this.btnSaveRes2.Size = new System.Drawing.Size(15, 35);
 			this.btnSaveRes2.TabIndex = 18;
 			this.btnSaveRes2.Tag = "3";
 			this.btnSaveRes2.Text = "S";
@@ -157,7 +157,7 @@ namespace pi_counter_ui.Dialogs {
 			// 
 			// btnCalculate
 			// 
-			this.btnCalculate.Location = new System.Drawing.Point(2, 216);
+			this.btnCalculate.Location = new System.Drawing.Point(2, 224);
 			this.btnCalculate.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
 			this.btnCalculate.Name = "btnCalculate";
 			this.btnCalculate.Size = new System.Drawing.Size(74, 23);
@@ -175,8 +175,23 @@ namespace pi_counter_ui.Dialogs {
 			this.panelArg1.Controls.Add(this.btnSaveArg1);
 			this.panelArg1.Location = new System.Drawing.Point(3, 3);
 			this.panelArg1.Name = "panelArg1";
-			this.panelArg1.Size = new System.Drawing.Size(767, 39);
+			this.panelArg1.Size = new System.Drawing.Size(842, 41);
 			this.panelArg1.TabIndex = 0;
+			// 
+			// arg1
+			// 
+			this.arg1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
+			this.arg1.AutoSize = true;
+			this.arg1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+			this.arg1.Buffer = ((System.Text.StringBuilder)(resources.GetObject("arg1.Buffer")));
+			this.arg1.CharsToShow = 10;
+			this.arg1.IndexToShow = 0;
+			this.arg1.Location = new System.Drawing.Point(2, 3);
+			this.arg1.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+			this.arg1.Name = "arg1";
+			this.arg1.Size = new System.Drawing.Size(800, 35);
+			this.arg1.TabIndex = 21;
 			// 
 			// panelArg2
 			// 
@@ -185,47 +200,40 @@ namespace pi_counter_ui.Dialogs {
 			this.panelArg2.Controls.Add(this.arg2);
 			this.panelArg2.Controls.Add(this.btnLoadArg2);
 			this.panelArg2.Controls.Add(this.btnSaveArg2);
-			this.panelArg2.Location = new System.Drawing.Point(3, 48);
+			this.panelArg2.Location = new System.Drawing.Point(3, 50);
 			this.panelArg2.Name = "panelArg2";
-			this.panelArg2.Size = new System.Drawing.Size(767, 39);
+			this.panelArg2.Size = new System.Drawing.Size(842, 41);
 			this.panelArg2.TabIndex = 24;
+			// 
+			// arg2
+			// 
+			this.arg2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
+			this.arg2.AutoSize = true;
+			this.arg2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+			this.arg2.Buffer = ((System.Text.StringBuilder)(resources.GetObject("arg2.Buffer")));
+			this.arg2.CharsToShow = 10;
+			this.arg2.IndexToShow = 0;
+			this.arg2.Location = new System.Drawing.Point(2, 3);
+			this.arg2.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+			this.arg2.Name = "arg2";
+			this.arg2.Size = new System.Drawing.Size(800, 35);
+			this.arg2.TabIndex = 22;
 			// 
 			// flowLayoutPanel1
 			// 
 			this.flowLayoutPanel1.Controls.Add(this.panelArg1);
 			this.flowLayoutPanel1.Controls.Add(this.panelArg2);
 			this.flowLayoutPanel1.Controls.Add(this.panelOp);
-			this.flowLayoutPanel1.Controls.Add(this.panelRes2);
 			this.flowLayoutPanel1.Controls.Add(this.panelRes1);
+			this.flowLayoutPanel1.Controls.Add(this.panelRes2);
 			this.flowLayoutPanel1.Controls.Add(this.btnCalculate);
 			this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
 			this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
 			this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-			this.flowLayoutPanel1.Size = new System.Drawing.Size(894, 258);
+			this.flowLayoutPanel1.Size = new System.Drawing.Size(933, 258);
 			this.flowLayoutPanel1.TabIndex = 25;
-			// 
-			// panelRes2
-			// 
-			this.panelRes2.AutoSize = true;
-			this.panelRes2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-			this.panelRes2.Controls.Add(this.res2);
-			this.panelRes2.Controls.Add(this.btnSaveRes2);
-			this.panelRes2.Location = new System.Drawing.Point(3, 126);
-			this.panelRes2.Name = "panelRes2";
-			this.panelRes2.Size = new System.Drawing.Size(738, 39);
-			this.panelRes2.TabIndex = 26;
-			// 
-			// panelRes1
-			// 
-			this.panelRes1.AutoSize = true;
-			this.panelRes1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-			this.panelRes1.Controls.Add(this.res1);
-			this.panelRes1.Controls.Add(this.btnSaveRes1);
-			this.panelRes1.Location = new System.Drawing.Point(3, 171);
-			this.panelRes1.Name = "panelRes1";
-			this.panelRes1.Size = new System.Drawing.Size(738, 39);
-			this.panelRes1.TabIndex = 26;
 			// 
 			// panelOp
 			// 
@@ -233,7 +241,7 @@ namespace pi_counter_ui.Dialogs {
 			this.panelOp.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
 			this.panelOp.Controls.Add(this.fieldOp);
 			this.panelOp.Controls.Add(this.fieldOpInfo);
-			this.panelOp.Location = new System.Drawing.Point(3, 93);
+			this.panelOp.Location = new System.Drawing.Point(3, 97);
 			this.panelOp.Name = "panelOp";
 			this.panelOp.Size = new System.Drawing.Size(167, 27);
 			this.panelOp.TabIndex = 27;
@@ -249,33 +257,16 @@ namespace pi_counter_ui.Dialogs {
 			this.fieldOpInfo.Text = "label1";
 			this.fieldOpInfo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
-			// arg1
+			// panelRes2
 			// 
-			this.arg1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-						| System.Windows.Forms.AnchorStyles.Right)));
-			this.arg1.AutoSize = true;
-			this.arg1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-			this.arg1.Buffer = ((System.Text.StringBuilder)(resources.GetObject("arg1.Buffer")));
-			this.arg1.CharsPerPage = 10;
-			this.arg1.Location = new System.Drawing.Point(2, 3);
-			this.arg1.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-			this.arg1.Name = "arg1";
-			this.arg1.Size = new System.Drawing.Size(705, 33);
-			this.arg1.TabIndex = 21;
-			// 
-			// arg2
-			// 
-			this.arg2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-						| System.Windows.Forms.AnchorStyles.Right)));
-			this.arg2.AutoSize = true;
-			this.arg2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-			this.arg2.Buffer = ((System.Text.StringBuilder)(resources.GetObject("arg2.Buffer")));
-			this.arg2.CharsPerPage = 10;
-			this.arg2.Location = new System.Drawing.Point(2, 3);
-			this.arg2.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-			this.arg2.Name = "arg2";
-			this.arg2.Size = new System.Drawing.Size(705, 33);
-			this.arg2.TabIndex = 22;
+			this.panelRes2.AutoSize = true;
+			this.panelRes2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+			this.panelRes2.Controls.Add(this.res2);
+			this.panelRes2.Controls.Add(this.btnSaveRes2);
+			this.panelRes2.Location = new System.Drawing.Point(3, 177);
+			this.panelRes2.Name = "panelRes2";
+			this.panelRes2.Size = new System.Drawing.Size(823, 41);
+			this.panelRes2.TabIndex = 26;
 			// 
 			// res2
 			// 
@@ -284,12 +275,24 @@ namespace pi_counter_ui.Dialogs {
 			this.res2.AutoSize = true;
 			this.res2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
 			this.res2.Buffer = ((System.Text.StringBuilder)(resources.GetObject("res2.Buffer")));
-			this.res2.CharsPerPage = 10;
+			this.res2.CharsToShow = 10;
+			this.res2.IndexToShow = 0;
 			this.res2.Location = new System.Drawing.Point(2, 3);
 			this.res2.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
 			this.res2.Name = "res2";
-			this.res2.Size = new System.Drawing.Size(705, 33);
+			this.res2.Size = new System.Drawing.Size(800, 35);
 			this.res2.TabIndex = 24;
+			// 
+			// panelRes1
+			// 
+			this.panelRes1.AutoSize = true;
+			this.panelRes1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+			this.panelRes1.Controls.Add(this.res1);
+			this.panelRes1.Controls.Add(this.btnSaveRes1);
+			this.panelRes1.Location = new System.Drawing.Point(3, 130);
+			this.panelRes1.Name = "panelRes1";
+			this.panelRes1.Size = new System.Drawing.Size(823, 41);
+			this.panelRes1.TabIndex = 26;
 			// 
 			// res1
 			// 
@@ -298,35 +301,37 @@ namespace pi_counter_ui.Dialogs {
 			this.res1.AutoSize = true;
 			this.res1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
 			this.res1.Buffer = ((System.Text.StringBuilder)(resources.GetObject("res1.Buffer")));
-			this.res1.CharsPerPage = 10;
+			this.res1.CharsToShow = 10;
+			this.res1.IndexToShow = 0;
 			this.res1.Location = new System.Drawing.Point(2, 3);
 			this.res1.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
 			this.res1.Name = "res1";
-			this.res1.Size = new System.Drawing.Size(705, 33);
+			this.res1.Size = new System.Drawing.Size(800, 35);
 			this.res1.TabIndex = 23;
 			// 
 			// Calculator
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(894, 258);
+			this.ClientSize = new System.Drawing.Size(933, 258);
 			this.Controls.Add(this.flowLayoutPanel1);
 			this.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
 			this.Name = "Calculator";
 			this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
 			this.Text = "Calculator";
+			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Calculator_FormClosing);
 			this.panelArg1.ResumeLayout(false);
 			this.panelArg1.PerformLayout();
 			this.panelArg2.ResumeLayout(false);
 			this.panelArg2.PerformLayout();
 			this.flowLayoutPanel1.ResumeLayout(false);
 			this.flowLayoutPanel1.PerformLayout();
+			this.panelOp.ResumeLayout(false);
+			this.panelOp.PerformLayout();
 			this.panelRes2.ResumeLayout(false);
 			this.panelRes2.PerformLayout();
 			this.panelRes1.ResumeLayout(false);
 			this.panelRes1.PerformLayout();
-			this.panelOp.ResumeLayout(false);
-			this.panelOp.PerformLayout();
 			this.ResumeLayout(false);
 
 		}

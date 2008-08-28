@@ -78,7 +78,7 @@ namespace pi_counter_ui.Dialogs {
 		public PiViewer() {
 			InitializeComponent();
 
-			DigitsPerPage = 1000;
+			DigitsPerPage = Settings.Default.PiViewer_DigitsPerPage;
 			indexer.IndexUpdated += new EventHandler(indexer_IndexUpdated);
 
 			fieldDecimal.Tag = ViewStyle.Decimal;
