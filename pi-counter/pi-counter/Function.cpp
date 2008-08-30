@@ -179,6 +179,107 @@ void CalculateFunction(CoolListener listener, wchar_t *piFileName, wchar_t *resu
 	CleanAfterGettingResultValues();*/
 }
 
+void CalculateFunctionByPattern(CoolListener listener, wchar_t *piFileName, wchar_t *resultFileName, char *pattern, int maxTimeMs, unsigned int numberOfDigitsToCheck, unsigned __int64 *numberOfFound, unsigned int *digitsChecked, unsigned __int64 *resultLength)
+{
+	int startTime = GetTickCount();
+	unsigned int currentTime, lastTime = startTime;
+	*numberOfFound = 0;
+	*digitsChecked = 0;
+	*resultLength = 1;
+
+	File file;
+	char *pi;
+	if(!file.LoadBIGNUM(NULL, &pi, piFileName))
+		return;
+
+	if(maxTimeMs == 0)
+		maxTimeMs = 2000000000;
+	unsigned int piLength = strlen(pi);
+	if(numberOfDigitsToCheck == 0)
+		numberOfDigitsToCheck = piLength;
+	else if(numberOfDigitsToCheck > piLength)
+		numberOfDigitsToCheck = piLength;
+
+	unsigned int result = 0;
+	unsigned int length = strlen(pattern);
+	unsigned int j, i;
+	float fTimePassed;
+	float fPlacesChecked;
+	for(j = 0; j < numberOfDigitsToCheck - length + 1; j++)
+	{
+		for(i = 0; i < length; i++)
+		{
+			if(pi[j + i] != pattern[i])
+				break;			
+		}
+		if(i == length)
+			(*numberOfFound)++;
+		*digitsChecked = j + 1;
+		
+		if((currentTime = GetTickCount()) >= startTime + maxTimeMs)
+			break;
+		if((*numberOfFound) >= (*resultLength))
+		{
+			result = j + 1;
+			break;
+		}
+		if(currentTime >= lastTime + 500)
+		{
+			lastTime = currentTime;
+			fTimePassed = 100.0f * ((float)(currentTime - startTime)) / ((float)(maxTimeMs));
+			fPlacesChecked = 100.0f * ((float)j / (float)(numberOfDigitsToCheck - length));
+			if(listener((int) fTimePassed, (int)fPlacesChecked))
+				break;
+		}
+	}
+	
+	currentTime = GetTickCount();
+	fTimePassed = 100.0f * ((float)(currentTime - startTime)) / ((float)(maxTimeMs));
+	fPlacesChecked = 100.0f * ((float)j / (float)(numberOfDigitsToCheck - length));
+	listener((int) fTimePassed, (int)fPlacesChecked);
+
+	delete[] pi;
+	if(resultFileName)
+	{
+		ofstream out;
+		try
+		{
+			out.open(resultFileName);
+			out << 1 << ' ' << piLength;		
+			out.close();
+		}
+		catch(...)
+		{		
+			return;
+		}	
+		unsigned int numberOfFiles = 1;
+		int filenameLength = wcslen(resultFileName);
+		wchar_t *dataFileName = new wchar_t[filenameLength + 6];
+		int i;
+		for(i = 0; i < filenameLength; i++)
+			dataFileName[i] = resultFileName[i];
+	
+		for(i = 0; i < 5; i++)
+			dataFileName[filenameLength + i] = '0';
+		dataFileName[filenameLength + i] = 0;
+
+		try
+		{
+			out.open(dataFileName);
+			out << pattern;
+			out<<';';
+			out << length << ';';							
+			if(result)
+				out << result;										
+			out.close();
+		}
+		catch(...)
+		{			
+		}			
+		delete[] dataFileName;	
+	}
+}
+
 char* ConvertToString(mpf_ptr mpf, unsigned int addValue)
 {
 	mpf_t temp;
