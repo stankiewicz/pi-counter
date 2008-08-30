@@ -45,7 +45,9 @@ namespace pi_counter_ui.Dialogs {
 			get { return _bignum; }
 			set {
 				_bignum = value;
-				updateForDecimal();
+                if (_view == ViewStyle.Decimal) {
+                    updateForDecimal();
+                }
 			}
 		}
 
@@ -63,7 +65,9 @@ namespace pi_counter_ui.Dialogs {
 			get { return _bignumHex; }
 			set {
 				_bignumHex = value;
-				updateForHex();
+                if (_view == ViewStyle.Hexadecimal) {
+                    updateForHex();
+                }
 			}
 		}
 
