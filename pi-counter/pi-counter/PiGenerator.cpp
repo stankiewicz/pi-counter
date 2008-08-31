@@ -410,17 +410,43 @@ void initAndSetPrecision(mpf_t left, mpf_t right,mpf_t out){
 	
 	long leftP = readPrecision(CALCFILE1);
 	long rightP = readPrecision(CALCFILE2);
-	if(leftP > rightP) rightP = leftP;
-	else leftP = rightP;
+	long outP;	
+	if(leftP > rightP) outP = leftP;
+	else outP = rightP;
 	mpf_init(left);
 	mpf_init(right);
 	mpf_init(out);
-	if(leftP>0){
-		cout << "precyzja: " << leftP << endl;
-		mpf_set_prec(left,leftP* BITS_PER_DIGIT);
-		mpf_set_prec(right,leftP* BITS_PER_DIGIT);
-		mpf_set_prec(out,leftP* BITS_PER_DIGIT);
-	}
+	cout << "precyzja lewa: " << leftP << " * 3.3 = " << leftP* BITS_PER_DIGIT <<  endl;
+	cout << "precyzja prawa: " << rightP << " * 3.3 = " << rightP* BITS_PER_DIGIT << endl;
+	cout << "precyzja wynik: " << outP <<" * 3.3 = " << outP* BITS_PER_DIGIT <<  endl;
+	if(leftP>0)mpf_set_prec(left,leftP* BITS_PER_DIGIT);
+	if(rightP>0)mpf_set_prec(right,rightP* BITS_PER_DIGIT);
+	if(outP>0)mpf_set_prec(out,outP* BITS_PER_DIGIT);
+	cout << "po set: " << endl;
+	cout << "precyzja lewa: " << mpf_get_prec(left) << endl;
+	cout << "precyzja prawa: " <<  mpf_get_prec(right) << endl;
+	cout << "precyzja wynik: " <<  mpf_get_prec(out) << endl;
+
+}
+
+void initAndSetPrecision(mpf_t left, mpf_t right){
+	long leftP = readPrecision(CALCFILE1);
+	long rightP = readPrecision(CALCFILE2);
+	
+	
+	mpf_init(left);
+	mpf_init(right);
+	
+	cout << "precyzja lewa: " << leftP << " * 3.3 = " << leftP* BITS_PER_DIGIT <<  endl;
+	cout << "precyzja prawa: " << rightP << " * 3.3 = " << rightP* BITS_PER_DIGIT << endl;
+	
+	if(leftP>0)mpf_set_prec(left,leftP* BITS_PER_DIGIT);
+	if(rightP>0)mpf_set_prec(right,rightP* BITS_PER_DIGIT);
+	cout << "po set: " << endl;
+	cout << "precyzja lewa: " << mpf_get_prec(left) << endl;
+	cout << "precyzja prawa: " <<  mpf_get_prec(right) << endl;
+
+	
 }
 
 int add() {
@@ -539,9 +565,16 @@ int equ() {
 	setPrecision(); // ustaw domyœln¹ precyzjê
 	mpf_t left;
 	mpf_t right;
-	readF(left,CALCFILE1);
-	readF(right,CALCFILE2);
+	initAndSetPrecision(left,right);
+	readF1(left,CALCFILE1);
+	readF1(right,CALCFILE2);
+	//unsigned long leftP = mpf_get_prec(left);
+	//unsigned long rightP = mpf_get_prec(right);
+	//cout << "\compare with better precision: " << leftP << "? " << rightP << endl;
+	//gmp_printf("left %.Ff \n",left);
+	//gmp_printf("right %.Ff \n",right);
 
+	//int wynik = mpf_eq(left, right,leftP>rightP?leftP:rightP);
 	int wynik = mpf_cmp(left, right);
 	mpf_clear(left);
 	mpf_clear(right);
