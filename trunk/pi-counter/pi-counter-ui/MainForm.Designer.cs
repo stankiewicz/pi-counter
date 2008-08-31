@@ -171,7 +171,7 @@ namespace pi_counter_ui {
 			this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
 			this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 24);
 			this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-			this.flowLayoutPanel1.Size = new System.Drawing.Size(418, 334);
+			this.flowLayoutPanel1.Size = new System.Drawing.Size(418, 387);
 			this.flowLayoutPanel1.TabIndex = 1;
 			// 
 			// labelInfo
@@ -187,7 +187,7 @@ namespace pi_counter_ui {
 			// 
 			this.panelSearch.Location = new System.Drawing.Point(3, 16);
 			this.panelSearch.Name = "panelSearch";
-			this.panelSearch.Size = new System.Drawing.Size(269, 80);
+			this.panelSearch.Size = new System.Drawing.Size(269, 142);
 			this.panelSearch.TabIndex = 3;
 			// 
 			// panelConstraints
@@ -198,7 +198,7 @@ namespace pi_counter_ui {
             0,
             0});
 			this.panelConstraints.LengthConstraintEnabled = false;
-			this.panelConstraints.Location = new System.Drawing.Point(3, 102);
+			this.panelConstraints.Location = new System.Drawing.Point(3, 164);
 			this.panelConstraints.Name = "panelConstraints";
 			this.panelConstraints.Size = new System.Drawing.Size(282, 76);
 			this.panelConstraints.TabIndex = 1;
@@ -218,7 +218,7 @@ namespace pi_counter_ui {
 			this.panelCalculationStatus.Found = ((long)(0));
 			this.panelCalculationStatus.FoundMax = ((long)(0));
 			this.panelCalculationStatus.FoundVisibility = true;
-			this.panelCalculationStatus.Location = new System.Drawing.Point(3, 184);
+			this.panelCalculationStatus.Location = new System.Drawing.Point(3, 246);
 			this.panelCalculationStatus.Name = "panelCalculationStatus";
 			this.panelCalculationStatus.Size = new System.Drawing.Size(403, 117);
 			this.panelCalculationStatus.TabIndex = 2;
@@ -243,7 +243,7 @@ namespace pi_counter_ui {
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(418, 358);
+			this.ClientSize = new System.Drawing.Size(418, 411);
 			this.Controls.Add(this.flowLayoutPanel1);
 			this.Controls.Add(this.menuStrip);
 			this.MainMenuStrip = this.menuStrip;

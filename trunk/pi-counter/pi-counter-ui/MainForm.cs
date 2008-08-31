@@ -266,7 +266,13 @@ namespace pi_counter_ui {
 			try {
 				Console.WriteLine("Starting search");
 				_unconditionalStop = false;
-				PiLibrary.CalculateFunction(new PiLibrary.CoolListener(coolListener), _piFilename, _warfun, panelSearch.fieldFrom.Text, panelSearch.fieldTo.Text, maxTimeMs, digitsToCheck, ref _numberOfFoundIndices, ref _numberOfDigitsChecked, ref _numberOfSearchedIndices);
+
+				if (panelSearch.fieldChoiceRange.Checked) {
+					PiLibrary.CalculateFunction(new PiLibrary.CoolListener(coolListener), _piFilename, _warfun, panelSearch.fieldFrom.Text, panelSearch.fieldTo.Text, maxTimeMs, digitsToCheck, ref _numberOfFoundIndices, ref _numberOfDigitsChecked, ref _numberOfSearchedIndices);
+				} else {
+					PiLibrary.CalculateFunctionByPattern(new PiLibrary.CoolListener(coolListener), _piFilename, _warfun, panelSearch.fieldPattern.Text, maxTimeMs, digitsToCheck, ref _numberOfFoundIndices, ref _numberOfDigitsChecked, ref _numberOfSearchedIndices);
+				}
+
 			} catch (DllNotFoundException nfe) {
 				MessageBox.Show("Could not found piCounter.dll\r\n" + nfe.ToString());
 			}
