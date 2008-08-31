@@ -388,22 +388,22 @@ long readPrecision(char * fileName){
 	if(f==0){
 		return -1;
 	}
-	long prec = -1;
+	long prec = 0;
 	while(feof(f)==0){
 		int c = fgetc(f);
-		if(c=='.'){
-			++prec;
-			break;
-		}
-	}
-	if(prec == 0){
-		while(feof(f)==0){
-			int c = fgetc(f);
+		if(c!='.'){
 			++prec;
 		}
 	}
+	//if(prec == 0){
+	//	while(feof(f)==0){
+	//		int c = fgetc(f);
+	//		++prec;
+	//	}
+	//}
 	fclose(f);
-	return prec-1;
+	if(prec == 0) return -1;
+	return prec;
 }
 
 void initAndSetPrecision(mpf_t left, mpf_t right,mpf_t out){
