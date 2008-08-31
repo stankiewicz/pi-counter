@@ -268,7 +268,7 @@ void CalculateFunctionByPattern(CoolListener listener, wchar_t *piFileName, wcha
 			out.open(dataFileName);
 			out << pattern;
 			out<<';';
-			out << length << ';';							
+			out << *resultLength << ';';							
 			if(result)
 				out << result;										
 			out.close();
