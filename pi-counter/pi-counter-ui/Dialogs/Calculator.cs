@@ -177,12 +177,9 @@ namespace pi_counter_ui.Dialogs {
 			Button btn = sender as Button;
 			C c = (C)btn.Tag;
 
-			String w = Environment.CurrentDirectory;
 			if (openFileDialog.ShowDialog() != DialogResult.OK) {
 				return;
 			}
-			w = Environment.CurrentDirectory;
-
 
 			StringBuilder sb = new StringBuilder();
 			try {
