@@ -353,7 +353,19 @@ int readF(mpf_t mp, char *fileName) {
 	if(f==0){
 		return -1;
 	}
+	
 	mpf_init(mp); // TODO jakies precyzje i inne syfy?
+	mpf_inp_str(mp,f,10);
+	fclose(f);
+	return 0;
+}
+
+int readF1(mpf_t mp, char *fileName) {
+	FILE * f = fopen(fileName,"r");
+	if(f==0){
+		return -1;
+	}
+	
 	mpf_inp_str(mp,f,10);
 	fclose(f);
 	return 0;
@@ -370,14 +382,56 @@ int readI(mpz_t mp, char *fileName) {
 	return 0;
 }
 
+// -1 - brak kropki lub pliku, wpw precyzja
+long readPrecision(char * fileName){
+	FILE * f = fopen(fileName,"r");
+	if(f==0){
+		return -1;
+	}
+	long prec = -1;
+	while(feof(f)==0){
+		int c = fgetc(f);
+		if(c=='.'){
+			++prec;
+			break;
+		}
+	}
+	if(prec == 0){
+		while(feof(f)==0){
+			int c = fgetc(f);
+			++prec;
+		}
+	}
+	fclose(f);
+	return prec-1;
+}
+
+void initAndSetPrecision(mpf_t left, mpf_t right,mpf_t out){
+	
+	long leftP = readPrecision(CALCFILE1);
+	long rightP = readPrecision(CALCFILE2);
+	if(leftP > rightP) rightP = leftP;
+	else leftP = rightP;
+	mpf_init(left);
+	mpf_init(right);
+	mpf_init(out);
+	if(leftP>0){
+		cout << "precyzja: " << leftP << endl;
+		mpf_set_prec(left,leftP* BITS_PER_DIGIT);
+		mpf_set_prec(right,leftP* BITS_PER_DIGIT);
+		mpf_set_prec(out,leftP* BITS_PER_DIGIT);
+	}
+}
+
 int add() {
 	setPrecision(); // ustaw domyœln¹ precyzjê
 	mpf_t left;
 	mpf_t right;
 	mpf_t wynik;
-	mpf_init(wynik);
-	readF(left,CALCFILE1);
-	readF(right,CALCFILE2);
+	initAndSetPrecision(left,right,wynik);
+	
+	readF1(left,CALCFILE1);
+	readF1(right,CALCFILE2);
 
 	mpf_add(wynik,left,right);
 	mpf_clear(left);
@@ -388,7 +442,9 @@ int add() {
 		mpf_clear(wynik);
 		return -1;
 	}	
-	gmp_fprintf(f,"%Ff",wynik);
+	gmp_printf("\n%.Ff\n", wynik);
+
+	gmp_fprintf(f,"%.Ff",wynik);
 	//mpf_out_str(f, 10, 0, wynik);
 	fflush(f);
 	fclose(f);
@@ -402,9 +458,9 @@ int sub() {
 	mpf_t left;
 	mpf_t right;
 	mpf_t wynik;
-	mpf_init(wynik);
-	readF(left,CALCFILE1);
-	readF(right,CALCFILE2);
+	initAndSetPrecision(left,right,wynik);
+	readF1(left,CALCFILE1);
+	readF1(right,CALCFILE2);
 
 	mpf_sub(wynik,left,right);
 	mpf_clear(left);
@@ -415,7 +471,7 @@ int sub() {
 		mpf_clear(wynik);
 		return -1;
 	}	
-	gmp_fprintf(f,"%Ff",wynik);
+	gmp_fprintf(f,"%.Ff",wynik);
 	//mpf_out_str(f,10,0,wynik);
 	fflush(f);
 	fclose(f);
@@ -429,9 +485,9 @@ int mul() {
 	mpf_t left;
 	mpf_t right;
 	mpf_t wynik;
-	mpf_init(wynik);
-	readF(left,CALCFILE1);
-	readF(right,CALCFILE2);
+	initAndSetPrecision(left,right,wynik);
+	readF1(left,CALCFILE1);
+	readF1(right,CALCFILE2);
 
 	mpf_mul(wynik,left,right);
 
@@ -445,7 +501,7 @@ int mul() {
 	}
 	
 	//mpf_out_str(f,10,0,wynik);
-	gmp_fprintf(f,"%Ff",wynik);
+	gmp_fprintf(f,"%.Ff",wynik);
 	fflush(f);
 	fclose(f);
 	mpf_clear(wynik);
@@ -456,9 +512,9 @@ int divDouble(){
 	mpf_t left;
 	mpf_t right;
 	mpf_t wynik;
-	mpf_init(wynik);
-	readF(left,CALCFILE1);
-	readF(right,CALCFILE2);
+	initAndSetPrecision(left,right,wynik);
+	readF1(left,CALCFILE1);
+	readF1(right,CALCFILE2);
 
 
 
@@ -472,7 +528,7 @@ int divDouble(){
 	}
 	
 	//mpf_out_str(f,10,0,wynik);
-	gmp_fprintf(f,"%Ff",wynik);
+	gmp_fprintf(f,"%.Ff",wynik);
 	fflush(f);
 	fclose(f);
 
