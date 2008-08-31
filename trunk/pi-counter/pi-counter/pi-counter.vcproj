@@ -140,7 +140,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="&quot;$(SolutionDir)libs\gmpxx.lib&quot;"
+				AdditionalDependencies="&quot;$(SolutionDir)libs\gmp.lib&quot; &quot;$(SolutionDir)libs\mpn.lib&quot;"
 				ModuleDefinitionFile=""
 			/>
 			<Tool
