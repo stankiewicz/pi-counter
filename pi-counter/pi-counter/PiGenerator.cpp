@@ -468,7 +468,7 @@ int add() {
 		mpf_clear(wynik);
 		return -1;
 	}	
-	gmp_printf("\n%.Ff\n", wynik);
+	//gmp_printf("\n%.Ff\n", wynik);
 
 	gmp_fprintf(f,"%.Ff",wynik);
 	//mpf_out_str(f, 10, 0, wynik);
