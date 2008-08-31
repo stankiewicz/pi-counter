@@ -410,9 +410,10 @@ void initAndSetPrecision(mpf_t left, mpf_t right,mpf_t out){
 	
 	long leftP = readPrecision(CALCFILE1);
 	long rightP = readPrecision(CALCFILE2);
-	long outP;	
-	if(leftP > rightP) outP = leftP;
-	else outP = rightP;
+	long outP = 0;	
+	if(leftP>0) outP+=leftP;
+	if(rightP>0) outP+=rightP;
+	
 	mpf_init(left);
 	mpf_init(right);
 	mpf_init(out);
