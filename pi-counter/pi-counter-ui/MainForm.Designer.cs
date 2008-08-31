@@ -36,6 +36,7 @@ namespace pi_counter_ui {
 			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
 			this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
 			this.labelInfo = new System.Windows.Forms.Label();
 			this.panelSearch = new pi_counter_ui.Controls.Search();
@@ -44,7 +45,6 @@ namespace pi_counter_ui {
 			this.threadSearch = new System.ComponentModel.BackgroundWorker();
 			this.saveFileDialogSearch = new System.Windows.Forms.SaveFileDialog();
 			this.openWarfun = new System.Windows.Forms.OpenFileDialog();
-			this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuStrip.SuspendLayout();
 			this.flowLayoutPanel1.SuspendLayout();
 			this.SuspendLayout();
@@ -52,11 +52,13 @@ namespace pi_counter_ui {
 			// openBignum
 			// 
 			this.openBignum.Filter = "Pi-Counter files|*.bignum";
+			this.openBignum.RestoreDirectory = true;
 			// 
 			// saveFileDialog
 			// 
 			this.saveFileDialog.DefaultExt = "bignum";
 			this.saveFileDialog.Filter = "Bignum (*.bignum) | *.bignum";
+			this.saveFileDialog.RestoreDirectory = true;
 			this.saveFileDialog.SupportMultiDottedExtensions = true;
 			this.saveFileDialog.Title = "Please select file to save PI...";
 			// 
@@ -152,6 +154,13 @@ namespace pi_counter_ui {
 			this.aboutToolStripMenuItem.Text = "About";
 			this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
 			// 
+			// optionsToolStripMenuItem
+			// 
+			this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
+			this.optionsToolStripMenuItem.Size = new System.Drawing.Size(56, 20);
+			this.optionsToolStripMenuItem.Text = "Options";
+			this.optionsToolStripMenuItem.Click += new System.EventHandler(this.optionsToolStripMenuItem_Click);
+			// 
 			// flowLayoutPanel1
 			// 
 			this.flowLayoutPanel1.Controls.Add(this.labelInfo);
@@ -223,17 +232,12 @@ namespace pi_counter_ui {
 			// 
 			this.saveFileDialogSearch.DefaultExt = "*.warfun";
 			this.saveFileDialogSearch.Filter = "Wartoœci funkcji (*.warfun) | *.warfun";
+			this.saveFileDialogSearch.RestoreDirectory = true;
 			// 
 			// openWarfun
 			// 
 			this.openWarfun.Filter = "Warfun files|*.warfun";
-			// 
-			// optionsToolStripMenuItem
-			// 
-			this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-			this.optionsToolStripMenuItem.Size = new System.Drawing.Size(56, 20);
-			this.optionsToolStripMenuItem.Text = "Options";
-			this.optionsToolStripMenuItem.Click += new System.EventHandler(this.optionsToolStripMenuItem_Click);
+			this.openWarfun.RestoreDirectory = true;
 			// 
 			// MainForm
 			// 

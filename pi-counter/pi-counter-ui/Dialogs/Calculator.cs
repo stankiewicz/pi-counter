@@ -44,6 +44,8 @@ namespace pi_counter_ui.Dialogs {
 			arg2.displayRangeChanged += new EventHandler(displayRangeChanged);
 			res1.displayRangeChanged += new EventHandler(displayRangeChanged);
 			res2.displayRangeChanged += new EventHandler(displayRangeChanged);
+
+			openFileDialog.RestoreDirectory = true;
 		}
 
 		void displayRangeChanged(object sender, EventArgs e) {
@@ -175,13 +177,21 @@ namespace pi_counter_ui.Dialogs {
 			Button btn = sender as Button;
 			C c = (C)btn.Tag;
 
+			String w = Environment.CurrentDirectory;
 			if (openFileDialog.ShowDialog() != DialogResult.OK) {
 				return;
 			}
+			w = Environment.CurrentDirectory;
+
 
 			StringBuilder sb = new StringBuilder();
 			try {
 				readHelperBignum(openFileDialog.FileName, sb);
+				// gmp fix
+				if (sb.Length != 0 && sb[0] == '+') {
+					sb.Remove(0, 1);
+				}
+				// gmp fix end
 				pts[(int)c].Buffer = sb;
 			} catch (Exception exc) {
 				MessageBox.Show("Unexpected error occured: " + exc.Message);
@@ -237,17 +247,17 @@ namespace pi_counter_ui.Dialogs {
 				case Operators.eq:
 					panelArg2.Visible = true;
 					panelRes2.Visible = false;
-					fieldOpInfo.Text = "Please insert arguments into rows above. The resul will be shown below: 1 for equal, otherwise 0.";
+					fieldOpInfo.Text = "Please insert arguments into rows above. The result will be shown below: 0 for equal, -1 for smaller and 1 for greater.";
 					break;
 				case Operators.fancy:
 					panelArg2.Visible = false;
 					panelRes2.Visible = false;
-					fieldOpInfo.Text = "Please insert argument into row above. The resul will be shown below.";
+					fieldOpInfo.Text = "Please insert argument into row above. The result will be shown below.";
 					break;
 				case Operators.mersenne:
 					panelArg2.Visible = false;
 					panelRes2.Visible = false;
-					fieldOpInfo.Text = "Please insert argument into row above. The resul will be shown below.";
+					fieldOpInfo.Text = "Please insert argument into row above. The result will be shown below.";
 					break;
 				default:
 					break;
