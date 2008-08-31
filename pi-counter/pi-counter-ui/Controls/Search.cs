@@ -11,6 +11,8 @@ namespace pi_counter_ui.Controls {
 	public partial class Search : UserControl {
 		public Search() {
 			InitializeComponent();
+
+			fieldChoiceRange_CheckedChanged(null, null);
 		}
 
 		private void gmpNumber_Validating(object sender, CancelEventArgs e) {
@@ -20,6 +22,16 @@ namespace pi_counter_ui.Controls {
 				errorProvider1.SetError((Control)sender, "Format: [0-9]+");
 			} else {
 				errorProvider1.SetError((Control)sender, "");
+			}
+		}
+
+		private void fieldChoiceRange_CheckedChanged(object sender, EventArgs e) {
+			if (fieldChoiceRange.Checked) {
+				panelRange.Enabled = true;
+				panelPattern.Enabled = false;
+			} else {
+				panelRange.Enabled = false;
+				panelPattern.Enabled = true;
 			}
 		}
 	}
