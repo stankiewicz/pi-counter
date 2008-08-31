@@ -190,12 +190,20 @@ namespace pi_counter_ui.Controls {
 			return sb.ToString();
 		}
 
-		private static string allowedChars = "+-.0123456789";
+		//private static string allowedChars = "+-.0123456789";
+		private static string allowedChars = "-.0123456789";
 
 		private void fieldText_KeyPress(object sender, KeyPressEventArgs e) {
-			if (allowedChars.IndexOf(e.KeyChar) == -1) {
+			if (allowedChars.IndexOf(e.KeyChar) == -1 && e.KeyChar != '\b') {
 				e.Handled = true;
 			}
+		}
+
+		private void btnClear_Click(object sender, EventArgs e) {
+			if (_buffer.Length > 0) {
+				_buffer.Remove(0, _buffer.Length);
+			}
+			this.update();
 		}
 	}
 }

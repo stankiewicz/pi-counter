@@ -33,6 +33,7 @@ namespace pi_counter_ui.Controls {
 			this.label2 = new System.Windows.Forms.Label();
 			this.fieldDotPos = new System.Windows.Forms.Label();
 			this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+			this.btnClear = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.fieldIndex)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.fieldLength)).BeginInit();
 			this.flowLayoutPanel1.SuspendLayout();
@@ -42,7 +43,7 @@ namespace pi_counter_ui.Controls {
 			// 
 			this.fieldText.Anchor = System.Windows.Forms.AnchorStyles.Left;
 			this.fieldText.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-			this.fieldText.Location = new System.Drawing.Point(3, 3);
+			this.fieldText.Location = new System.Drawing.Point(3, 4);
 			this.fieldText.MaxLength = 2000000000;
 			this.fieldText.Name = "fieldText";
 			this.fieldText.Size = new System.Drawing.Size(533, 20);
@@ -97,10 +98,10 @@ namespace pi_counter_ui.Controls {
 			// 
 			this.label1.AutoSize = true;
 			this.label1.Dock = System.Windows.Forms.DockStyle.Left;
-			this.label1.Location = new System.Drawing.Point(698, 0);
+			this.label1.Location = new System.Drawing.Point(725, 0);
 			this.label1.Margin = new System.Windows.Forms.Padding(0);
 			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(43, 26);
+			this.label1.Size = new System.Drawing.Size(43, 29);
 			this.label1.TabIndex = 4;
 			this.label1.Text = "Length:";
 			this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -109,10 +110,10 @@ namespace pi_counter_ui.Controls {
 			// 
 			this.fieldBufferLength.AutoSize = true;
 			this.fieldBufferLength.Dock = System.Windows.Forms.DockStyle.Left;
-			this.fieldBufferLength.Location = new System.Drawing.Point(741, 0);
+			this.fieldBufferLength.Location = new System.Drawing.Point(768, 0);
 			this.fieldBufferLength.Margin = new System.Windows.Forms.Padding(0);
 			this.fieldBufferLength.Name = "fieldBufferLength";
-			this.fieldBufferLength.Size = new System.Drawing.Size(25, 26);
+			this.fieldBufferLength.Size = new System.Drawing.Size(25, 29);
 			this.fieldBufferLength.TabIndex = 5;
 			this.fieldBufferLength.Text = "543";
 			this.fieldBufferLength.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -121,10 +122,10 @@ namespace pi_counter_ui.Controls {
 			// 
 			this.label2.AutoSize = true;
 			this.label2.Dock = System.Windows.Forms.DockStyle.Left;
-			this.label2.Location = new System.Drawing.Point(766, 0);
+			this.label2.Location = new System.Drawing.Point(793, 0);
 			this.label2.Margin = new System.Windows.Forms.Padding(0);
 			this.label2.Name = "label2";
-			this.label2.Size = new System.Drawing.Size(27, 26);
+			this.label2.Size = new System.Drawing.Size(27, 29);
 			this.label2.TabIndex = 6;
 			this.label2.Text = "Dot:";
 			this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -133,10 +134,10 @@ namespace pi_counter_ui.Controls {
 			// 
 			this.fieldDotPos.AutoSize = true;
 			this.fieldDotPos.Dock = System.Windows.Forms.DockStyle.Left;
-			this.fieldDotPos.Location = new System.Drawing.Point(793, 0);
+			this.fieldDotPos.Location = new System.Drawing.Point(820, 0);
 			this.fieldDotPos.Margin = new System.Windows.Forms.Padding(0);
 			this.fieldDotPos.Name = "fieldDotPos";
-			this.fieldDotPos.Size = new System.Drawing.Size(35, 26);
+			this.fieldDotPos.Size = new System.Drawing.Size(35, 29);
 			this.fieldDotPos.TabIndex = 7;
 			this.fieldDotPos.Text = "label3";
 			this.fieldDotPos.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -148,14 +149,26 @@ namespace pi_counter_ui.Controls {
 			this.flowLayoutPanel1.Controls.Add(this.fieldText);
 			this.flowLayoutPanel1.Controls.Add(this.fieldIndex);
 			this.flowLayoutPanel1.Controls.Add(this.fieldLength);
+			this.flowLayoutPanel1.Controls.Add(this.btnClear);
 			this.flowLayoutPanel1.Controls.Add(this.label1);
 			this.flowLayoutPanel1.Controls.Add(this.fieldBufferLength);
 			this.flowLayoutPanel1.Controls.Add(this.label2);
 			this.flowLayoutPanel1.Controls.Add(this.fieldDotPos);
 			this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 6);
 			this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-			this.flowLayoutPanel1.Size = new System.Drawing.Size(828, 26);
+			this.flowLayoutPanel1.Size = new System.Drawing.Size(855, 29);
 			this.flowLayoutPanel1.TabIndex = 8;
+			// 
+			// btnClear
+			// 
+			this.btnClear.Location = new System.Drawing.Point(701, 3);
+			this.btnClear.Name = "btnClear";
+			this.btnClear.Size = new System.Drawing.Size(21, 23);
+			this.btnClear.TabIndex = 8;
+			this.btnClear.Text = "C";
+			this.toolTip1.SetToolTip(this.btnClear, "Clears whole text");
+			this.btnClear.UseVisualStyleBackColor = true;
+			this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
 			// 
 			// PagedText
 			// 
@@ -165,7 +178,7 @@ namespace pi_counter_ui.Controls {
 			this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
 			this.Controls.Add(this.flowLayoutPanel1);
 			this.Name = "PagedText";
-			this.Size = new System.Drawing.Size(834, 35);
+			this.Size = new System.Drawing.Size(861, 38);
 			((System.ComponentModel.ISupportInitialize)(this.fieldIndex)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.fieldLength)).EndInit();
 			this.flowLayoutPanel1.ResumeLayout(false);
@@ -186,5 +199,6 @@ namespace pi_counter_ui.Controls {
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.Label fieldDotPos;
 		private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+		private System.Windows.Forms.Button btnClear;
 	}
 }
