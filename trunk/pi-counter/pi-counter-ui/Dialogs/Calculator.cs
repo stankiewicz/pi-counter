@@ -58,6 +58,26 @@ namespace pi_counter_ui.Dialogs {
 				pt.IndexToShow = pt.DotPosition - indexRelativeToDot;
 				pt.CharsToShow = source.CharsToShow;
 			}
+
+			RichTextBox rb1 = arg1.fieldText;
+			RichTextBox rb2 = arg2.fieldText;
+			String a1 = rb1.Text;
+			String a2 = rb2.Text;
+
+			if (checkBoxCompare.Checked) {
+				for (int i = 0; i < Math.Min(a1.Length, a2.Length); i++) {
+					rb1.Select(i, 1);
+					rb2.Select(i, 1);
+					
+					if (a1[i] != a2[i]) {
+						rb1.SelectionBackColor = Color.LightPink;
+						rb2.SelectionBackColor = Color.LightPink;
+					} else {
+						rb1.SelectionBackColor = Color.White;
+						rb2.SelectionBackColor = Color.White;
+					}
+				}
+			}
 		}
 
 		void align() {
@@ -266,6 +286,10 @@ namespace pi_counter_ui.Dialogs {
 				this.Visible = false;
 				e.Cancel = true;
 			}
+		}
+
+		private void checkBoxCompare_CheckedChanged(object sender, EventArgs e) {
+			align();
 		}
 	}
 }

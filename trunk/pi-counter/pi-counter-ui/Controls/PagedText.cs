@@ -60,7 +60,7 @@ namespace pi_counter_ui.Controls {
 		}
 
 		private void textBox1_Validating(object sender, CancelEventArgs e) {
-			TextBox tb = sender as TextBox;
+			RichTextBox tb = sender as RichTextBox;
 			string text = tb.Text;
 			
 			if (!isValid(text)) {
