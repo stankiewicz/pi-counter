@@ -24,16 +24,16 @@ namespace pi_counter_ui.Controls {
 		/// </summary>
 		private void InitializeComponent() {
 			this.components = new System.ComponentModel.Container();
-			this.fieldText = new System.Windows.Forms.TextBox();
+			this.fieldText = new System.Windows.Forms.RichTextBox();
 			this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
 			this.fieldIndex = new System.Windows.Forms.NumericUpDown();
 			this.fieldLength = new System.Windows.Forms.NumericUpDown();
+			this.btnClear = new System.Windows.Forms.Button();
 			this.label1 = new System.Windows.Forms.Label();
 			this.fieldBufferLength = new System.Windows.Forms.Label();
 			this.label2 = new System.Windows.Forms.Label();
 			this.fieldDotPos = new System.Windows.Forms.Label();
 			this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-			this.btnClear = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.fieldIndex)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.fieldLength)).BeginInit();
 			this.flowLayoutPanel1.SuspendLayout();
@@ -41,13 +41,17 @@ namespace pi_counter_ui.Controls {
 			// 
 			// fieldText
 			// 
-			this.fieldText.Anchor = System.Windows.Forms.AnchorStyles.Left;
+			this.fieldText.DetectUrls = false;
+			this.fieldText.Dock = System.Windows.Forms.DockStyle.Left;
 			this.fieldText.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-			this.fieldText.Location = new System.Drawing.Point(3, 4);
-			this.fieldText.MaxLength = 2000000000;
+			this.fieldText.Location = new System.Drawing.Point(3, 3);
+			this.fieldText.Multiline = false;
 			this.fieldText.Name = "fieldText";
-			this.fieldText.Size = new System.Drawing.Size(533, 20);
+			this.fieldText.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
+			this.fieldText.ShortcutsEnabled = false;
+			this.fieldText.Size = new System.Drawing.Size(533, 23);
 			this.fieldText.TabIndex = 1;
+			this.fieldText.Text = "";
 			this.toolTip1.SetToolTip(this.fieldText, "This field usually shows only a part of a number.\r\nUse indexer on the right side " +
 					"to scroll through\r\nthe rest of the number.");
 			this.fieldText.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.fieldText_KeyPress);
@@ -55,6 +59,7 @@ namespace pi_counter_ui.Controls {
 			// 
 			// fieldIndex
 			// 
+			this.fieldIndex.Dock = System.Windows.Forms.DockStyle.Left;
 			this.fieldIndex.Location = new System.Drawing.Point(542, 3);
 			this.fieldIndex.Maximum = new decimal(new int[] {
             1000000000,
@@ -73,6 +78,7 @@ namespace pi_counter_ui.Controls {
 			// 
 			// fieldLength
 			// 
+			this.fieldLength.Dock = System.Windows.Forms.DockStyle.Left;
 			this.fieldLength.Location = new System.Drawing.Point(641, 3);
 			this.fieldLength.Maximum = new decimal(new int[] {
             10000,
@@ -93,6 +99,17 @@ namespace pi_counter_ui.Controls {
             0,
             0,
             0});
+			// 
+			// btnClear
+			// 
+			this.btnClear.Location = new System.Drawing.Point(701, 3);
+			this.btnClear.Name = "btnClear";
+			this.btnClear.Size = new System.Drawing.Size(21, 23);
+			this.btnClear.TabIndex = 8;
+			this.btnClear.Text = "C";
+			this.toolTip1.SetToolTip(this.btnClear, "Clears whole text");
+			this.btnClear.UseVisualStyleBackColor = true;
+			this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
 			// 
 			// label1
 			// 
@@ -159,17 +176,6 @@ namespace pi_counter_ui.Controls {
 			this.flowLayoutPanel1.Size = new System.Drawing.Size(855, 29);
 			this.flowLayoutPanel1.TabIndex = 8;
 			// 
-			// btnClear
-			// 
-			this.btnClear.Location = new System.Drawing.Point(701, 3);
-			this.btnClear.Name = "btnClear";
-			this.btnClear.Size = new System.Drawing.Size(21, 23);
-			this.btnClear.TabIndex = 8;
-			this.btnClear.Text = "C";
-			this.toolTip1.SetToolTip(this.btnClear, "Clears whole text");
-			this.btnClear.UseVisualStyleBackColor = true;
-			this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
-			// 
 			// PagedText
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -190,7 +196,6 @@ namespace pi_counter_ui.Controls {
 
 		#endregion
 
-		private System.Windows.Forms.TextBox fieldText;
 		private System.Windows.Forms.ToolTip toolTip1;
 		private System.Windows.Forms.NumericUpDown fieldIndex;
 		private System.Windows.Forms.NumericUpDown fieldLength;
@@ -200,5 +205,6 @@ namespace pi_counter_ui.Controls {
 		private System.Windows.Forms.Label fieldDotPos;
 		private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
 		private System.Windows.Forms.Button btnClear;
+		public System.Windows.Forms.RichTextBox fieldText;
 	}
 }

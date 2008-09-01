@@ -36,17 +36,18 @@ namespace pi_counter_ui.Dialogs {
 			this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
 			this.btnCalculate = new System.Windows.Forms.Button();
 			this.panelArg1 = new System.Windows.Forms.FlowLayoutPanel();
-			this.arg1 = new pi_counter_ui.Controls.PagedText();
 			this.panelArg2 = new System.Windows.Forms.FlowLayoutPanel();
-			this.arg2 = new pi_counter_ui.Controls.PagedText();
 			this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
 			this.panelOp = new System.Windows.Forms.FlowLayoutPanel();
 			this.fieldOpInfo = new System.Windows.Forms.Label();
 			this.panelRes1 = new System.Windows.Forms.FlowLayoutPanel();
-			this.res1 = new pi_counter_ui.Controls.PagedText();
 			this.panelRes2 = new System.Windows.Forms.FlowLayoutPanel();
-			this.res2 = new pi_counter_ui.Controls.PagedText();
 			this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+			this.checkBoxCompare = new System.Windows.Forms.CheckBox();
+			this.arg1 = new pi_counter_ui.Controls.PagedText();
+			this.arg2 = new pi_counter_ui.Controls.PagedText();
+			this.res1 = new pi_counter_ui.Controls.PagedText();
+			this.res2 = new pi_counter_ui.Controls.PagedText();
 			this.panelArg1.SuspendLayout();
 			this.panelArg2.SuspendLayout();
 			this.flowLayoutPanel1.SuspendLayout();
@@ -162,7 +163,7 @@ namespace pi_counter_ui.Dialogs {
 			// 
 			// btnCalculate
 			// 
-			this.btnCalculate.Location = new System.Drawing.Point(877, 3);
+			this.btnCalculate.Location = new System.Drawing.Point(2, 236);
 			this.btnCalculate.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
 			this.btnCalculate.Name = "btnCalculate";
 			this.btnCalculate.Size = new System.Drawing.Size(74, 23);
@@ -183,21 +184,6 @@ namespace pi_counter_ui.Dialogs {
 			this.panelArg1.Size = new System.Drawing.Size(869, 44);
 			this.panelArg1.TabIndex = 0;
 			// 
-			// arg1
-			// 
-			this.arg1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-						| System.Windows.Forms.AnchorStyles.Right)));
-			this.arg1.AutoSize = true;
-			this.arg1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-			this.arg1.Buffer = ((System.Text.StringBuilder)(resources.GetObject("arg1.Buffer")));
-			this.arg1.CharsToShow = 10;
-			this.arg1.IndexToShow = 0;
-			this.arg1.Location = new System.Drawing.Point(2, 3);
-			this.arg1.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-			this.arg1.Name = "arg1";
-			this.arg1.Size = new System.Drawing.Size(827, 38);
-			this.arg1.TabIndex = 21;
-			// 
 			// panelArg2
 			// 
 			this.panelArg2.AutoSize = true;
@@ -209,21 +195,6 @@ namespace pi_counter_ui.Dialogs {
 			this.panelArg2.Name = "panelArg2";
 			this.panelArg2.Size = new System.Drawing.Size(869, 44);
 			this.panelArg2.TabIndex = 24;
-			// 
-			// arg2
-			// 
-			this.arg2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-						| System.Windows.Forms.AnchorStyles.Right)));
-			this.arg2.AutoSize = true;
-			this.arg2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-			this.arg2.Buffer = ((System.Text.StringBuilder)(resources.GetObject("arg2.Buffer")));
-			this.arg2.CharsToShow = 10;
-			this.arg2.IndexToShow = 0;
-			this.arg2.Location = new System.Drawing.Point(2, 3);
-			this.arg2.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-			this.arg2.Name = "arg2";
-			this.arg2.Size = new System.Drawing.Size(827, 38);
-			this.arg2.TabIndex = 22;
 			// 
 			// flowLayoutPanel1
 			// 
@@ -237,7 +208,7 @@ namespace pi_counter_ui.Dialogs {
 			this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
 			this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
 			this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-			this.flowLayoutPanel1.Size = new System.Drawing.Size(933, 258);
+			this.flowLayoutPanel1.Size = new System.Drawing.Size(933, 275);
 			this.flowLayoutPanel1.TabIndex = 25;
 			// 
 			// panelOp
@@ -245,17 +216,18 @@ namespace pi_counter_ui.Dialogs {
 			this.panelOp.AutoSize = true;
 			this.panelOp.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
 			this.panelOp.Controls.Add(this.fieldOp);
+			this.panelOp.Controls.Add(this.checkBoxCompare);
 			this.panelOp.Controls.Add(this.fieldOpInfo);
 			this.panelOp.Location = new System.Drawing.Point(3, 103);
 			this.panelOp.Name = "panelOp";
-			this.panelOp.Size = new System.Drawing.Size(167, 27);
+			this.panelOp.Size = new System.Drawing.Size(246, 27);
 			this.panelOp.TabIndex = 27;
 			// 
 			// fieldOpInfo
 			// 
 			this.fieldOpInfo.AutoSize = true;
 			this.fieldOpInfo.Dock = System.Windows.Forms.DockStyle.Left;
-			this.fieldOpInfo.Location = new System.Drawing.Point(129, 0);
+			this.fieldOpInfo.Location = new System.Drawing.Point(208, 0);
 			this.fieldOpInfo.Name = "fieldOpInfo";
 			this.fieldOpInfo.Size = new System.Drawing.Size(35, 27);
 			this.fieldOpInfo.TabIndex = 5;
@@ -273,6 +245,59 @@ namespace pi_counter_ui.Dialogs {
 			this.panelRes1.Size = new System.Drawing.Size(850, 44);
 			this.panelRes1.TabIndex = 26;
 			// 
+			// panelRes2
+			// 
+			this.panelRes2.AutoSize = true;
+			this.panelRes2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+			this.panelRes2.Controls.Add(this.res2);
+			this.panelRes2.Controls.Add(this.btnSaveRes2);
+			this.panelRes2.Location = new System.Drawing.Point(3, 186);
+			this.panelRes2.Name = "panelRes2";
+			this.panelRes2.Size = new System.Drawing.Size(850, 44);
+			this.panelRes2.TabIndex = 26;
+			// 
+			// checkBoxCompare
+			// 
+			this.checkBoxCompare.AutoSize = true;
+			this.checkBoxCompare.Location = new System.Drawing.Point(129, 3);
+			this.checkBoxCompare.Name = "checkBoxCompare";
+			this.checkBoxCompare.Size = new System.Drawing.Size(73, 17);
+			this.checkBoxCompare.TabIndex = 6;
+			this.checkBoxCompare.Text = "Show diff.";
+			this.toolTip1.SetToolTip(this.checkBoxCompare, "Check to visually compare arg1 and arg2");
+			this.checkBoxCompare.UseVisualStyleBackColor = true;
+			this.checkBoxCompare.CheckedChanged += new System.EventHandler(this.checkBoxCompare_CheckedChanged);
+			// 
+			// arg1
+			// 
+			this.arg1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
+			this.arg1.AutoSize = true;
+			this.arg1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+			this.arg1.Buffer = ((System.Text.StringBuilder)(resources.GetObject("arg1.Buffer")));
+			this.arg1.CharsToShow = 10;
+			this.arg1.IndexToShow = 0;
+			this.arg1.Location = new System.Drawing.Point(2, 3);
+			this.arg1.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+			this.arg1.Name = "arg1";
+			this.arg1.Size = new System.Drawing.Size(827, 38);
+			this.arg1.TabIndex = 21;
+			// 
+			// arg2
+			// 
+			this.arg2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
+			this.arg2.AutoSize = true;
+			this.arg2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+			this.arg2.Buffer = ((System.Text.StringBuilder)(resources.GetObject("arg2.Buffer")));
+			this.arg2.CharsToShow = 10;
+			this.arg2.IndexToShow = 0;
+			this.arg2.Location = new System.Drawing.Point(2, 3);
+			this.arg2.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+			this.arg2.Name = "arg2";
+			this.arg2.Size = new System.Drawing.Size(827, 38);
+			this.arg2.TabIndex = 22;
+			// 
 			// res1
 			// 
 			this.res1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
@@ -287,17 +312,6 @@ namespace pi_counter_ui.Dialogs {
 			this.res1.Name = "res1";
 			this.res1.Size = new System.Drawing.Size(827, 38);
 			this.res1.TabIndex = 23;
-			// 
-			// panelRes2
-			// 
-			this.panelRes2.AutoSize = true;
-			this.panelRes2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-			this.panelRes2.Controls.Add(this.res2);
-			this.panelRes2.Controls.Add(this.btnSaveRes2);
-			this.panelRes2.Location = new System.Drawing.Point(3, 186);
-			this.panelRes2.Name = "panelRes2";
-			this.panelRes2.Size = new System.Drawing.Size(850, 44);
-			this.panelRes2.TabIndex = 26;
 			// 
 			// res2
 			// 
@@ -318,7 +332,7 @@ namespace pi_counter_ui.Dialogs {
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(933, 258);
+			this.ClientSize = new System.Drawing.Size(933, 275);
 			this.Controls.Add(this.flowLayoutPanel1);
 			this.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
 			this.Name = "Calculator";
@@ -365,5 +379,6 @@ namespace pi_counter_ui.Dialogs {
 		private System.Windows.Forms.FlowLayoutPanel panelOp;
 		private System.Windows.Forms.Label fieldOpInfo;
 		private System.Windows.Forms.ToolTip toolTip1;
+		private System.Windows.Forms.CheckBox checkBoxCompare;
 	}
 }
