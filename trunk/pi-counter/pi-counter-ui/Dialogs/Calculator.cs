@@ -64,20 +64,27 @@ namespace pi_counter_ui.Dialogs {
 			String a1 = rb1.Text;
 			String a2 = rb2.Text;
 
-			if (checkBoxCompare.Checked) {
-				for (int i = 0; i < Math.Min(a1.Length, a2.Length); i++) {
-					rb1.Select(i, 1);
-					rb2.Select(i, 1);
-					
-					if (a1[i] != a2[i]) {
-						rb1.SelectionBackColor = Color.LightPink;
-						rb2.SelectionBackColor = Color.LightPink;
-					} else {
-						rb1.SelectionBackColor = Color.White;
-						rb2.SelectionBackColor = Color.White;
-					}
-				}
-			}
+            if (checkBoxCompare.Checked) {
+                for (int i = 0; i < Math.Min(a1.Length, a2.Length); i++) {
+                    rb1.Select(i, 1);
+                    rb2.Select(i, 1);
+
+                    if (a1[i] != a2[i]) {
+                        rb1.SelectionBackColor = Color.LightPink;
+                        rb2.SelectionBackColor = Color.LightPink;
+                    } else {
+                        rb1.SelectionBackColor = Color.White;
+                        rb2.SelectionBackColor = Color.White;
+                    }
+                }
+            } else {
+                rb1.SelectAll();
+                rb1.SelectionBackColor = Color.White;
+                rb1.DeselectAll();
+                rb2.SelectAll();
+                rb2.SelectionBackColor = Color.White;
+                rb2.DeselectAll();
+            }
 		}
 
 		void align() {
