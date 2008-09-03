@@ -89,7 +89,7 @@ namespace pi_counter_ui.Dialogs {
 			flowLayoutPanel1.SuspendLayout();
 			for (uint i = 0; i < count; i++) {
 				Label l = labels[i];
-				l.Text = "       " + args[i] + " : " + values[i];
+				l.Text = "       " + args[i] + " : " + ((values[i] == 0) ? "-" : values[i].ToString());
 			}
 			for (uint i = count; i < labels.Length; i++) {
 				labels[i].Text = null;

@@ -22,10 +22,11 @@ namespace pi_counter_ui.Dialogs {
 				_view = value;
 				if (_view == ViewStyle.Decimal) {
 					fieldDecimal.Checked = true;
+					updateForDecimal();
 				} else {
 					fieldHexadecimal.Checked = true;
+					updateForHex();
 				}
-				updatePage();
 			}
 		}
 
