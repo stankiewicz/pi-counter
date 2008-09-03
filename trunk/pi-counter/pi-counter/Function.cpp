@@ -460,7 +460,7 @@ void GetResultValues(char **arguments, unsigned int *values, wchar_t *fileName, 
 				argLen = strlen(stringNumber);
 				*(arguments) = (char*)CoTaskMemAlloc(argLen + 1);
 				for(int k = 0; k <= argLen; k++)
-					(*arguments)[k] = arg[k];
+					(*arguments)[k] = stringNumber[k];
 			}
 			else
 			{
