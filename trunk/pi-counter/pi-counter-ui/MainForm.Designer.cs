@@ -64,6 +64,7 @@ namespace pi_counter_ui {
 			// 
 			// threadCalculation
 			// 
+			this.threadCalculation.WorkerSupportsCancellation = true;
 			this.threadCalculation.DoWork += new System.ComponentModel.DoWorkEventHandler(this.threadCalculation_DoWork);
 			this.threadCalculation.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.threadCalculation_RunWorkerCompleted);
 			// 

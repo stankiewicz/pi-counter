@@ -148,8 +148,8 @@ namespace pi_counter_ui {
 						threadCalculation.RunWorkerAsync();
 					} else {
 						Console.WriteLine("Stopping");
-						MessageBox.Show("The calculation will stop as soon as possible (without loosing calculation results)");
 						_unconditionalStop = true;
+						MessageBox.Show("The calculation will stop as soon as possible (without loosing calculation results)");						
 						threadCalculation.CancelAsync();
 					}
 					break;
@@ -172,8 +172,8 @@ namespace pi_counter_ui {
 						Console.WriteLine("Finished");
 					} else {
 						Console.WriteLine("Stopping search");
-						MessageBox.Show("The search will stop as soon as possible (without loosing search results)");
 						_unconditionalStop = true;
+						MessageBox.Show("The search will stop as soon as possible (without loosing search results)");						
 					}
 					break;
 				default:
