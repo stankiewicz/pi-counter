@@ -349,9 +349,9 @@ void GetResultValues(char **arguments, unsigned int *values, wchar_t *fileName, 
 		*values = NULL;
 		*g_values = NULL;
 		*g_arguments = NULL;
-		g_numberOfValuesToMaintain = 0;
-		return;
+		g_numberOfValuesToMaintain = 0;		
 		*/
+		return;
 	}
 
 	int filenameLength = wcslen(fileName);
@@ -450,22 +450,32 @@ void GetResultValues(char **arguments, unsigned int *values, wchar_t *fileName, 
 			stringNumber[lengthA] = 0;	
 			mpf_init(mpf);
 			mpf_set_prec(mpf, lengthA * BITS_PER_DIGIT + 16);
-			mpf_set_str(mpf, stringNumber, 10);
-			delete[] stringNumber;
+			mpf_set_str(mpf, stringNumber, 10);			
 
 			//arguments
 			char *arg;
 			int argLen;
-			for(unsigned int j = 0; j < numberOfValuesToMaintain; j++)			
+			if((numberOfValuesToMaintain == 1) && (numberOfFiles == 1) && (offset == 0))
 			{
-				arg = ConvertToString(mpf, offset + j);
-				argLen = strlen(arg);
-				*(arguments + j) = (char*)CoTaskMemAlloc(argLen + 1);
+				argLen = strlen(stringNumber);
+				*(arguments) = (char*)CoTaskMemAlloc(argLen + 1);
 				for(int k = 0; k <= argLen; k++)
-					(*(arguments + j))[k] = arg[k];
+					(*arguments)[k] = arg[k];
+			}
+			else
+			{
+				for(unsigned int j = 0; j < numberOfValuesToMaintain; j++)			
+				{
+					arg = ConvertToString(mpf, offset + j);
+					argLen = strlen(arg);
+					*(arguments + j) = (char*)CoTaskMemAlloc(argLen + 1);
+					for(int k = 0; k <= argLen; k++)
+						(*(arguments + j))[k] = arg[k];
 					
+				}
 			}
 			mpf_clear(mpf);
+			delete[] stringNumber;
 		}
 		else
 		{
