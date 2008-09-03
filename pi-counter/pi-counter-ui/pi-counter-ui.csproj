@@ -5,7 +5,7 @@
     <ProductVersion>8.0.50727</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{940D1FA6-CF11-4EEB-8C0A-E1B02EC27207}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>pi_counter_ui</RootNamespace>
     <AssemblyName>pi-counter-ui</AssemblyName>
